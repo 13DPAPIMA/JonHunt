@@ -3,7 +3,7 @@ import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { Link, useForm, usePage } from "@inertiajs/vue3";
+import { Link,Head, useForm, usePage } from "@inertiajs/vue3";
 
 
 defineProps({
@@ -26,7 +26,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="JobHunt"/>
+    <Head title="Welcome" />
 
     <div
         class="min-h-screen bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white"
@@ -250,10 +250,11 @@ defineProps({
                         </svg>
                     </div>
                     
-
-                    <div className="max-md:hidden flex w-90 my-10 max-w-3xl mx-auto mt-400 ">
-                       <h1 className="flex-end my-10  text-red-600 text-7xl font-semibold my-10">Over 2000+ projects</h1>
+                
+                  <div className="max-md:hidden flex w-90 my-10 max-w-3xl mx-auto mt-400 scroll-smooth">
+                      <h1 className="flex-end my-10  text-red-600 text-7xl font-semibold my-10">Over 2000+ projects</h1>
                     </div>
+          
                     <div className="max-md:hidden flex w-90 my-10 max-w-3xl mx-auto mt-400 ">
                        <p className="flex-end my-10 ">With over 2000+ job advertisements available, your next career move could be just a click away. Whether you're seeking a new challenge, looking to advance your career, or embarking on a fresh start, our extensive collection of job listings offers a diverse range of opportunities to suit your skills, interests, and ambitions.</p>
                     </div>

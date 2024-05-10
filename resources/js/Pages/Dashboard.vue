@@ -1,24 +1,15 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
-import { ref } from 'vue';
+
 
 const props = defineProps({
     user: Object,
     avatar: String,
+    projects: Array,
 });
 
-function getUserAvatar(user) {
-    if (avatar) {
-        return `/avatar/${avatar}`; // Предполагается, что вы используете маршрут /avatar/{userId} для получения изображения
-    } else {
-        // Получаем первые буквы имени пользователя
-        const initials = user.name.split(' ').map(word => word.charAt(0)).join('');
-        // Создаем динамическое изображение с первыми буквами имени пользователя
-        return `https://ui-avatars.com/api/?name=${initials}`;
-    }
-}
-
+console.log(props.projects);
 
 </script>
 
@@ -44,9 +35,22 @@ function getUserAvatar(user) {
                 <h3 class="text-slate-900 group-hover:text-white text-sm font-semibold">New project</h3>
                 <p class="text-slate-500 group-hover:text-white text-sm">Create an new advertisement for your needs.</p>
                 </Link>
-
-
-            </div>
+                <br>
+                <ul v-if="projects !== undefined" class="py-12">
+                    <li v-for="project in projects" :key="project.id" class="mb-8">
+                        <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+                            <div class="p-6">
+                                <h2 class="text-xl font-semibold mb-2">{{ project.title }}</h2>
+                                <p class="text-gray-600 mb-4">{{ project.description }}</p>
+                                <p class="text-gray-500">Creator: {{ project.creator }}</p>
+                                <p class="text-gray-500">Completion Date: {{ project.CompletionDate }}</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                
+            <div v-else class="text-gray-600">You haven't created any projects yet.</div>
         </div>
+            </div>
     </AuthenticatedLayout>
 </template>

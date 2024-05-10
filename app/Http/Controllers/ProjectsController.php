@@ -58,6 +58,13 @@ class ProjectsController extends Controller
 
         $project->save();
     }
+    
+    public function display()
+{
+  $projects = Project::all();
 
-
+  return Inertia::render('Dashboard', [
+    'projects' => $projects, 
+  ]);
+}
 }
