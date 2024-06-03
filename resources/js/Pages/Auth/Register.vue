@@ -1,30 +1,16 @@
-<script setup>
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-
-const form = useForm({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-});
-
-const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
-};
-</script>
-
 <template>
     <GuestLayout>
         <Head title="Register" />
 
-        <form @submit.prevent="submit">
+        <div v-if="!roleSelected">
+            <h2 class="text-center text-2xl font-semibold text-gray-900">Please select your role</h2>
+            <div class="flex justify-center mt-4 space-x-4">
+                <PrimaryButton @click="selectRole('freelancer')" class="ms-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700">Freelancer</PrimaryButton>
+                <PrimaryButton @click="selectRole('employer')" class=" ms-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700">Employer</PrimaryButton>
+            </div>
+        </div>
+
+        <form v-else @submit.prevent="submit">
             <div>
                 <InputLabel for="name" value="Name" />
 
@@ -86,6 +72,8 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
+            <input type="hidden" v-model="form.role" />
+
             <div class="flex items-center justify-end mt-4">
                 <Link
                     :href="route('login')"
@@ -101,3 +89,35 @@ const submit = () => {
         </form>
     </GuestLayout>
 </template>
+
+<script setup>
+import GuestLayout from '@/Layouts/GuestLayout.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
+
+const form = useForm({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+    role: '', // Add role to form data
+});
+
+const roleSelected = ref(false);
+
+const selectRole = (role) => {
+    form.role = role;
+    roleSelected.value = true;
+};
+
+const submit = () => {
+    form.post(route('register'), {
+        onFinish: () => form.reset('password', 'password_confirmation'),
+    });
+};
+</script>
+

@@ -49,43 +49,39 @@ class ProfileController extends Controller
     }
 
 
-    public function uploadAvatar(Request $request): RedirectResponse
+    public function uploadAvatar(Request $request)
     {
         $user = $request->user();
-    
+        
         if ($request->hasFile('avatar')) {
-            // Сохраняем файл в папку storage/app/public/avatar
-            $avatarPath = $request->file('avatar')->store('public/avatar');
+            $avatarFile = $request->file('avatar');
             
-            // Получаем полный путь к файлу, включая storage/app/public
-            $avatarFullPath = Storage::url($avatarPath);
+
+            $imageData = file_get_contents($avatarFile->getRealPath());
             
-            // Сохраняем полный путь к файлу в базе данных
-            $user->avatar = $avatarFullPath;
+
+            $base64 = base64_encode($imageData);
+            
+
+            $user->avatar_base64 = $base64;
             $user->save();
+            
+
+            return response()->json(['avatar_base64' => $base64]);
         }
-    
-        return Redirect::route('profile.edit');
+        
+        return response()->json(['error' => 'No avatar uploaded'], 400);
     }
+    
+    
 
 
     public function show($userId)
     {
-        $user = User::findOrFail($userId);
-
-        // Предполагается, что в модели пользователя есть поле 'avatar', 
-        // которое содержит путь к изображению аватара в хранилище
-        $avatarPath = $user->avatar;
-
-        // Проверяем, существует ли файл изображения
-    if (Storage::exists($avatarPath)) {
-        // Если файл существует, возвращаем его в качестве ответа
-        return response()->file(storage_path('app/' . $avatarPath));
-    } else {
-        // Если файл не существует, возвращаем ошибку 404
-        abort(404);
+        $user = auth()->user();
+        return view('profile.edit', compact('user'));
     }
-    }
+
 
     /**
      * Delete the user's account.
@@ -107,4 +103,5 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    
 }

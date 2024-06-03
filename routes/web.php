@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,5 +46,25 @@ Route::middleware('auth')->group(function () {
 Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
 Route::post('/profile', [ProfileController::class, 'uploadAvatar'])->name('avatar.upload');
 Route::get('/avatar/{userId}', [ProfileController::class, 'show'])->name('avatar.show');
+
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
+    Route::get('/projects/{project}', [ProjectsController::class, 'show'])->name('projects.show');
+    Route::post('/projects/{project}/addReview', [ProjectsController::class, 'addReview'])->name('projects.addReview');
+    Route::post('/reviews/{review}/edit', [ProjectsController::class, 'editReview'])->name('reviews.edit');
+    Route::delete('/reviews/{review}', [ProjectsController::class, 'deleteReview'])->name('reviews.delete');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/projects-in-profile', [UserController::class, 'projectsInProfile'])->name('projects.inProfile');
+    Route::get('/projects/edit/{project}', [UserController::class, 'editProject'])->name('projects.edit');
+    Route::put('/projects/update/{project}', [UserController::class, 'updateProject'])->name('projects.update');
+    Route::delete('/projects/delete/{project}', [ProjectController::class, 'delete'])->name('projects.delete');
+});
+
+Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show');
+Route::get('/user/{user}/services', [UserController::class, 'services'])->name('user.services');
+Route::get('/user/{user}', [UserController::class, 'profile'])->name('user.profile');
 
 require __DIR__.'/auth.php';

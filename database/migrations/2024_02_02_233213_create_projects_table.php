@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('creator')->unique();
+            $table->string('creator');
             $table->text('description');
             $table->string('niche')->default('default_value');
-            $table->date('CompletionDate')->nullable();
-            $table->decimal('Budget', 10, 2)->nullable();
+            $table->date('completion_date')->nullable();
+            $table->decimal('budget', 10, 2)->nullable();
             $table->string('Status')->default('open');
             $table->timestamps();
         });

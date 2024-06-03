@@ -14,8 +14,15 @@ use Illuminate\Database\Eloquent\Model;
             'creator',
             'desc',
             'niche',
+            'completion_date',
+            'budget',
         ];
     
     
-    }
+        public function reviews()
+        {
+            return $this->hasMany(Review::class);
+        }
+
+}
 

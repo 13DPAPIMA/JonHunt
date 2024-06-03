@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Carbon\Carbon;
+use App\Models\Review;
+
 
 
 class ProjectsController extends Controller
@@ -23,13 +26,13 @@ class ProjectsController extends Controller
      * Display the form for creating a new project.
      */
     public function create(): Response
-    {
-        return view('projects.create'); // Предположим, что у вас есть шаблон для формы создания проекта
-    }
+{
+    $niches = ['Technology', 'Health', 'Education', 'Finance', 'Entertainment'];
 
-    /**
-     * Store a newly created project in storage.
-     */
+    return Inertia::render('projects.create', [
+        'niches' => $niches,
+    ]);
+}
 
     /**
      * Store a newly created project in storage.
@@ -39,7 +42,9 @@ class ProjectsController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:200|min:60',
             'desc' => 'required|string|max:1500|min:100',
-            'niche' => 'string|max:255',
+            'niche' => 'required|string|in:Technology,Health,Education,Finance,Entertainment',
+            'completion_date' => 'required|date|after_or_equal:today|before_or_equal:' . Carbon::now()->addYear()->toDateString(),
+            'budget' => 'required|numeric|min:0',
         ]);
 
         if ($validator->fails()) {
@@ -51,9 +56,10 @@ class ProjectsController extends Controller
         $project = new Project();
         $project->title = $validatedData['title'];
         $project->description = $validatedData['desc'];
-        if (isset($validatedData['niche'])) {
-            $project->niche = $validatedData['niche'];
-        }
+        $project->niche = $validatedData['niche'];
+        $project->completion_date = $validatedData['completion_date'];
+        $project->budget = $validatedData['budget'];
+        
         $project->creator = Auth::user()->email;
 
         $project->save();
@@ -67,4 +73,58 @@ class ProjectsController extends Controller
     'projects' => $projects, 
   ]);
 }
+public function show(Project $project)
+{
+    $project->load('reviews.user');
+
+    return Inertia::render('ProjectsPage', [
+        'project' => $project,
+        'reviews' => $project->reviews,
+    ]);
 }
+
+public function addReview(Request $request, Project $project)
+{
+    $validated = $request->validate([
+        'Rating' => 'required|integer|between:1,5',
+        'ReviewText' => 'nullable|string|max:1000',
+    ]);
+
+    
+    $reviewedUserId = $project->creator;
+
+    $review = new Review();
+    $review->project_id = $project->id;
+    $review->UserID = Auth::id();
+    $review->ReviewedUserID = $reviewedUserId;
+    $review->Rating = $validated['Rating'];
+    $review->ReviewText = $validated['ReviewText'];
+    $review->save();
+
+    return redirect()->route('projects.show', $project->id)->with('success', 'Review added successfully.');
+}
+
+public function deleteReview(Request $request, Review $review)
+    {
+        $this->authorize('delete', $review);
+
+        $review->delete();
+
+        return redirect()->route('projects.show', $review->project_id)->with('success', 'Review deleted successfully.');
+    }
+
+    public function editReview(Request $request, Review $review)
+    {
+        $this->authorize('update', $review);
+
+        $validated = $request->validate([
+            'Rating' => 'required|integer|between:1,5',
+            'ReviewText' => 'nullable|string|max:1000',
+        ]);
+
+        $review->update($validated);
+
+        return redirect()->route('projects.show', $review->project_id)->with('success', 'Review updated successfully.');
+    }
+}
+

@@ -10,8 +10,9 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id('ReviewID');
+            $table->foreignId('project_id')->constrained()->onDelete('cascade');
             $table->foreignId('UserID')->constrained('users');
-            $table->foreignId('ReviewedUserID')->constrained('users');
+            $table->text('ReviewedUserID')->constrained('users');
             $table->unsignedTinyInteger('Rating');
             $table->text('ReviewText')->nullable();
             $table->timestamps();
@@ -23,4 +24,3 @@ class CreateReviewsTable extends Migration
         Schema::dropIfExists('reviews');
     }
 }
-
