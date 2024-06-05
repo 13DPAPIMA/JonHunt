@@ -49,34 +49,33 @@ Prerequisites
 git clone [(https://github.com/13DPAPIMA/JonHunt)](https://github.com/13DPAPIMA/JonHunt)
 cd projectPath
 
-<h2>**Install Backend Dependencies**</h2>
+<h2>Install Backend Dependencies</h2>
 
 composer install
 
 
-<h2>**Install Frontend Dependencies**</h2>
+<h2>Install Frontend Dependencies</h2>
 
 npm install
 
-<h2>**Environment Setup**</h2>
+<h2>Environment Setup</h2>
 
 Copy the .env.example file to .env and update the necessary environment variables such as database credentials.
 
 cp .env.example .env
 
-<h2>**Database Setup**</h2>
+<h2>Database Setup</h2>
 **Run the database migrations:**
 
 php artisan migrate
 
-<h2>**Build Assets**</h2>
+<h2>Build Assets</h2>
 
 Compile the assets using Laravel Mix:
 
-
 npm run dev
 
-<h2>**Running the Project**</h2>
+<h2>Running the Project</h2>
 To start the development server, use the following command:
 
 php artisan serve
@@ -84,10 +83,10 @@ php artisan serve
 This will start the Laravel development server. You can access the application at **http://localhost:8000.**
 
 
-<h2>**Using Tailwind CSS**</h2>
+<h2>Using Tailwind CSS</h2>
 Tailwind CSS is used for styling in this project. Tailwind provides utility-first CSS classes that can be combined to build any design, directly in your markup. For more information on how to use Tailwind, refer to the official documentation.
 
-<h2>**Contributing**</h2>
+<h2>Contributing</h2>
 If you wish to contribute to this project, please follow these steps:
 
 **Fork the repository.**
