@@ -31,18 +31,18 @@ Security: Laravel provides out-of-the-box security features, such as protection 
 
 Scalability: Laravel is designed to scale efficiently, making it suitable for both small projects and large-scale enterprise applications. Its modular design allows for the addition of components as needed, ensuring the application can grow with your needs.
 
+
 <h1>To get started with this project, follow the steps below:</h1>
 
 Prerequisites
-Make sure you have the following installed on your system:
+<p class="strong">Make sure you have the following installed on your system:</p>
 
-<list>
 Node.js
 Composer
 PHP
 Laravel
 Installation
-</list>
+
 
 <h1>Clone the Repository</h1>
 
