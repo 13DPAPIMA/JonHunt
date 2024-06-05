@@ -1,8 +1,8 @@
-<h1>**JOBHUNT**</h1>
+<h1>JOBHUNT</h1>
 
 Welcome to **JOBHUNT**! This project is built using Laravel, Vue.js, and Tailwind CSS to provide a robust and flexible web application. Below, you will find instructions on why Vue.js was chosen, how to set up and run the project, and other relevant information.
 
-<h2>**Why Vue.js?**</h2>
+<h2>Why Vue.js?</h2>
 Vue.js was chosen for this project due to several key reasons:
 
 Reactive and Component-Based Architecture: Vue.js offers a highly reactive data binding system and a component-based architecture, which allows for building dynamic and interactive user interfaces efficiently.
@@ -33,18 +33,19 @@ Scalability: Laravel is designed to scale efficiently, making it suitable for bo
 
 <h1>To get started with this project, follow the steps below:</h1>
 
-**Prerequisites**
+Prerequisites
 Make sure you have the following installed on your system:
 
+<list>
 Node.js
 Composer
 PHP
 Laravel
 Installation
+</list>
 
+<h1>Clone the Repository</h1>
 
-**Clone the Repository
-**
 git clone https://github.com/yourusername/projectname.git
 cd projectname
 
