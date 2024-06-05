@@ -46,17 +46,15 @@ Prerequisites
 
 <h1>Clone the Repository</h1>
 
-git clone https://github.com/yourusername/projectname.git
+git clone [(https://github.com/13DPAPIMA/JonHunt)](https://github.com/13DPAPIMA/JonHunt)
 cd projectname
 
-**Install Backend Dependencies
-**
+**Install Backend Dependencies**
 
 composer install
 
 
-**Install Frontend Dependencies
-**
+**Install Frontend Dependencies**
 
 npm install
 
@@ -67,8 +65,7 @@ Copy the .env.example file to .env and update the necessary environment variable
 
 cp .env.example .env
 
-**Generate the application key:
-**
+**Generate the application key:**
 
 php artisan key:generate
 
@@ -95,12 +92,10 @@ This will start the Laravel development server. You can access the application a
 **Using Tailwind CSS**
 Tailwind CSS is used for styling in this project. Tailwind provides utility-first CSS classes that can be combined to build any design, directly in your markup. For more information on how to use Tailwind, refer to the official documentation.
 
-**Contributing
-**
+**Contributing**
 If you wish to contribute to this project, please follow these steps:
 
-**Fork the repository.
-**
+**Fork the repository.**
 Create a new branch for your feature or bugfix.
 Commit your changes and push them to your fork.
 Open a pull request with a detailed description of your changes.
