@@ -37,11 +37,11 @@ Scalability: Laravel is designed to scale efficiently, making it suitable for bo
 Prerequisites
 <p class="strong">Make sure you have the following installed on your system:</p>
 
-Node.js
-Composer
-PHP
-Laravel
-Installation
+1) Node.js
+2) Composer
+3) PHP
+4) Laravel
+5) Installation
 
 
 <h1>Clone the Repository</h1>
