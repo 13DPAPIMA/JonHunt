@@ -12,7 +12,7 @@ Active Community and Ecosystem: Vue.js has a strong and active community, along 
 Performance: Vue.js is known for its excellent performance and speed, which is crucial for creating a responsive and user-friendly application.
 Project Setup
 
-<h1>Why Laravel?</h1>
+<h2>Why Laravel?</h2>
 Laravel was chosen for this project due to several key reasons:
 
 Elegant Syntax: Laravel provides an elegant and expressive syntax that makes it enjoyable to use. The framework is designed to be developer-friendly and easy to understand, which speeds up the development process.
