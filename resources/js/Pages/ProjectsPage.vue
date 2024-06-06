@@ -21,13 +21,16 @@
           </div>
           <ul class="mt-4 space-y-4">
             <li v-for="review in reviews" :key="review.id" class="border-b border-gray-200 pb-4">
-              <p class="text-gray-900">{{ review.ReviewText }}</p>
-              <p class="text-sm text-gray-600"> {{ review.user.name }} (Rating: {{ review.Rating }})   
-                <span v-if="auth.user && review.user.id === auth.user.id">
-                <button @click="editReview(review)" class="text-blue-600 hover:text-blue-800 ml-2">Edit</button>
-                <button @click="deleteReview(review)" class="text-red-600 hover:text-red-800 ml-2">Delete</button>
-              </span>
-            </p>
+              <div class="overflow-hidden text-ellipsis whitespace-nowrap">
+                <p class="text-gray-900">{{ review.ReviewText }}</p>
+                <p class="text-sm text-gray-600">
+                  {{ review.user.name }} (Rating: {{ review.Rating }})
+                  <span v-if="auth.user && review.user.id === auth.user.id">
+                    <button @click="editReview(review)" class="text-blue-600 hover:text-blue-800 ml-2">Edit</button>
+                    <button @click="deleteReview(review)" class="text-red-600 hover:text-red-800 ml-2">Delete</button>
+                  </span>
+                </p>
+              </div>
             </li>
           </ul>
         </div>

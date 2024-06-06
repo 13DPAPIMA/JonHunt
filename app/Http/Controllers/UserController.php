@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ProjectController;
 use App\Models\User;
 use App\Models\Project;
 use App\Providers\RouteServiceProvider;
@@ -13,11 +14,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 use Carbon\Carbon;
 use App\Models\Review;
-
 
 class UserController extends Controller
 {
@@ -82,11 +83,13 @@ class UserController extends Controller
     }
     
   
-    public function deleteProject(Project $project): RedirectResponse
+    public function delete(Request $request, Project $project)
     {
+        $this->authorize('delete', $project);
+
         $project->delete();
-    
-        return redirect()->route('projects.inProfile')->with('success', 'Project deleted successfully.');
+
+        return response()->json(['message' => 'Project deleted successfully.'], 200);
     }
 
 
