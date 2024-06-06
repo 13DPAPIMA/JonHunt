@@ -1,12 +1,12 @@
 <template>
     <Head title="Projects Information" />
     <AuthenticatedLayout>
-      <div class="my-10 max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 sm:p-8">
-        <h2 class="text-2xl font-semibold text-gray-900">{{ project.title }}</h2>
+      <div class="my-10 max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 sm:p-8 ">
+        <h2 class="text-2xl font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">{{ project.title }}</h2>
         <br>
-        <p class="mt-2 text-lg text-gray-800 font-medium">{{ project.description }}</p>
+        <p class="mt-2 text-lg text-gray-800 font-medium overflow-hidden text-ellipsis whitespace-nowrap">{{ project.description }}</p>
         <div class="mt-6">
-          <h3 class="text-xl font-semibold text-gray-900">Details</h3>
+          <h3 class="text-xl font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap ">Details</h3>
           <p><strong>Niche:</strong> {{ project.niche }}</p>
           <p><strong>Completion Date:</strong> {{ project.completion_date }}</p>
           <p><strong>Budget:</strong> ${{ project.budget }}</p>

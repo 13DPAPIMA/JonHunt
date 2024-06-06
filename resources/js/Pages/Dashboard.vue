@@ -62,7 +62,7 @@ const filteredProjects = computed(() => {
             
         </div>
 
-        <div class="py-12">
+        <div class="py-12 selection:bg-red-500 selection:text-white overflow-hidden">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-red-600 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="text-center p-6 text-white">

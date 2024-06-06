@@ -33,6 +33,7 @@
 import { ref } from 'vue';
 import { usePage, Link } from '@inertiajs/vue3';
 import axios from 'axios'; 
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const { props: pageProps } = usePage();
 const projects = ref(pageProps.projects);
