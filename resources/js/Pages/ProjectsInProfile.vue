@@ -11,6 +11,7 @@
             <ul class="mt-4 space-y-4">
                 <ul v-if="projects !== undefined" class="py-12">
                     <li v-for="project in projects" :key="project.id" class="border-b border-gray-200 pb-4">
+                      <br>
                         <h3 class="text-lg font-medium text-gray-900">{{ project.title }}</h3>
                         <p class="text-sm text-gray-600">{{ project.description }}</p>
                          <p><strong>Niche:</strong> {{ project.niche }}</p>

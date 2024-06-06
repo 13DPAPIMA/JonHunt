@@ -69,7 +69,7 @@ defineProps({
 
             <div class="flex justify-center content-center items-center bg-white-600 w-full h-screen max-xl:hidden">
                 <div class="text-center">
-                    <h1 class=" px-4 py-2 bg-red-600 max-md:hidden text-white text-8xl font-bold ">JobHunt</h1>
+                    <h1 class=" px-4 py-2 bg-red-600 max-md:hidden text-white text-8xl font-bold rounded-xl">JobHunt</h1>
                     <h1 class="max-md:hidden my-4 text-red-600 text-4xl font-semibold">You Found The Right Freelance Platform</h1>
                     <h1 class="max-md:hidden my-4 text-red-600 text-4xl font-semibold">You will find the best high-paying projects on our platform</h1>
                     <p class="max-md:hidden my-4 text-red-600 text-4xl font-semibold">The best opportunity for your career</p>
@@ -79,7 +79,7 @@ defineProps({
             
             <div class="flex justify-between bg-white-600 w-full h-screen max-xl:hidden">
     <div class="flex items-center w-1/2 h-full">
-        <div class="text-center w-full">
+        <div class="text-center w-full bg-white-600">
             <h1 class="max-md:hidden text-red-600 text-8xl font-bold">№ 1 In The Freelance Niche</h1>
             <br>
             <br>
@@ -89,8 +89,8 @@ defineProps({
             <p class="max-md:hidden my-4 text-red-600 text-4xl font-semibold">JobHunt eto polnaja imba</p>
         </div>
     </div>
-    <div class="w-1/2 overflow-hidden">
-        <img src="/freelancer_photo.jpg" alt="Freelancer Image" class="w-full h-full object-cover">
+    <div class="w-1/2 overflow-hidden bg-white-600">
+        <img src="/freelancer_photo-removebg.png" alt="Freelancer Image" class="w-full h-full object-cover bg-white-600">
     </div>
 </div>
 
@@ -106,6 +106,54 @@ defineProps({
             </div>
         </div>
 
+ 
+
+        <div class="bg-gray-100">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div class="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
+                <h2 class="text-2xl font-bold text-gray-900">Opportunities for your career</h2>
+          
+                <div class="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
+                  <div class="group relative">
+                    <div class="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+                      <img src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg" alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug." class="h-full w-full object-cover object-center">
+                    </div>
+                    <h3 class="mt-6 text-sm text-gray-500">
+                     
+                        <span class="absolute inset-0"></span>
+                        Mater your skills
+                     
+                    </h3>
+                    <p class="text-base font-semibold text-gray-900">Work from home and manage your time!</p>
+                  </div>
+                  <div class="group relative">
+                    <div class="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+                      <img src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg" alt="Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant." class="h-full w-full object-cover object-center">
+                    </div>
+                    <h3 class="mt-6 text-sm text-gray-500">
+                    
+                        <span class="absolute inset-0"></span>
+                        Self-Improvement
+                     
+                    </h3>
+                    <p class="text-base font-semibold text-gray-900">Journals and note-taking</p>
+                  </div>
+                  <div class="group relative">
+                    <div class="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+                      <img src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg" alt="Collection of four insulated travel bottles on wooden shelf." class="h-full w-full object-cover object-center">
+                    </div>
+                    <h3 class="mt-6 text-sm text-gray-500">
+                     
+                        <span class="absolute inset-0"></span>
+                        Travel
+                     
+                    </h3>
+                    <p class="text-base font-semibold text-gray-900">Daily commute essentials</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 bg-red-600">
             <div class="max-md:hidden flex w-full my-10 max-w-3xl mx-auto mt-400 scroll-smooth">
@@ -144,6 +192,24 @@ defineProps({
                 </div>
             </div>
         </div>
+        <div class="bg-white-600 py-24 sm:py-32">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+              <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+                <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+                  <dt class="text-base leading-7 text-gray-600">Job Applications every 24 hours</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-red-600 sm:text-5xl">1000+</dd>
+                </div>
+                <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+                  <dt class="text-base leading-7 text-gray-600">Earned every month</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-red-600 sm:text-5xl">200,000$</dd>
+                </div>
+                <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+                  <dt class="text-base leading-7 text-gray-600">New users every Year</dt>
+                  <dd class="order-first text-3xl font-semibold tracking-tight text-red-600 sm:text-5xl">46,000</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
         
 <br>
 <br>
