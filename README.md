@@ -93,3 +93,11 @@ If you wish to contribute to this project, please follow these steps:
 Create a new branch for your feature or bugfix.
 Commit your changes and push them to your fork.
 Open a pull request with a detailed description of your changes.
+
+
+npm install
+composer install 
+cp .env.example .env
+php artisan migrate
+php artisan key:generate
+php artisan serve
