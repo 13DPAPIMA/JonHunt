@@ -60,7 +60,7 @@ class ProjectsController extends Controller
         $project->completion_date = $validatedData['completion_date'];
         $project->budget = $validatedData['budget'];
         
-        $project->creator = Auth::user()->email;
+        $project->creator = Auth::user()->name;
 
         $project->save();
     }

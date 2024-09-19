@@ -75,7 +75,7 @@ const showingNavigationDropdown = ref(false);
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                                               </svg>
                                               
-                                                {{ $page.props.auth.user.name }}
+                                              {{ $page.props.auth.user ? $page.props.auth.user.name : 'Guest' }}
 
                                                 <svg
                                                     class="ms-2 -me-0.5 h-4 w-4"
@@ -152,9 +152,9 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">
                             <div class="font-medium text-base text-gray-800">
-                                {{ $page.props.auth.user.name }}
+                                {{ $page.props.auth.user ? $page.props.auth.user.name : 'Guest' }}
                             </div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
+                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user ? $page.props.auth.user.email : 'No email' }}</div>
                         </div>
 
                         <div class="mt-3 space-y-1">

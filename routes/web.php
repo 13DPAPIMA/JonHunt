@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GuestController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,8 +35,12 @@ Route::get('/projects/create', function () {
 
 
 
-Route::get('/dashboard', [ProjectsController::class, 'display'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'verified' ])->group(function () {
+    Route::get('/dashboard', [ProjectsController::class, 'display'])->name('dashboard');
+});
 
+
+Route::get('/guest', [GuestController::class, 'dashboard'])->name('guest.dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
