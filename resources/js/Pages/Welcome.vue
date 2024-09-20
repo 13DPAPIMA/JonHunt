@@ -120,8 +120,7 @@ defineProps({
                     </div>
                     <h3 class="mt-6 text-sm text-gray-500">
                      
-                        <span class="absolute inset-0"></span>
-                        Mater your skills
+                        <div class="font-bold text-xl mb-2">Secure transaction</div>
                      
                     </h3>
                     <p class="text-base font-semibold text-gray-900">Work from home and manage your time!</p>
@@ -163,26 +162,22 @@ defineProps({
         <div class="flex flex-row content-center items-center justify-center max-md:flex-col bg-red-600">
             <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
                 <div class=" px-6 py-4 bg-white text-red-600">
-                    <div class="font-bold text-xl mb-2">AI Artist</div>
-                    <p class="text-base">Most skilled AI Artists and Prompt Engineers</p>
+                    <h1 class="font-bold text-4xl mb-1">AI Artist</h1>
                 </div>
             </div>
             <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
                 <div class="px-6 py-4 bg-white text-red-600">
-                    <div class="font-bold text-xl mb-2">Logo Design</div>
-                    <p class="text-base">More than 1000 specialists</p>
+                    <h1 class="font-bold text-4xl mb-1">Logo Design</h1>
                 </div>
             </div>
             <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
                 <div class="px-6 py-4 bg-white text-red-600">
-                    <div class="font-bold text-xl mb-2">Word Press</div>
-                    <p class="text-base">The best Word Press Professionals</p>
+                    <h1 class="font-bold text-4xl mb-1">Word Press</h1>
                 </div>
             </div>
             <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
                 <div class="px-6 py-4 bg-white text-red-600">
-                    <div class="font-bold text-xl mb-2">Voice Over</div>
-                    <p class="text-base">Best voice artists for Hollywood</p>
+                    <h1 class="font-bold text-4xl mb-1">Voice Over</h1>
                 </div>
             </div>
             <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">

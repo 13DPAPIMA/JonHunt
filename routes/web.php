@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
+
 Route::post('/profile', [ProfileController::class, 'uploadAvatar'])->name('avatar.upload');
 Route::get('/avatar/{userId}', [ProfileController::class, 'show'])->name('avatar.show');
 
@@ -57,9 +58,9 @@ Route::get('/avatar/{userId}', [ProfileController::class, 'show'])->name('avatar
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
     Route::get('/projects/{project}', [ProjectsController::class, 'show'])->name('projects.show');
-    Route::post('/projects/{project}/addReview', [ProjectsController::class, 'addReview'])->name('projects.addReview');
-    Route::post('/reviews/{review}/edit', [ProjectsController::class, 'editReview'])->name('reviews.edit');
-    Route::delete('/reviews/{review}', [ProjectsController::class, 'deleteReview'])->name('reviews.delete');
+    Route::post('/projects/{project}/addReview', [App\Http\Controllers\ReviewsController::class, 'addReview'])->name('reviews.addReview');
+    Route::post('/reviews/{review}/edit', [App\Http\Controllers\ReviewsController::class, 'editReview'])->name('reviews.edit');
+    Route::delete('/reviews/{review}', [App\Http\Controllers\ReviewsController::class, 'deleteReview'])->name('reviews.delete');
 });
 
 Route::middleware(['auth'])->group(function () {

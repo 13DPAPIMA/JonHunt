@@ -21,7 +21,31 @@
           </div>
           <ul class="mt-4 space-y-4">
             <li v-for="review in reviews" :key="review.id" class="border-b border-gray-200 pb-4">
-              <div class="overflow-hidden text-ellipsis whitespace-nowrap">
+              <div v-if="editForm.id === review.ReviewID">
+                <div>
+                  <label for="editRating" class="block text-sm font-medium">Rating</label>
+                  <select id="editRating" v-model="editForm.Rating" class="mt-1 block w-full">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="editReviewText" class="block text-sm font-medium">Review</label>
+                  <textarea id="editReviewText" v-model="editForm.ReviewText" class="mt-1 block w-full"></textarea>
+                </div>
+                <div class="mt-2">
+                  <PrimaryButton @click="updateReview" class="bg-blue-600 text-white">
+                    Update Review
+                  </PrimaryButton>
+                  <button @click="cancelEdit" class="text-red-600 hover:text-red-800 ml-2">Cancel</button>
+                </div>
+              </div>
+  
+              <!-- Если не в режиме редактирования, показать сам отзыв -->
+              <div v-else>
                 <p class="text-gray-900">{{ review.ReviewText }}</p>
                 <p class="text-sm text-gray-600">
                   {{ review.user.name }} (Rating: {{ review.Rating }})
@@ -38,7 +62,7 @@
           <h3 class="text-xl font-semibold text-gray-900">Add a Review</h3>
           <form @submit.prevent="submitReview" class="space-y-4">
             <div>
-              <label for="rating" class="block text-sm font-medium text-gray-700">Rating</label>
+              <label for="rating" class="block text-sm font-medium">Rating</label>
               <select id="rating" v-model="form.Rating" class="mt-1 block w-full">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -48,21 +72,13 @@
               </select>
             </div>
             <div>
-              <label for="ReviewText" class="block text-sm font-medium text-gray-700">Review</label>
+              <label for="ReviewText" class="block text-sm font-medium">Review</label>
               <textarea id="ReviewText" v-model="form.ReviewText" class="mt-1 block w-full"></textarea>
             </div>
-            <PrimaryButton type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-md" > 
+            <PrimaryButton type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-md">
               Post a review
             </PrimaryButton>
-            <InputError class="mt-2" :message="form.errors.ReviewText" />  
-            <Transition
-                  enter-active-class="transition ease-in-out"
-                  enter-from-class="opacity-0"
-                  leave-active-class="transition ease-in-out"
-                  leave-to-class="opacity-0"
-                >
-                  <p v-if="form.recentlySuccessful" class="ml-4 text-sm text-gray-600">Review posted.</p>
-                </Transition>
+            <InputError class="mt-2" :message="form.errors.ReviewText" />
           </form>
         </div>
       </div>
@@ -74,7 +90,6 @@ import AuthenticatedLayout from './../Layouts/AuthenticatedLayout.vue';
 import { useForm, Head, usePage } from '@inertiajs/vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
 
 const { props: pageProps } = usePage();
 const { auth } = pageProps;
@@ -97,17 +112,48 @@ const editForm = useForm({
 });
 
 const submitReview = () => {
-  form.post(route('projects.addReview', props.project.id), {
+  form.post(route('reviews.addReview', props.project.id), {
     onSuccess: () => {
       form.reset();
     },
   });
 };
 
+const deleteReview = (review) => {
+  console.log('deleteReview called with review:', review);
+  if (confirm('Are you sure you want to delete this review?')) {
+    form.delete(`/reviews/${review.ReviewID}`, {
+      onSuccess: () => {
+        Inertia.reload({ only: ['reviews', 'averageRating'] });
+      },
+      onError: (errors) => {
+        console.log('Error deleting review:', errors);
+      },
+    });
+  }
+};
+
+const cancelEdit = () => {
+  editForm.reset();
+  editForm.id = null;
+};
+
 const editReview = (review) => {
-  editForm.id = review.id;
+  console.log('editReview called with review:', review);
+  editForm.id = review.ReviewID; 
   editForm.Rating = review.Rating;
   editForm.ReviewText = review.ReviewText;
 };
+
+const updateReview = () => {
+  editForm.post(`/reviews/${editForm.id}/edit`, {
+    onSuccess: () => {
+      editForm.reset();
+      editForm.id = null;
+      Inertia.reload({ only: ['reviews', 'averageRating'] });
+    },
+  });
+};
+
 </script>
   

@@ -30,21 +30,6 @@ const form = useForm({
 
 
 const niches = ['Technology', 'Health', 'Education', 'Finance', 'Entertainment'];
-
-
-// use when will create othe thing 
-
-const submitForm = () => {
-    form.post(route('projects.store'), {
-        onSuccess: (response) => {
-            if (response.props.flash.success) {
-                window.location.href = `/projects/${response.props.project.id}`;
-            }
-        },
-    });
-};
-
-
 </script>
 
 

@@ -9,7 +9,14 @@ class Review extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'ReviewID';
+
+    public $incrementing = true;
+
+    protected $keyType = 'int';
+
     protected $fillable = [
+        'ReviewID',
         'project_id',
         'UserID',
         'ReviewedUserID',
