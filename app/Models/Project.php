@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
         protected $fillable = [
             'title',
             'creator',
-            'desc',
+            'description',
             'niche',
             'completion_date',
             'budget',

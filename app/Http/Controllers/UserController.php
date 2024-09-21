@@ -56,7 +56,7 @@ class UserController extends Controller
     
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:200|min:60',
-            'desc' => 'required|string|max:1500|min:100',
+            'description' => 'required|string|max:1500|min:100',
             'niche' => 'required|string|in:Technology,Health,Education,Finance,Entertainment',
             'completion_date' => 'required|date|after_or_equal:today|before_or_equal:' . Carbon::now()->addYear()->toDateString(),
             'budget' => 'required|numeric|min:0',
@@ -69,7 +69,7 @@ class UserController extends Controller
         $validatedData = $validator->validated();
 
     $project->title = $validatedData['title'];
-    $project->description = $validatedData['desc'];
+    $project->description = $validatedData['description'];
     $project->niche = $validatedData['niche'];
     $project->completion_date = $validatedData['completion_date'];
     $project->budget = $validatedData['budget'];

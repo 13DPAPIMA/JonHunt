@@ -22,7 +22,7 @@ const project = usePage().props.auth.user;
 
 const form = useForm({
     title: "",
-    desc: "",
+    description: "",
     niche: "",
     completion_date: "",
     budget: "",
@@ -72,11 +72,11 @@ const niches = ['Technology', 'Health', 'Education', 'Finance', 'Entertainment']
                <textarea
                   id="description"
                   class="mt-1 block w-full h-32 focus-red-700 border "
-                  v-model="form.desc"
+                  v-model="form.description"
                   required
                   autocomplete="description"
                 ></textarea>
-                <InputError class="mt-2" :message="form.errors.desc" />
+                <InputError class="mt-2" :message="form.errors.description" />
                 <label class="form-control w-full max-w-xs mt-2">
                   <span class="label-text-alt">At least 100 symbols</span>
                 </label>

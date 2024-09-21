@@ -27,11 +27,11 @@
                 </div>
 
                 <div>
-                    <InputLabel for="desc" value="Description" />
+                    <InputLabel for="description" value="Description" />
                     <textarea
                     id="description"
                     class="mt-1 block w-full h-32 focus-red-700 border "
-                    v-model="form.desc"
+                    v-model="form.description"
                     required
                     autocomplete="description"
                   ></textarea>
@@ -110,7 +110,7 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 const { props: pageProps } = usePage();
 const form = useForm({
     title: '',
-    desc: '',
+    description : '',
     niche: '',
     completion_date: '',
     budget: '',
@@ -118,7 +118,7 @@ const form = useForm({
 
 onMounted(() => {
     form.title = pageProps.project.title;
-    form.desc = pageProps.project.desc;
+    form.description  = pageProps.project.description ;
     form.niche = pageProps.project.niche;
     form.completion_date = pageProps.project.completion_date;
     form.budget = pageProps.project.budget;
