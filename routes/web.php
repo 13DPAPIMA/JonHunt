@@ -79,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/projects-in-profile', [UserController::class, 'projectsInProfile'])->name('projects.inProfile');
     Route::get('/projects/edit/{project}', [UserController::class, 'editProject'])->name('projects.edit');
     Route::put('/projects/update/{project}', [UserController::class, 'updateProject'])->name('projects.update');
-    Route::delete('/projects/{project}', [UserController::class, 'delete'])->name('projects.delete');
+    Route::delete('/projects/delete/{project}', [UserController::class, 'delete'])->name('projects.delete');
 });
 
 Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show');

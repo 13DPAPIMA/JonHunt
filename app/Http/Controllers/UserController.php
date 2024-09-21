@@ -68,12 +68,12 @@ class UserController extends Controller
         
         $validatedData = $validator->validated();
 
-    $project->title = $validatedData['title'];
-    $project->description = $validatedData['description'];
-    $project->niche = $validatedData['niche'];
-    $project->completion_date = $validatedData['completion_date'];
-    $project->budget = $validatedData['budget'];
-    $project->creator = $user->email;
+        $project->title = $validatedData['title'];
+        $project->description = $validatedData['description'];
+        $project->niche = $validatedData['niche'];
+        $project->completion_date = $validatedData['completion_date'];
+        $project->budget = $validatedData['budget'];
+        $project->creator = Auth::user()->name;
     
         $project->save();
     
@@ -82,13 +82,12 @@ class UserController extends Controller
     
   
     public function delete(Request $request, Project $project)
-    {
-        $this->authorize('delete', $project);
-
+    {    
         $project->delete();
-
-        return response()->json(['message' => 'Project deleted successfully.'], 200);
+    
+        return redirect()->route('projects.inProfile')->with('success', 'Project deleted successfully.');
     }
+    
 
 
     public function show(User $user)
@@ -103,7 +102,7 @@ class UserController extends Controller
     }
 
     public function profile(User $user)
-{
+    {
     return view('user.profile', compact('user'));
-}
+    }
 }
