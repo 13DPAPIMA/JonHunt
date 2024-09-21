@@ -20,7 +20,7 @@ class ReviewsController extends Controller
         return redirect()->route('projects.show', $project->id)
             ->with('error', 'You cannot review your own project.');
     }
-    -
+    
     $reviewedUserId = $project->creator;
 
     $review = new Review();

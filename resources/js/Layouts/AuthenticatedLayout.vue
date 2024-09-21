@@ -46,6 +46,10 @@ const showingNavigationDropdown = ref(false);
                                     Create Job Advertisement
                                 </NavLink>
 
+                                <NavLink :href="route('jobAds.index')">
+                                     Job Advertisement
+                                </NavLink>
+
                             </div>
                         </div>
 

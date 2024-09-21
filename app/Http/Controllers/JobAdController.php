@@ -51,4 +51,25 @@ class JobAdController extends Controller
 
     }
 
+    public function destroy(JobAdvertisement $jobAd)
+    {
+        $jobAd->delete();
+        return back()->with('success', 'Job ad deleted successfully');
+    }
+
+    public function update(Request $request, JobAdvertisement $jobAd)
+    {
+        // Логика обновления
+    }
+
+    public function edit(JobAdvertisement $jobAd)
+    {
+        return inertia('EditJobAd', ['jobAd' => $jobAd]);
+    }
+
+    public function index()
+    {
+        $jobAds = JobAdvertisement::where('creator', Auth::user()->name)->get();
+        return inertia('JobAdInProfile', ['jobAds' => $jobAds]);
+    }
 }
