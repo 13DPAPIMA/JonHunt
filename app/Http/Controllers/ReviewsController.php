@@ -16,7 +16,11 @@ class ReviewsController extends Controller
         'ReviewText' => 'nullable|string|max:1000',
     ]);
 
-    
+    if (Auth::id() == $project->creator_id) {
+        return redirect()->route('projects.show', $project->id)
+            ->with('error', 'You cannot review your own project.');
+    }
+    -
     $reviewedUserId = $project->creator;
 
     $review = new Review();

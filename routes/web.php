@@ -4,6 +4,8 @@ use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\JobAdController;
+
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +30,17 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    
+    // Страница создания нового объявления
+    Route::get('/jobAdvertisements/create', [JobAdController::class, 'create'])->name('jobAds.create');
+    Route::post('/jobAdvertisements', [JobAdController::class, 'store'])->name('jobAds.store');
+            
+    // Страница с объявлениями пользователя (JobAdInProfile)
+    Route::get('/jobAds/in-profile', [JobAdController::class, 'inProfile'])->name('jobAds.inProfile');
+});
+
 
 Route::get('/projects/create', function () {
     return Inertia::render('CreateProject');

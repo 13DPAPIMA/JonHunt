@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('job_ads', function (Blueprint $table) {
+        Schema::create('job_advertisements', function (Blueprint $table) {
             $table->id('Advertisment_ID');
             $table->string('Title');
             $table->text('Description');
-            $table->string('creator')->unique();
-            $table->text('Examples');
+            $table->string('creator');
+            $table->text('Examples')->nullable();
             $table->decimal('Price', 10, 2);
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('job_ads');
+        Schema::dropIfExists('job_advertisements');
     }
 };

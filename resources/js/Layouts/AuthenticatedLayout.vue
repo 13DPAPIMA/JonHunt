@@ -41,7 +41,10 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink  :href="route('/projects/create')" :active="route().current('/projects/create')">
                                     Create Project
                                 </NavLink>
-                                
+
+                                <NavLink :href="route('jobAds.create')">
+                                    Create Job Advertisement
+                                </NavLink>
 
                             </div>
                         </div>
