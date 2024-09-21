@@ -28,13 +28,11 @@ class UserController extends Controller
     public function projectsInProfile(): Response
     {
         $user = Auth::user();
-        $projects = Project::where('creator', $user->email)->get();
-        
-
+        $projects = Project::where('creator', $user->name)->get(); 
+    
         return Inertia::render('ProjectsInProfile', [
             'projects' => $projects,
         ]);
-
     }
 
     /**

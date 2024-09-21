@@ -73,6 +73,7 @@ class ProjectsController extends Controller
     'projects' => $projects, 
   ]);
 }
+
 public function show(Project $project)
 {
     $project->load('reviews.user');
@@ -82,5 +83,6 @@ public function show(Project $project)
         'reviews' => $project->reviews,
     ]);
 }
+
 }
 
