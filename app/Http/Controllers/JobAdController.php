@@ -54,22 +54,48 @@ class JobAdController extends Controller
     public function destroy(JobAdvertisement $jobAd)
     {
         $jobAd->delete();
-        return back()->with('success', 'Job ad deleted successfully');
+    
+        return redirect()->route('jobAds.index')->with('success', 'Job Ad deleted successfully.');
     }
-
+    
     public function update(Request $request, JobAdvertisement $jobAd)
     {
-        // Логика обновления
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255|min:60',
+            'description' => 'required|string|max:1500|min:100',
+            'price' => 'required|numeric|min:0',
+            'examples' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $validatedData = $validator->validated();
+
+        $jobAd->title = $validatedData['title'];
+        $jobAd->description = $validatedData['description'];
+        $jobAd->price = $validatedData['price'];
+        $jobAd->creator = Auth::user()->name;
+
+        $jobAd->save();
+
     }
 
     public function edit(JobAdvertisement $jobAd)
     {
-        return inertia('EditJobAd', ['jobAd' => $jobAd]);
+        return inertia('EditJobAd', [
+            'jobAd' => $jobAd 
+        ]);
     }
 
     public function index()
     {
-        $jobAds = JobAdvertisement::where('creator', Auth::user()->name)->get();
+        $user = Auth::user();
+
+        $jobAds = JobAdvertisement::where('creator', $user->name)->get(); 
         return inertia('JobAdInProfile', ['jobAds' => $jobAds]);
     }
 }

@@ -16,8 +16,8 @@
                         <p class="text-sm text-gray-600 overflow-hidden text-ellipsis whitespace-nowrap">{{ jobAd.Description }}</p>
                         <p class="overflow-hidden text-ellipsis whitespace-nowrap"><strong>Price:</strong> ${{ jobAd.Price }}</p>
                         <div class="mt-2">
-                            <!-- <Link :href="route('jobAds.edit')" class="text-blue-600 hover:text-blue-800 mr-4">Edit</Link>  -->
-                            <!-- <button @click="deleteJobAd(jobAd.id)" class="text-red-600 hover:text-red-800">Delete</button> -->
+                            <Link :href="route('jobAds.edit', { jobAd: jobAd.id })" class="text-blue-600 hover:text-blue-800 mr-4">Edit</Link>
+                            <button @click="deleteJobAd(jobAd.id)" class="text-red-600 hover:text-red-800">Delete</button>
                         </div>
                     </li>
                 </ul>
@@ -29,23 +29,28 @@
 <script setup>
 import { ref } from 'vue';
 import { usePage, Link } from '@inertiajs/vue3';
-import axios from 'axios'; 
+import { router } from '@inertiajs/vue3';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const { props: pageProps } = usePage();
 const jobAds = ref(pageProps.jobAds);  // Объявления о работе пользователя
 
-// Логика для удаления объявления о работе
-const deleteJobAd = async (jobAdId) => {
+
+const deleteJobAd = (jobAdId) => {
     if (confirm('Are you sure you want to delete this job ad?')) {
-        try {
-            const response = await axios.delete(route('jobAds.delete', jobAdId));
-            if (response.status === 200) {
+        router.delete(route('jobAds.delete', { jobAd: jobAdId }), {
+            onSuccess: () => {
+                console.log(`Successfully deleted Job Ad with ID: ${jobAdId}`);
                 jobAds.value = jobAds.value.filter(jobAd => jobAd.id !== jobAdId);
-            }
-        } catch (error) {
-            console.error('Failed to delete job ad:', error);
-        }
+            },
+            onError: () => {
+                console.log(`Error occurred while deleting Job Ad with ID: ${jobAdId}`);
+                alert('An error occurred while deleting the job ad.');
+            },
+        });
     }
 };
+
+
+
 </script>

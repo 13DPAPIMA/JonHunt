@@ -22,6 +22,7 @@
     "dependencies": {
         "git": "^0.1.5",
         "unzip": "^0.1.11",
-        "ziggy-js": "^2.3.0"
+        "ziggy-js": "^2.3.0",
+        "@inertiajs/inertia": "^0.11.0"
     }
 }

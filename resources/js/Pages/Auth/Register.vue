@@ -104,7 +104,7 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
-    role: '', // Add role to form data
+    role: '', 
 });
 
 const roleSelected = ref(false);

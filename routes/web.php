@@ -35,9 +35,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/jobAdvertisements', [JobAdController::class, 'index'])->name('jobAds.index');  // Просмотр всех объявлений пользователя
     Route::get('/jobAdvertisements/create', [JobAdController::class, 'create'])->name('jobAds.create');  // Форма создания
     Route::post('/jobAdvertisements', [JobAdController::class, 'store'])->name('jobAds.store');  // Сохранение нового объявления
-    Route::get('/jobAdvertisements/{jobAd}/edit', [JobAdController::class, 'edit'])->name('jobAds.edit');  // Форма редактирования
-    Route::put('/jobAdvertisements/{jobAd}', [JobAdController::class, 'update'])->name('jobAds.update');  // Обновление объявления
-    Route::delete('/jobAdvertisements/{jobAd}', [JobAdController::class, 'destroy'])->name('jobAds.delete');  // Удаление объявления
+    Route::get('/jobAdvertisements/{jobAd}/edit', [JobAdController::class, 'edit'])->name('jobAds.edit');  // Страница редактирования
+    Route::put('/jobAdvertisements/{jobAd}', [JobAdController::class, 'update'])->name('jobAds.update');  // Обновление
+    Route::delete('/jobAdvertisements/delete/{jobAd}', [JobAdController::class, 'destroy'])->name('jobAds.delete');
 });
 
 
