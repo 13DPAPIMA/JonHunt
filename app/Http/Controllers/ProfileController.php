@@ -47,34 +47,7 @@ class ProfileController extends Controller
        
         return Redirect::route('profile.edit');
     }
-
-
-    public function uploadAvatar(Request $request)
-    {
-        $user = $request->user();
-        
-        if ($request->hasFile('avatar')) {
-            $avatarFile = $request->file('avatar');
-            
-
-            $imageData = file_get_contents($avatarFile->getRealPath());
-            
-
-            $base64 = base64_encode($imageData);
-            
-
-            $user->avatar_base64 = $base64;
-            $user->save();
-            
-
-            return response()->json(['avatar_base64' => $base64]);
-        }
-        
-        return response()->json(['error' => 'No avatar uploaded'], 400);
-    }
     
-    
-
 
     public function show($userId)
     {

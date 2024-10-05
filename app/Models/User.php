@@ -21,7 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'avatar',
         'role',
     ];
 
@@ -48,5 +47,10 @@ class User extends Authenticatable
     public function projects()
     {
         return $this->hasMany(Project::class, 'creator');
+    }
+
+    public function avatar()
+    {
+        return $this->hasOne(Avatar::class);
     }
 }

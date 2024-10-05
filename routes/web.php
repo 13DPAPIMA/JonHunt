@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\JobAdController;
+use App\Http\Controllers\PhotoController;
 
 
 use Illuminate\Foundation\Application;
@@ -60,11 +61,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::post('/avatar/upload', [PhotoController::class, 'uploadPhoto'])->name('avatar.upload');
+Route::get('/profile/avatar', [PhotoController::class, 'getAvatar'])->name('avatar.get');
 
 Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
-
-Route::post('/profile', [ProfileController::class, 'uploadAvatar'])->name('avatar.upload');
-Route::get('/avatar/{userId}', [ProfileController::class, 'show'])->name('avatar.show');
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
