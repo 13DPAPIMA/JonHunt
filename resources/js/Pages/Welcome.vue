@@ -39,7 +39,7 @@ defineProps({
                 <Link
                     v-if="canRegister"
                     :href="route('/projects/create')"
-                    class="mx-5 my-5 inline-flex items-center px-4 py-2 bg-red-700 border border-transparent rounded-md font-sans text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-200"
+                    class="mx-5 my-5 inline-flex items-center px-4 py-2 bg-red-700 font-bold border border-transparent rounded-md font-sans text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-200"
                 >Start Hiring</Link>
 
                 <Link
@@ -66,57 +66,163 @@ defineProps({
                 </svg>
             </div>
        
-            <div class="flex justify-center my-10 h-screen">
+            <div class="flex justify-center my-10 h-screen rounded-3xl">
                 <div class="text-center w-1/2">
                     <h1 class="px-4 py-2 bg-red-600 max-md:hidden text-white text-8xl font-geist font-bold rounded-xl">JobHunt</h1>
                 </div>
             </div>
-            <div class="flex w-full h-screen bg-white-600">
-                <!-- Блок с изображением слева -->
+            <div class="flex w-full h-screen ">
                 <div class="w-1/2 overflow-hidden">
                     <img src="/freelancer_photo-removebg.png" alt="Freelancer Image" class="w-full h-full object-cover">
                 </div>
             
-                <!-- Блок с текстом справа -->
                 <div class="flex items-center justify-center w-1/2">
                     <div class="text-center w-full">
-                        <!-- Основной заголовок с красным акцентом -->
-                        <h1 class="max-md:hidden text-red-600 text-8xl font-bold">№1 Freelance Platform in the Baltics</h1>
+                        <h1 class="max-md:hidden text-black text-8xl"><span class="text-red-600 font-bold ">JobHunt</span> is ranked №1 Freelance Platform in the Baltics</h1>
                         <br><br>
-                        
-                        <!-- Текст с нейтральными цветами -->
-                        <h1 class="max-md:hidden my-4 text-gray-800 text-4xl ">JobHunt - Simple, Fast, and Reliable</h1>
-                        <h1 class="max-md:hidden my-4 text-gray-800 text-4xl ">Secure Payments, Every Time</h1>
-                        <p class="max-md:hidden my-4 text-gray-800 text-4xl ">Connect with Top Freelancers and Clients</p>
-                        <br><br><br>
-                        <!-- Завершающая строка с акцентом на красном -->
+                        <div class="flex space-x-10 mt-5 justify-center">
+                            <img src="/lv.png" alt="Lithuania" class="">
+                            <img src="/lt.png" alt="Latvia" class="">
+                            <img src="/ee.png" alt="Estonia" class="">
+                        </div>
                     </div>
                 </div>
             </div>
             
-                
-            <div class="flex w-full h-screen bg-white-600">
-                <div class="flex justify-center items-center w-1/2">
-                    <div class="text-left">
-                        <h1 class="max-md:hidden my-4 text-red-600 text-5xl font-geist font-bold">Why Choose JobHunt?</h1>
-                        <p class="max-md:hidden mt-6 text-gray-800 text-xl font-geist">
-                            JobHunt is designed to connect freelancers with trusted clients in a secure, high-paying environment. 
-                            Our platform makes it simple for professionals to showcase their skills, find meaningful work, and manage projects with ease.
-                        </p>
-                        <p class="max-md:hidden mt-4 text-gray-800 text-xl font-geist">
-                            Whether you're looking to take on challenging projects, build a portfolio, or collaborate with top clients, JobHunt is your pathway to career growth. 
-                            With secure payments and a supportive community, JobHunt empowers you to focus on what you do best.
-                        </p>
-                        <p class="max-md:hidden mt-4 text-gray-800 text-xl font-geist">
-                            Ready to elevate your career? Sign up today and discover how JobHunt can help you unlock new opportunities and reach your full potential.
-                        </p>
+            <div class="flex flex-col md:flex-row items-center p-10 rounded-lg shadow-lg">
+                <div class="md:w-1/2 space-y-6">
+                    <h1 class="text-4xl font-bold font-geist text-gray-900">The ultimate <span class="text-red-600">freelance</span> solution for professionals</h1>
+                    <p class="text-lg text-gray-700">
+                        Discover the benefits of our platform designed to elevate your freelance career.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="flex items-start space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                              </svg>
+                              
+                        <div>
+                                <h2 class="text-lg font-semibold text-gray-900">Dedicated Support</h2>
+                                <p class="text-gray-700">Our team is here to help you succeed at every step.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                              </svg>
+                        <div>
+                                <h2 class="text-lg font-semibold text-gray-900">Guaranteed Payments</h2>
+                                <p class="text-gray-700">Enjoy secure transactions with every project.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                              </svg>
+                        <div>
+                                <h2 class="text-lg font-semibold text-gray-900">Advanced Project Management</h2>
+                                <p class="text-gray-700">Seamlessly manage projects from start to finish.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                              </svg>
+                    <div>
+                                <h2 class="text-lg font-semibold text-gray-900">Flexible Payment Options</h2>
+                                <p class="text-gray-700">Choose from hourly rates or project-based payments.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <Link
+                    v-if="canRegister"
+                    :href="route('/projects/create')"
+                    class="mx-5 my-5 inline-flex items-center px-4 py-2 bg-black font-bold border border-transparent rounded-md font-sans text-xs text-white uppercase tracking-widest hover:bg-white-800 focus:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-200"
+                >Get Started</Link>                
+            </div>
+            
+                <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">
+                    <div class="relative w-3/4">
+                        <img src="/freelancer_working_form_home.png" alt="Freelancer Image" class="rounded-lg shadow-md">
+                        <div class="absolute top-4 right-4 bg-white p-2 rounded-lg shadow text-gray-800 text-sm">
+                            <p>Project Status</p>
+                            <p class="text-red-600 font-semibold">92% | 4 steps out of 5</p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="w-1/2 overflow-hidden flex justify-center items-center">
-                    <img src="/freelancer_working_form_home.png" alt="Freelancer Image Drawed" class="w-3/4 h-auto">
+            </div>
+
+            <div class="flex justify-center bg-gray-50 py-12">
+                <div class="max-w-6xl bg-white p-10 rounded-lg shadow-lg">
+                    
+                    <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">
+                        Why Choose <span class="text-red-600">JobHunt</span>?
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        
+                        <!-- Why JobHunt? -->
+                        <div class="flex items-start space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"  class="w-12 h-12">
+                                <path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                              </svg>
+                              
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-800">Why JobHunt</h3>
+                                <p class="mt-2 text-gray-700 text-lg">
+                                    JobHunt is designed to connect freelancers with trusted clients in a secure, high-paying environment. Our platform makes it easy for professionals to showcase their skills and manage projects with ease.
+                                </p>
+                            </div>
+                        </div>
+            
+                        <!--Our Advantage Over Fiverr -->
+                        <div class="flex items-start space-x-4">
+                            
+                        <div>             
+                                <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over 
+                                    <svg class="inline w-16 h-8 align-middle" viewBox="0 0 97 29.26368627101511" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M88.949 14.027h-3.433c-2.21 0-3.394 1.655-3.394 4.413v9.97h-6.511V14.026h-2.763c-2.21 0-3.393 1.655-3.393 4.413v9.97h-6.512V8.707h6.512v2.995c1.066-2.325 2.526-2.995 4.697-2.995h7.971v2.995c1.066-2.325 2.526-2.995 4.697-2.995h2.13v5.32zm-27.427 6.068H47.947c.355 2.207 1.736 3.468 4.064 3.468 1.736 0 2.96-.71 3.355-1.97l5.761 1.615c-1.42 3.428-4.933 5.517-9.116 5.517-7.064 0-10.3-5.478-10.3-10.166 0-4.61 2.841-10.127 9.905-10.127 7.498 0 9.984 5.595 9.984 9.733a20.11 20.11 0 0 1-.078 1.93zm-6.314-3.822c-.158-1.695-1.382-3.27-3.591-3.27-2.053 0-3.275.905-3.67 3.27zM30.347 28.409h5.721l7.143-19.7h-6.55l-3.473 11.465-3.552-11.466h-6.512zm-26.677 0h6.472V14.027H16.3V28.41h6.432V8.708H10.142V7.487c0-1.34.947-2.167 2.447-2.167h3.71V0h-4.775C6.827 0 3.67 2.877 3.67 7.092v1.616H0v5.32h3.67z" fill="#003912"/>
+                                        <path d="M92.975 29C95.198 29 97 27.2 97 24.98c0-2.22-1.802-4.019-4.025-4.019s-4.026 1.8-4.026 4.02c0 2.22 1.803 4.019 4.026 4.019z" fill="#1dbf73"/>
+                                    </svg>
+                        </h3>
+                                
+                                <p class="mt-2 text-gray-700 text-lg">
+                                    Unlike Fiverr, JobHunt focuses on quality and long-term projects with transparent terms and lower fees, allowing freelancers to earn more.
+                                </p>
+                            </div>
+                        </div>
+            
+                        <!--Our Advantage Over Freelancer -->
+                        <div class="flex items-start space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                       
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over Freelancer</h3>
+                                <p class="mt-2 text-gray-700 text-lg">
+                                    JobHunt prioritizes a simple, intuitive platform that values professionalism and trust, offering a safer work environment for both freelancers and clients.
+                                </p>
+                            </div>
+                        </div>
+            
+                        <div class="flex items-start space-x-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-800">Our Values and Social Impact</h3>
+                                <p class="mt-2 text-gray-700 text-lg">
+                                    We believe in transparency, inclusivity, and equal opportunities. JobHunt fosters a community where professionals can grow, develop, and make a positive impact.
+                                </p>
+                            </div>
+                        </div>
+            
+                    </div>
                 </div>
             </div>
+            
+
             
             <br>
             <br>
@@ -174,6 +280,55 @@ defineProps({
                 </div>
             </div>
         </div>
+
+        <div class="flex flex-col items-center p-10 bg-gray-50">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-8">Make it all happen with <span class="text-red-600">JobHunt</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-16 w-full max-w-4xl">
+                <div class="flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z" />
+                      </svg>
+                      
+                    <h3 class="text-lg font-semibold text-gray-800 my-4">Access top talent</h3>
+                    <p class="text-gray-600">Find professionals across multiple categories to meet your needs.</p>
+                </div>
+        
+                <div class="flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 0 0-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634Zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 0 1-.189-.866c0-.298.059-.605.189-.866Zm2.023 6.828a.75.75 0 1 0-1.06-1.06 3.75 3.75 0 0 1-5.304 0 .75.75 0 0 0-1.06 1.06 5.25 5.25 0 0 0 7.424 0Z" clip-rule="evenodd" />
+                      </svg>
+                      
+                    <h3 class="text-lg font-semibold text-gray-800 my-4">Easy matching</h3>
+                    <p class="text-gray-600">Enjoy a user-friendly experience that connects you with the right freelancer.</p>
+                </div>
+        
+                <div class="flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+                      </svg>
+                      
+                    <h3 class="text-lg font-semibold text-gray-800 my-4">Quality work</h3>
+                    <p class="text-gray-600">Get projects completed on time and within budget.</p>
+                </div>
+        
+                <div class="flex flex-col items-center text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 0 1-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004ZM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 0 1-.921.42Z" />
+                        <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v.816a3.836 3.836 0 0 0-1.72.756c-.712.566-1.112 1.35-1.112 2.178 0 .829.4 1.612 1.113 2.178.502.4 1.102.647 1.719.756v2.978a2.536 2.536 0 0 1-.921-.421l-.879-.66a.75.75 0 0 0-.9 1.2l.879.66c.533.4 1.169.645 1.821.75V18a.75.75 0 0 0 1.5 0v-.81a4.124 4.124 0 0 0 1.821-.749c.745-.559 1.179-1.344 1.179-2.191 0-.847-.434-1.632-1.179-2.191a4.122 4.122 0 0 0-1.821-.75V8.354c.29.082.559.213.786.393l.415.33a.75.75 0 0 0 .933-1.175l-.415-.33a3.836 3.836 0 0 0-1.719-.755V6Z" clip-rule="evenodd" />
+                      </svg>                      
+                    <h3 class="text-lg font-semibold text-gray-800 my-4">Pay when satisfied</h3>
+                    <p class="text-gray-600">Only release payments when you’re happy with the work.</p>
+                </div>
+            </div>
+        
+            <Link
+            v-if="canRegister"
+            :href="route('/projects/create')"
+            class="mt-10 px-6 inline-flex py-3 items-center bg-black font-bold border border-transparent rounded-md font-sans text-xs text-white uppercase tracking-widest hover:bg-white-800 focus:bg-gray-800 active:bg-gray-900 focus:outline-none  hover:bg-gray-800 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-200"
+        >Get Started</Link>   
+        </div>
+
         <div class="bg-white-600 py-24 sm:py-32">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
               <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
