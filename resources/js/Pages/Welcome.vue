@@ -65,34 +65,59 @@ defineProps({
                     </g>
                 </svg>
             </div>
-
-
-            <div class="flex justify-center content-center items-center bg-white-600 w-full h-screen max-xl:hidden">
-                <div class="text-center">
+       
+            <div class="flex justify-center my-10 h-screen">
+                <div class="text-center w-1/2">
                     <h1 class="px-4 py-2 bg-red-600 max-md:hidden text-white text-8xl font-geist font-bold rounded-xl">JobHunt</h1>
-                    <h1 class="max-md:hidden my-4 text-red-600 text-4xl font-geist font-semibold" >You Found The Right Freelance Platform</h1>
-                    <h1 class="max-md:hidden my-4 text-red-600 text-4xl font-geist font-semibold">You will find the best high-paying projects on our platform</h1>
-                    <p class="max-md:hidden my-4 text-red-600 text-4xl font-geist font-semibold">The best opportunity for your career</p>
                 </div>
             </div>
-
-            
             <div class="flex w-full h-screen bg-white-600">
+                <!-- Блок с изображением слева -->
                 <div class="w-1/2 overflow-hidden">
                     <img src="/freelancer_photo-removebg.png" alt="Freelancer Image" class="w-full h-full object-cover">
                 </div>
             
+                <!-- Блок с текстом справа -->
                 <div class="flex items-center justify-center w-1/2">
                     <div class="text-center w-full">
-                        <h1 class="max-md:hidden text-red-600 text-8xl font-bold">№ 1 In The Freelance Platform in Baltics</h1>
+                        <!-- Основной заголовок с красным акцентом -->
+                        <h1 class="max-md:hidden text-red-600 text-8xl font-bold">№1 Freelance Platform in the Baltics</h1>
                         <br><br>
-                        <h1 class="max-md:hidden my-4 text-red-600 text-4xl font-geist">JobHunt - Easy Peasy Lemon Squeezy</h1>
-                        <h1 class="max-md:hidden my-4 text-red-600 text-4xl font-geist">JobHunt Will Provide Safe Payments</h1>
-                        <p class="max-md:hidden my-4 text-red-600 text-4xl font-geist">JobHunt will Help You to find Colleagues</p>
-                        <p class="max-md:hidden my-4 text-red-600 text-4xl font-geist">JobHunt is a polnaja imba</p>
+                        
+                        <!-- Текст с нейтральными цветами -->
+                        <h1 class="max-md:hidden my-4 text-gray-800 text-4xl ">JobHunt - Simple, Fast, and Reliable</h1>
+                        <h1 class="max-md:hidden my-4 text-gray-800 text-4xl ">Secure Payments, Every Time</h1>
+                        <p class="max-md:hidden my-4 text-gray-800 text-4xl ">Connect with Top Freelancers and Clients</p>
+                        <br><br><br>
+                        <!-- Завершающая строка с акцентом на красном -->
                     </div>
                 </div>
             </div>
+            
+                
+            <div class="flex w-full h-screen bg-white-600">
+                <div class="flex justify-center items-center w-1/2">
+                    <div class="text-left">
+                        <h1 class="max-md:hidden my-4 text-red-600 text-5xl font-geist font-bold">Why Choose JobHunt?</h1>
+                        <p class="max-md:hidden mt-6 text-gray-800 text-xl font-geist">
+                            JobHunt is designed to connect freelancers with trusted clients in a secure, high-paying environment. 
+                            Our platform makes it simple for professionals to showcase their skills, find meaningful work, and manage projects with ease.
+                        </p>
+                        <p class="max-md:hidden mt-4 text-gray-800 text-xl font-geist">
+                            Whether you're looking to take on challenging projects, build a portfolio, or collaborate with top clients, JobHunt is your pathway to career growth. 
+                            With secure payments and a supportive community, JobHunt empowers you to focus on what you do best.
+                        </p>
+                        <p class="max-md:hidden mt-4 text-gray-800 text-xl font-geist">
+                            Ready to elevate your career? Sign up today and discover how JobHunt can help you unlock new opportunities and reach your full potential.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="w-1/2 overflow-hidden flex justify-center items-center">
+                    <img src="/freelancer_working_form_home.png" alt="Freelancer Image Drawed" class="w-3/4 h-auto">
+                </div>
+            </div>
+            
             <br>
             <br>
             <br>
@@ -145,8 +170,7 @@ defineProps({
             </div>
             <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
                 <div class=" px-6 py-4 bg-white text-red-600">
-                    <div class="font-bold text-xl mb-2 font-geist">Video Editor</div>
-                    <p class="text-base font-geist">The best quality on market</p>
+                    <h1 class="font-bold text-4xl mb-1">Video Editor</h1>
                 </div>
             </div>
         </div>
@@ -216,7 +240,7 @@ defineProps({
                 </div>
 
                 <div class="ms-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-end sm:ms-0">
-                    Powered by Laravel v{{ laravelVersion }} (PHP v{{ phpVersion }})
+                   All rights are secured
                 </div>
             </div>
         </div>
