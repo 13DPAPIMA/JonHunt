@@ -154,50 +154,51 @@ defineProps({
 
             <div class="flex justify-center bg-gray-50 py-12">
                 <div class="max-w-6xl bg-white p-10 rounded-lg shadow-lg">
-                    
+                    <!-- Заголовок -->
                     <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">
                         Why Choose <span class="text-red-600">JobHunt</span>?
                     </h2>
                     
+                    <!-- Сетка с двумя колонками для вопросов -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         
-                        <!-- Why JobHunt? -->
+                        <!-- Вопрос 1: Why JobHunt? -->
                         <div class="flex items-start space-x-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"  class="w-12 h-12">
-                                <path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 0 0-1.032 0 11.209 11.209 0 0 1-7.877 3.08.75.75 0 0 0-.722.515A12.74 12.74 0 0 0 2.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.749.749 0 0 0 .374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 0 0-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08Zm3.094 8.016a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
-                              </svg>
-                              
+                            <!-- Иконка -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <!-- Текст -->
                             <div>
-                                <h3 class="text-2xl font-semibold text-gray-800">Why JobHunt</h3>
+                                <h3 class="text-2xl font-semibold text-gray-800">Why JobHunt?</h3>
                                 <p class="mt-2 text-gray-700 text-lg">
                                     JobHunt is designed to connect freelancers with trusted clients in a secure, high-paying environment. Our platform makes it easy for professionals to showcase their skills and manage projects with ease.
                                 </p>
                             </div>
                         </div>
             
-                        <!--Our Advantage Over Fiverr -->
+                        <!-- Вопрос 2: Our Advantage Over Fiverr -->
                         <div class="flex items-start space-x-4">
-                            
-                        <div>             
-                                <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over 
-                                    <svg class="inline w-16 h-8 align-middle" viewBox="0 0 97 29.26368627101511" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M88.949 14.027h-3.433c-2.21 0-3.394 1.655-3.394 4.413v9.97h-6.511V14.026h-2.763c-2.21 0-3.393 1.655-3.393 4.413v9.97h-6.512V8.707h6.512v2.995c1.066-2.325 2.526-2.995 4.697-2.995h7.971v2.995c1.066-2.325 2.526-2.995 4.697-2.995h2.13v5.32zm-27.427 6.068H47.947c.355 2.207 1.736 3.468 4.064 3.468 1.736 0 2.96-.71 3.355-1.97l5.761 1.615c-1.42 3.428-4.933 5.517-9.116 5.517-7.064 0-10.3-5.478-10.3-10.166 0-4.61 2.841-10.127 9.905-10.127 7.498 0 9.984 5.595 9.984 9.733a20.11 20.11 0 0 1-.078 1.93zm-6.314-3.822c-.158-1.695-1.382-3.27-3.591-3.27-2.053 0-3.275.905-3.67 3.27zM30.347 28.409h5.721l7.143-19.7h-6.55l-3.473 11.465-3.552-11.466h-6.512zm-26.677 0h6.472V14.027H16.3V28.41h6.432V8.708H10.142V7.487c0-1.34.947-2.167 2.447-2.167h3.71V0h-4.775C6.827 0 3.67 2.877 3.67 7.092v1.616H0v5.32h3.67z" fill="#003912"/>
-                                        <path d="M92.975 29C95.198 29 97 27.2 97 24.98c0-2.22-1.802-4.019-4.025-4.019s-4.026 1.8-4.026 4.02c0 2.22 1.803 4.019 4.026 4.019z" fill="#1dbf73"/>
-                                    </svg>
-                        </h3>
-                                
+                            <!-- Иконка -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-3m4 0h1v4h3m-4-6V8m-6 4h12" />
+                            </svg>
+                            <!-- Текст -->
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over Fiverr</h3>
                                 <p class="mt-2 text-gray-700 text-lg">
                                     Unlike Fiverr, JobHunt focuses on quality and long-term projects with transparent terms and lower fees, allowing freelancers to earn more.
                                 </p>
                             </div>
                         </div>
             
-                        <!--Our Advantage Over Freelancer -->
+                        <!-- Вопрос 3: Our Advantage Over Freelancer -->
                         <div class="flex items-start space-x-4">
+                            <!-- Иконка -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
-                       
+                            <!-- Текст -->
                             <div>
                                 <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over Freelancer</h3>
                                 <p class="mt-2 text-gray-700 text-lg">
@@ -206,10 +207,13 @@ defineProps({
                             </div>
                         </div>
             
+                        <!-- Вопрос 4: Our Values and Social Impact -->
                         <div class="flex items-start space-x-4">
+                            <!-- Иконка -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
+                            <!-- Текст -->
                             <div>
                                 <h3 class="text-2xl font-semibold text-gray-800">Our Values and Social Impact</h3>
                                 <p class="mt-2 text-gray-700 text-lg">
@@ -221,6 +225,8 @@ defineProps({
                     </div>
                 </div>
             </div>
+            
+            
             
 
             
