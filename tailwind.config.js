@@ -16,6 +16,10 @@ export default {
                 sans: ['GeistVF', 'GeistMonoVF', ...defaultTheme.fontFamily.sans],
                 geist: ['GeistVF', 'sans-serif'],
                 geistmono: ['GeistMonoVF', 'sans-serif'],
+                nanum: ['Nanum Myeongjo', 'serif'],
+                slabo: ['Slabo 27px', 'serif'],
+
+
             },
         },
     },

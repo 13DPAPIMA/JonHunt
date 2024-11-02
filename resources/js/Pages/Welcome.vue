@@ -109,7 +109,7 @@ defineProps({
             
                 <div class="flex items-center justify-center w-1/2">
                     <div class="text-center w-full">
-                        <h1 class="max-md:hidden text-gray-800 text-8xl"><span class="text-red-600 font-bold">JobHunt</span> is ranked №1 Freelance Platform in the Baltics</h1>
+                        <h1 class="max-md:hidden text-gray-800 text-8xl"><span class="text-red-600 font-bold">JobHunt</span> is ranked №1 Freelance Platform in the Baltic States</h1>
                         <div class="flex space-x-10 mt-5 justify-center">
                             <img src="/lv.png" alt="Latvia" class="">
                             <img src="/lt.png" alt="Lithuania" class="">
@@ -136,7 +136,7 @@ defineProps({
 
             <div class="flex flex-col md:flex-row items-center p-10 rounded-lg shadow-lg">
                 <div class="md:w-1/2 space-y-6">
-                    <h1 class="text-4xl font-bold font-geist text-gray-900">The ultimate <span class="text-red-600">freelance</span> solution for professionals</h1>
+                    <h1 class="text-4xl font-bold font-geist text-gray-900">The ultimate <span class="text-red-600 font-nanum font-bold ">freelance</span> solution for professionals</h1>
                     <p class="text-lg text-gray-700">
                         Discover the benefits of our platform designed to elevate your freelance career.
                     </p>
