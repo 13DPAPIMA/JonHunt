@@ -5,6 +5,31 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import { Link, Head, usePage } from "@inertiajs/vue3";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
+import { ref } from 'vue';
+
+const carousel = ref(null);
+
+const scrollLeft = () => 
+{
+    if (carousel.value)
+    {
+        carousel.value.scrollBy({
+            left: -300,
+            behavior:"smooth"
+        })
+    }
+}
+
+const scrollRight = () => 
+{
+    if (carousel.value)
+    {
+        carousel.value.scrollBy({
+            left: 300,
+            behavior:"smooth"
+        })
+    }
+}
 
 defineProps({
     canLogin: {
@@ -22,6 +47,8 @@ defineProps({
         required: true,
     },
 });
+
+
 </script>
 
 <template>
@@ -66,29 +93,47 @@ defineProps({
                 </svg>
             </div>
        
-            <div class="flex justify-center my-10 h-screen rounded-3xl">
-                <div class="text-center w-1/2">
-                    <h1 class="px-4 py-2 bg-red-600 max-md:hidden text-white text-8xl font-geist font-bold rounded-xl">JobHunt</h1>
+            <div class="flex justify-center my-10 rounded-3xl">
+                <div class="text-center">
+                    <h1 class="px-4 py-2 max-md:hidden text-red-600 text-9xl font-geist font-bold">JobHunt</h1>
+                    <h2 class="text-3xl font-bold text-gray-800">Find the best freelancers for your projects.</h2>
                 </div>
             </div>
-            <div class="flex w-full h-screen ">
+
+
+            
+            <div class="flex w-full h-screen">
                 <div class="w-1/2 overflow-hidden">
                     <img src="/freelancer_photo-removebg.png" alt="Freelancer Image" class="w-full h-full object-cover">
                 </div>
             
                 <div class="flex items-center justify-center w-1/2">
                     <div class="text-center w-full">
-                        <h1 class="max-md:hidden text-black text-8xl"><span class="text-red-600 font-bold ">JobHunt</span> is ranked №1 Freelance Platform in the Baltics</h1>
-                        <br><br>
+                        <h1 class="max-md:hidden text-gray-800 text-8xl"><span class="text-red-600 font-bold">JobHunt</span> is ranked №1 Freelance Platform in the Baltics</h1>
                         <div class="flex space-x-10 mt-5 justify-center">
-                            <img src="/lv.png" alt="Lithuania" class="">
-                            <img src="/lt.png" alt="Latvia" class="">
+                            <img src="/lv.png" alt="Latvia" class="">
+                            <img src="/lt.png" alt="Lithuania" class="">
                             <img src="/ee.png" alt="Estonia" class="">
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="content-center my-10">
+                <div class="flex flex-row items-center justify-center">
+                <h1 class="font-bold text-2xl mx-5 opacity-75">Trusted by: </h1>
+                </div>
+            </div>
             
+            <div class="content-center my-10">
+                <div class="flex flex-row items-center justify-center">
+                <svg class="mx-5 opacity-75" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 256 315"><path d="M213.803 167.03c.442 47.58 41.74 63.413 42.197 63.615c-.35 1.116-6.599 22.563-21.757 44.716c-13.104 19.153-26.705 38.235-48.13 38.63c-21.05.388-27.82-12.483-51.888-12.483c-24.061 0-31.582 12.088-51.51 12.871c-20.68.783-36.428-20.71-49.64-39.793c-27-39.033-47.633-110.3-19.928-158.406c13.763-23.89 38.36-39.017 65.056-39.405c20.307-.387 39.475 13.662 51.889 13.662c12.406 0 35.699-16.895 60.186-14.414c10.25.427 39.026 4.14 57.503 31.186c-1.49.923-34.335 20.044-33.978 59.822M174.24 50.199c10.98-13.29 18.369-31.79 16.353-50.199c-15.826.636-34.962 10.546-46.314 23.828c-10.173 11.763-19.082 30.589-16.678 48.633c17.64 1.365 35.66-8.964 46.64-22.262"/></svg>
+                <svg class="mx-5 opacity-75" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 256 199"><path fill="#5865f2" d="M216.856 16.597A208.502 208.502 0 0 0 164.042 0c-2.275 4.113-4.933 9.645-6.766 14.046c-19.692-2.961-39.203-2.961-58.533 0c-1.832-4.4-4.55-9.933-6.846-14.046a207.809 207.809 0 0 0-52.855 16.638C5.618 67.147-3.443 116.4 1.087 164.956c22.169 16.555 43.653 26.612 64.775 33.193A161.094 161.094 0 0 0 79.735 175.3a136.413 136.413 0 0 1-21.846-10.632a108.636 108.636 0 0 0 5.356-4.237c42.122 19.702 87.89 19.702 129.51 0a131.66 131.66 0 0 0 5.355 4.237a136.07 136.07 0 0 1-21.886 10.653c4.006 8.02 8.638 15.67 13.873 22.848c21.142-6.58 42.646-16.637 64.815-33.213c5.316-56.288-9.08-105.09-38.056-148.36M85.474 135.095c-12.645 0-23.015-11.805-23.015-26.18s10.149-26.2 23.015-26.2c12.867 0 23.236 11.804 23.015 26.2c.02 14.375-10.148 26.18-23.015 26.18m85.051 0c-12.645 0-23.014-11.805-23.014-26.18s10.148-26.2 23.014-26.2c12.867 0 23.236 11.804 23.015 26.2c0 14.375-10.148 26.18-23.015 26.18"/></svg>
+                <svg class="mx-5 opacity-75" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 256 259.3"><path fill="#9edcf2" d="M200.9 199.8c0 13.9-32.2 25.1-71.9 25.1s-71.9-11.3-71.9-25.1c0-13.9 32.2-25.1 71.9-25.1s71.9 11.2 71.9 25.1m0 0"/><defs><path id="logosGithubOctocat0" d="M98.1 244.8c1.6 7.5 5.5 11.9 9.4 14.5h41.1c5-3.4 10.1-9.8 10.1-21.8v-31s.6-7.7 7.7-10.2c0 0 4.1-2.9-.3-4.5c0 0-19.5-1.6-19.5 14.4v23.6s.8 8.7-3.8 12.3v-29.2s.3-9.3 5.1-12.8c0 0 3.2-5.7-3.8-4.2c0 0-13.4 1.9-14 17.6l-.3 30h-3.2l-.3-30c-.6-15.6-14-17.6-14-17.6c-7-1.6-3.8 4.2-3.8 4.2c4.8 3.5 5.1 12.8 5.1 12.8v29.5c-4.6-3.3-3.8-12.6-3.8-12.6v-23.6c0-16-19.5-14.4-19.5-14.4c-4.5 1.6-.3 4.5-.3 4.5c7 2.6 7.7 10.2 7.7 10.2v21.7z"/></defs><clipPath id="logosGithubOctocat1"><use href="#logosGithubOctocat0"/></clipPath><path fill="#7dbce7" d="M200.9 199.8c0 13.9-32.2 25.1-71.9 25.1s-71.9-11.3-71.9-25.1c0-13.9 32.2-25.1 71.9-25.1s71.9 11.2 71.9 25.1m0 0" clip-path="url(#logosGithubOctocat1)"/><path fill="#9edcf2" d="m46.9 125.9l-2.1 7.2s-.5 2.6 1.9 3.1c2.6-.1 2.4-2.5 2.2-3.2zm0 0"/><path fill="#010101" d="m255.8 95.6l.2-.9c-21.1-4.2-42.7-4.3-55.8-3.7c2.1-7.7 2.8-16.7 2.8-26.6c0-14.3-5.4-25.7-14-34.3c1.5-4.9 3.5-15.8-2-29.7c0 0-9.8-3.1-32.1 11.8c-8.7-2.2-18-3.3-27.3-3.3c-10.2 0-20.5 1.3-30.2 3.9C74.4-2.9 64.3.3 64.3.3c-6.6 16.5-2.5 28.8-1.3 31.8c-7.8 8.4-12.5 19.1-12.5 32.2c0 9.9 1.1 18.8 3.9 26.5c-13.2-.5-34-.3-54.4 3.8l.2.9c20.4-4.1 41.4-4.2 54.5-3.7c.6 1.6 1.3 3.2 2 4.7c-13 .4-35.1 2.1-56.3 8.1l.3.9c21.4-6 43.7-7.6 56.6-8c7.8 14.4 23 23.8 50.2 26.7c-3.9 2.6-7.8 7-9.4 14.5c-5.3 2.5-21.9 8.7-31.9-8.5c0 0-5.6-10.2-16.3-11c0 0-10.4-.2-.7 6.5c0 0 6.9 3.3 11.7 15.6c0 0 6.3 21 36.4 14.2V177s-.6 7.7-7.7 10.2c0 0-4.2 2.9.3 4.5c0 0 19.5 1.6 19.5-14.4v-23.6s-.8-9.4 3.8-12.6v38.8s-.3 9.3-5.1 12.8c0 0-3.2 5.7 3.8 4.2c0 0 13.4-1.9 14-17.6l.3-39.3h3.2l.3 39.3c.6 15.6 14 17.6 14 17.6c7 1.6 3.8-4.2 3.8-4.2c-4.8-3.5-5.1-12.8-5.1-12.8v-38.5c4.6 3.6 3.8 12.3 3.8 12.3v23.6c0 16 19.5 14.4 19.5 14.4c4.5-1.6.3-4.5.3-4.5c-7-2.6-7.7-10.2-7.7-10.2v-31c0-12.1-5.1-18.5-10.1-21.8c29-2.9 42.9-12.2 49.3-26.8c12.7.3 35.6 1.9 57.4 8.1l.3-.9c-21.7-6.1-44.4-7.7-57.3-8.1c.6-1.5 1.1-3 1.6-4.6c13.4-.5 35.1-.5 56.3 3.7m0 0"/><path fill="#f5ccb3" d="M174.6 63.7c6.2 5.7 9.9 12.5 9.9 19.8c0 34.4-25.6 35.3-57.2 35.3S70.1 114 70.1 83.5c0-7.3 3.6-14.1 9.8-19.7c10.3-9.4 27.7-4.4 47.4-4.4s37-5.1 47.3 4.3m0 0"/><path fill="#fff" d="M108.3 85.3c0 9.5-5.3 17.1-11.9 17.1c-6.6 0-11.9-7.7-11.9-17.1c0-9.5 5.3-17.1 11.9-17.1c6.6-.1 11.9 7.6 11.9 17.1m0 0"/><path fill="#af5c51" d="M104.5 85.5c0 6.3-3.6 11.4-7.9 11.4c-4.4 0-7.9-5.1-7.9-11.4c0-6.3 3.6-11.4 7.9-11.4c4.3 0 7.9 5.1 7.9 11.4m0 0"/><path fill="#fff" d="M172.2 85.3c0 9.5-5.3 17.1-11.9 17.1c-6.6 0-11.9-7.7-11.9-17.1c0-9.5 5.3-17.1 11.9-17.1c6.5-.1 11.9 7.6 11.9 17.1m0 0"/><path fill="#af5c51" d="M168.3 85.5c0 6.3-3.6 11.4-7.9 11.4c-4.4 0-7.9-5.1-7.9-11.4c0-6.3 3.6-11.4 7.9-11.4c4.4 0 7.9 5.1 7.9 11.4m-37.8 15c0 1.6-1.3 3-3 3c-1.6 0-3-1.3-3-3s1.3-3 3-3c1.6 0 3 1.3 3 3m-9.9 7.5c-.2-.5.1-1 .6-1.2c.5-.2 1 .1 1.2.6c.8 2.2 2.8 3.6 5.1 3.6s4.3-1.5 5.1-3.6c.2-.5.7-.8 1.2-.6c.5.2.8.7.6 1.2c-1 2.9-3.8 4.9-6.9 4.9c-3.1 0-5.9-2-6.9-4.9m0 0"/><path fill="#c4e5d9" d="M54.5 121.6c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2 0 2.1.6 2.1 1.4m5.8 3.2c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2 0 2.1.6 2.1 1.4m3.5 4.2c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2-.1 2.1.6 2.1 1.4m3.2 4.8c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2-.1 2.1.6 2.1 1.4m3.5 4.4c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2 0 2.1.6 2.1 1.4m4.8 3.9c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2-.1 2.1.6 2.1 1.4m6.7 2.5c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2 0 2.1.6 2.1 1.4m6.7 0c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2 0 2.1.6 2.1 1.4m6.8-1.1c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.1 0 2.1.6 2.1 1.4m0 0"/></svg>
+                <svg class="mx-5 opacity-75" xmlns="http://www.w3.org/2000/svg" width="3.5em" height="2em" viewBox="0 0 512 168"><path fill="#ff302f" d="m496.052 102.672l14.204 9.469c-4.61 6.79-15.636 18.44-34.699 18.44c-23.672 0-41.301-18.315-41.301-41.614c0-24.793 17.816-41.613 39.308-41.613c21.616 0 32.206 17.193 35.633 26.475l1.869 4.735l-55.692 23.049c4.236 8.348 10.84 12.584 20.183 12.584c9.345 0 15.823-4.61 20.495-11.525M452.384 87.66l37.19-15.45c-2.056-5.17-8.16-8.845-15.45-8.845c-9.281 0-22.176 8.223-21.74 24.295"/><path fill="#20b15a" d="M407.407 4.931h17.94v121.85h-17.94z"/><path fill="#3686f7" d="M379.125 50.593h17.318V124.6c0 30.711-18.128 43.357-39.558 43.357c-20.183 0-32.33-13.58-36.878-24.606l15.885-6.604c2.865 6.79 9.78 14.827 20.993 14.827c13.767 0 22.24-8.535 22.24-24.482v-5.98h-.623c-4.112 4.983-11.961 9.468-21.928 9.468c-20.807 0-39.87-18.128-39.87-41.488c0-23.486 19.063-41.8 39.87-41.8c9.905 0 17.816 4.423 21.928 9.282h.623zm1.245 38.499c0-14.702-9.78-25.417-22.239-25.417c-12.584 0-23.174 10.715-23.174 25.417c0 14.514 10.59 25.042 23.174 25.042c12.46.063 22.24-10.528 22.24-25.042"/><path fill="#ff302f" d="M218.216 88.78c0 23.984-18.688 41.613-41.613 41.613c-22.924 0-41.613-17.691-41.613-41.613c0-24.108 18.689-41.675 41.613-41.675c22.925 0 41.613 17.567 41.613 41.675m-18.19 0c0-14.95-10.84-25.23-23.423-25.23c-12.583 0-23.423 10.28-23.423 25.23c0 14.826 10.84 25.23 23.423 25.23c12.584 0 23.423-10.404 23.423-25.23"/><path fill="#ffba40" d="M309.105 88.967c0 23.984-18.689 41.613-41.613 41.613c-22.925 0-41.613-17.63-41.613-41.613c0-24.108 18.688-41.613 41.613-41.613c22.924 0 41.613 17.443 41.613 41.613m-18.253 0c0-14.95-10.839-25.23-23.423-25.23c-12.583 0-23.423 10.28-23.423 25.23c0 14.826 10.84 25.23 23.423 25.23c12.646 0 23.423-10.466 23.423-25.23"/><path fill="#3686f7" d="M66.59 112.328c-26.102 0-46.534-21.056-46.534-47.158c0-26.101 20.432-47.157 46.534-47.157c14.079 0 24.357 5.544 31.957 12.646l12.522-12.521C100.479 7.984 86.338.258 66.59.258C30.833.259.744 29.414.744 65.17c0 35.758 30.089 64.912 65.846 64.912c19.312 0 33.889-6.354 45.289-18.19c11.711-11.712 15.324-28.158 15.324-41.489c0-4.174-.498-8.472-1.059-11.649H66.59v17.318h42.423c-1.246 10.84-4.672 18.253-9.718 23.298c-6.105 6.168-15.76 12.958-32.705 12.958"/></svg>
+                <svg class="mx-5 opacity-75" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="currentColor" d="m16.624 13.92l2.718 2.716l-7.353 7.353l-7.353-7.352l2.717-2.717l4.636 4.66zm4.637-4.636L24 12l-2.715 2.716L18.568 12zm-9.272 0l2.716 2.692l-2.717 2.717L9.272 12zm-9.273 0L5.41 12l-2.692 2.692L0 12zM11.99.012l7.35 7.328l-2.717 2.715L11.99 5.42l-4.636 4.66l-2.717-2.716z"/></svg>
+            </div>
+            
+
             <div class="flex flex-col md:flex-row items-center p-10 rounded-lg shadow-lg">
                 <div class="md:w-1/2 space-y-6">
                     <h1 class="text-4xl font-bold font-geist text-gray-900">The ultimate <span class="text-red-600">freelance</span> solution for professionals</h1>
@@ -141,6 +186,8 @@ defineProps({
                 >Get Started</Link>                
             </div>
             
+            
+            
                 <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">
                     <div class="relative w-3/4">
                         <img src="/freelancer_working_form_home.png" alt="Freelancer Image" class="rounded-lg shadow-md">
@@ -153,140 +200,145 @@ defineProps({
             </div>
 
             <div class="flex justify-center bg-gray-50 py-12">
-                <div class="max-w-6xl bg-white p-10 rounded-lg shadow-lg">
-                    <!-- Заголовок -->
-                    <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">
-                        Why Choose <span class="text-red-600">JobHunt</span>?
-                    </h2>
-                    
-                    <!-- Сетка с двумя колонками для вопросов -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        
-                        <!-- Вопрос 1: Why JobHunt? -->
-                        <div class="flex items-start space-x-4">
-                            <!-- Иконка -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <!-- Текст -->
-                            <div>
-                                <h3 class="text-2xl font-semibold text-gray-800">Why JobHunt?</h3>
-                                <p class="mt-2 text-gray-700 text-lg">
-                                    JobHunt is designed to connect freelancers with trusted clients in a secure, high-paying environment. Our platform makes it easy for professionals to showcase their skills and manage projects with ease.
-                                </p>
-                            </div>
-                        </div>
+    <div class="max-w-6xl bg-white p-10 rounded-lg shadow-lg">
+        <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">
+            Why Choose <span class="text-red-600">JobHunt</span>?
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
-                        <!-- Вопрос 2: Our Advantage Over Fiverr -->
-                        <div class="flex items-start space-x-4">
-                            <!-- Иконка -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-3m4 0h1v4h3m-4-6V8m-6 4h12" />
-                            </svg>
-                            <!-- Текст -->
-                            <div>
-                                <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over Fiverr</h3>
-                                <p class="mt-2 text-gray-700 text-lg">
-                                    Unlike Fiverr, JobHunt focuses on quality and long-term projects with transparent terms and lower fees, allowing freelancers to earn more.
-                                </p>
-                            </div>
-                        </div>
+            <div class="flex items-start space-x-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800">Why JobHunt</h3>
+                    <p class="mt-2 text-gray-700 text-lg">
+                        JobHunt is designed to connect freelancers with trusted clients in a secure, high-paying environment. Our platform makes it easy for professionals to showcase their skills and manage projects with ease.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800">Our Values and Social Impact</h3>
+                    <p class="mt-2 text-gray-700 text-lg">
+                        We believe in transparency, inclusivity, and equal opportunities. JobHunt fosters a community where professionals can grow, develop, and make a positive impact.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-9 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-3m4 0h1v4h3m-4-6V8m-6 4h12" />
+                </svg>
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over <span class="text-green-700 font-bold">Fiverr</span></h3>
+                    <ul class="mt-2 text-gray-700 text-lg list-disc ml-6">
+                        <li><strong>Focus on Quality Over Quantity:</strong> Unlike Fiverr, JobHunt emphasizes long-term projects and deeper collaborations, allowing freelancers to focus on delivering quality work.</li>
+                        <li><strong>Transparent Terms:</strong> JobHunt provides clear terms and pricing without hidden fees, making it easier for freelancers and clients to plan and budget.</li>
+                        <li><strong>Lower Fees:</strong> Our platform offers lower fees than Fiverr, enabling freelancers to earn more from each project.</li>
+                        <li><strong>Support for Complex Projects:</strong> JobHunt is ideal for larger and more complex tasks that require deeper collaboration and support.</li>
+                        <li><strong>Commitment to Professionalism:</strong> We aim to attract high-quality professionals and clients who prioritize quality work.</li>
+                    </ul>
+                </div>
+            </div>
             
-                        <!-- Вопрос 3: Our Advantage Over Freelancer -->
-                        <div class="flex items-start space-x-4">
-                            <!-- Иконка -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                            <!-- Текст -->
-                            <div>
-                                <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over Freelancer</h3>
-                                <p class="mt-2 text-gray-700 text-lg">
-                                    JobHunt prioritizes a simple, intuitive platform that values professionalism and trust, offering a safer work environment for both freelancers and clients.
-                                </p>
-                            </div>
-                        </div>
+            <div class="flex items-start space-x-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+
+                <div>
+                    <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over <span class="text-blue-500 font-bold">Freelancer</span></h3>
+                    <ul class="mt-2 text-gray-700 text-lg list-disc ml-6">
+                        <li><strong>User-Friendly Interface:</strong> Unlike Freelancer, JobHunt offers a simpler, more intuitive interface, making it easy to find and manage projects.</li>
+                        <li><strong>Safe Working Environment:</strong> We value professionalism and trust, providing a secure platform for vetted clients and freelancers.</li>
+                        <li><strong>No Excessive Competitions:</strong> Unlike Freelancer's contest-heavy approach, JobHunt provides a more straightforward matching system where clients find qualified professionals directly.</li>
+                        <li><strong>Focus on Long-Term Relationships:</strong> We encourage long-term collaborations and provide conditions that foster partnerships rather than one-off gigs.</li>
+                        <li><strong>Fair Review System:</strong> Our review system is designed to be fair and objective, protecting the reputation and interests of all professionals.</li>
+                    </ul>
+                </div>
+            </div>
             
-                        <!-- Вопрос 4: Our Values and Social Impact -->
-                        <div class="flex items-start space-x-4">
-                            <!-- Иконка -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <!-- Текст -->
-                            <div>
-                                <h3 class="text-2xl font-semibold text-gray-800">Our Values and Social Impact</h3>
-                                <p class="mt-2 text-gray-700 text-lg">
-                                    We believe in transparency, inclusivity, and equal opportunities. JobHunt fosters a community where professionals can grow, develop, and make a positive impact.
-                                </p>
-                            </div>
-                        </div>
-            
+
+
+        </div>
+    </div>
+</div>
+        </div>
+    
+        <div class="bg-red-600 py-12">
+            <div class="max-w-6xl mx-auto px-4">
+              <h1 class="text-4xl font-semibold text-white text-center mb-10">Popular Services</h1>
+        
+              <div class="relative flex items-center">
+                <button @click="scrollLeft" class="absolute left-0 z-10 p-2 bg-white rounded-full shadow-lg">
+                  ❮
+                </button>
+        
+                <div ref="carousel" class="flex overflow-x-auto space-x-6 pb-4 scrollbar-hide mx-16 no-scrollbar">
+                  <div class="card bg-white w-72 shadow-xl rounded-lg flex-shrink-0 transform transition-transform duration-300 hover:opacity-90">
+                    <figure>
+                      <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Web Development" class="rounded-t-lg" />
+                    </figure>
+                    <div class="card-body">
+                      <h2 class="card-title text-red-600 text-xl font-bold">Web Development</h2>
+                      <p class="text-gray-700">Create stunning and responsive websites tailored to your needs.</p>
                     </div>
+                  </div>
+        
+                  <div class="card bg-white w-72 shadow-xl rounded-lg flex-shrink-0 transform transition-transform duration-300 hover:opacity-90">
+                    <figure>
+                      <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Logo Design" class="rounded-t-lg" />
+                    </figure>
+                    <div class="card-body">
+                      <h2 class="card-title text-red-600 text-xl font-bold">Logo Design</h2>
+                      <p class="text-gray-700">Get custom logo designs that perfectly represent your brand.</p>
+                    </div>
+                  </div>
+        
+                  <div class="card bg-white w-72 shadow-xl rounded-lg flex-shrink-0 transform transition-transform duration-300 hover:opacity-90">
+                    <figure>
+                      <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="WordPress" class="rounded-t-lg" />
+                    </figure>
+                    <div class="card-body">
+                      <h2 class="card-title text-red-600 text-xl font-bold">WordPress</h2>
+                      <p class="text-gray-700">Build and manage your website with powerful WordPress solutions.</p>
+                    </div>
+                  </div>
+        
+                  <div class="card bg-white w-72 shadow-xl rounded-lg flex-shrink-0 transform transition-transform duration-300 hover:opacity-90">
+                    <figure>
+                      <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Voice Over" class="rounded-t-lg" />
+                    </figure>
+                    <div class="card-body">
+                      <h2 class="card-title text-red-600 text-xl font-bold">Voice Over</h2>
+                      <p class="text-gray-700">Professional voice-over services to bring your project to life.</p>
+                    </div>
+                  </div>
+        
+                  <div class="card bg-white w-72 shadow-xl rounded-lg flex-shrink-0 transform transition-transform duration-300 hover:opacity-90">
+                    <figure>
+                      <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Video Editing" class="rounded-t-lg" />
+                    </figure>
+                    <div class="card-body">
+                      <h2 class="card-title text-red-600 text-xl font-bold">Video Editing</h2>
+                      <p class="text-gray-700">Expert video editing to create compelling visual content.</p>
+                    </div>
+                  </div>
                 </div>
+        
+                <button @click="scrollRight" class="absolute right-0 z-10 p-2 bg-white rounded-full shadow-lg">
+                  ❯
+                </button>
+              </div>
             </div>
-            
-            
-            
-
-            
-            <br>
-            <br>
-            <br>
-            <div class="content-center my-10">
-                <div class="flex flex-row items-center justify-center">
-                <h1 class="font-bold text-2xl mx-5 opacity-75">Trusted by: </h1>
-                </div>
-            </div>
-
-            <div class="content-center my-10">
-                <div class="flex flex-row items-center justify-center">
-                <svg class="mx-5 opacity-75" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 256 315"><path d="M213.803 167.03c.442 47.58 41.74 63.413 42.197 63.615c-.35 1.116-6.599 22.563-21.757 44.716c-13.104 19.153-26.705 38.235-48.13 38.63c-21.05.388-27.82-12.483-51.888-12.483c-24.061 0-31.582 12.088-51.51 12.871c-20.68.783-36.428-20.71-49.64-39.793c-27-39.033-47.633-110.3-19.928-158.406c13.763-23.89 38.36-39.017 65.056-39.405c20.307-.387 39.475 13.662 51.889 13.662c12.406 0 35.699-16.895 60.186-14.414c10.25.427 39.026 4.14 57.503 31.186c-1.49.923-34.335 20.044-33.978 59.822M174.24 50.199c10.98-13.29 18.369-31.79 16.353-50.199c-15.826.636-34.962 10.546-46.314 23.828c-10.173 11.763-19.082 30.589-16.678 48.633c17.64 1.365 35.66-8.964 46.64-22.262"/></svg>
-                <svg class="mx-5 opacity-75" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 256 199"><path fill="#5865f2" d="M216.856 16.597A208.502 208.502 0 0 0 164.042 0c-2.275 4.113-4.933 9.645-6.766 14.046c-19.692-2.961-39.203-2.961-58.533 0c-1.832-4.4-4.55-9.933-6.846-14.046a207.809 207.809 0 0 0-52.855 16.638C5.618 67.147-3.443 116.4 1.087 164.956c22.169 16.555 43.653 26.612 64.775 33.193A161.094 161.094 0 0 0 79.735 175.3a136.413 136.413 0 0 1-21.846-10.632a108.636 108.636 0 0 0 5.356-4.237c42.122 19.702 87.89 19.702 129.51 0a131.66 131.66 0 0 0 5.355 4.237a136.07 136.07 0 0 1-21.886 10.653c4.006 8.02 8.638 15.67 13.873 22.848c21.142-6.58 42.646-16.637 64.815-33.213c5.316-56.288-9.08-105.09-38.056-148.36M85.474 135.095c-12.645 0-23.015-11.805-23.015-26.18s10.149-26.2 23.015-26.2c12.867 0 23.236 11.804 23.015 26.2c.02 14.375-10.148 26.18-23.015 26.18m85.051 0c-12.645 0-23.014-11.805-23.014-26.18s10.148-26.2 23.014-26.2c12.867 0 23.236 11.804 23.015 26.2c0 14.375-10.148 26.18-23.015 26.18"/></svg>
-                <svg class="mx-5 opacity-75" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 256 259.3"><path fill="#9edcf2" d="M200.9 199.8c0 13.9-32.2 25.1-71.9 25.1s-71.9-11.3-71.9-25.1c0-13.9 32.2-25.1 71.9-25.1s71.9 11.2 71.9 25.1m0 0"/><defs><path id="logosGithubOctocat0" d="M98.1 244.8c1.6 7.5 5.5 11.9 9.4 14.5h41.1c5-3.4 10.1-9.8 10.1-21.8v-31s.6-7.7 7.7-10.2c0 0 4.1-2.9-.3-4.5c0 0-19.5-1.6-19.5 14.4v23.6s.8 8.7-3.8 12.3v-29.2s.3-9.3 5.1-12.8c0 0 3.2-5.7-3.8-4.2c0 0-13.4 1.9-14 17.6l-.3 30h-3.2l-.3-30c-.6-15.6-14-17.6-14-17.6c-7-1.6-3.8 4.2-3.8 4.2c4.8 3.5 5.1 12.8 5.1 12.8v29.5c-4.6-3.3-3.8-12.6-3.8-12.6v-23.6c0-16-19.5-14.4-19.5-14.4c-4.5 1.6-.3 4.5-.3 4.5c7 2.6 7.7 10.2 7.7 10.2v21.7z"/></defs><clipPath id="logosGithubOctocat1"><use href="#logosGithubOctocat0"/></clipPath><path fill="#7dbce7" d="M200.9 199.8c0 13.9-32.2 25.1-71.9 25.1s-71.9-11.3-71.9-25.1c0-13.9 32.2-25.1 71.9-25.1s71.9 11.2 71.9 25.1m0 0" clip-path="url(#logosGithubOctocat1)"/><path fill="#9edcf2" d="m46.9 125.9l-2.1 7.2s-.5 2.6 1.9 3.1c2.6-.1 2.4-2.5 2.2-3.2zm0 0"/><path fill="#010101" d="m255.8 95.6l.2-.9c-21.1-4.2-42.7-4.3-55.8-3.7c2.1-7.7 2.8-16.7 2.8-26.6c0-14.3-5.4-25.7-14-34.3c1.5-4.9 3.5-15.8-2-29.7c0 0-9.8-3.1-32.1 11.8c-8.7-2.2-18-3.3-27.3-3.3c-10.2 0-20.5 1.3-30.2 3.9C74.4-2.9 64.3.3 64.3.3c-6.6 16.5-2.5 28.8-1.3 31.8c-7.8 8.4-12.5 19.1-12.5 32.2c0 9.9 1.1 18.8 3.9 26.5c-13.2-.5-34-.3-54.4 3.8l.2.9c20.4-4.1 41.4-4.2 54.5-3.7c.6 1.6 1.3 3.2 2 4.7c-13 .4-35.1 2.1-56.3 8.1l.3.9c21.4-6 43.7-7.6 56.6-8c7.8 14.4 23 23.8 50.2 26.7c-3.9 2.6-7.8 7-9.4 14.5c-5.3 2.5-21.9 8.7-31.9-8.5c0 0-5.6-10.2-16.3-11c0 0-10.4-.2-.7 6.5c0 0 6.9 3.3 11.7 15.6c0 0 6.3 21 36.4 14.2V177s-.6 7.7-7.7 10.2c0 0-4.2 2.9.3 4.5c0 0 19.5 1.6 19.5-14.4v-23.6s-.8-9.4 3.8-12.6v38.8s-.3 9.3-5.1 12.8c0 0-3.2 5.7 3.8 4.2c0 0 13.4-1.9 14-17.6l.3-39.3h3.2l.3 39.3c.6 15.6 14 17.6 14 17.6c7 1.6 3.8-4.2 3.8-4.2c-4.8-3.5-5.1-12.8-5.1-12.8v-38.5c4.6 3.6 3.8 12.3 3.8 12.3v23.6c0 16 19.5 14.4 19.5 14.4c4.5-1.6.3-4.5.3-4.5c-7-2.6-7.7-10.2-7.7-10.2v-31c0-12.1-5.1-18.5-10.1-21.8c29-2.9 42.9-12.2 49.3-26.8c12.7.3 35.6 1.9 57.4 8.1l.3-.9c-21.7-6.1-44.4-7.7-57.3-8.1c.6-1.5 1.1-3 1.6-4.6c13.4-.5 35.1-.5 56.3 3.7m0 0"/><path fill="#f5ccb3" d="M174.6 63.7c6.2 5.7 9.9 12.5 9.9 19.8c0 34.4-25.6 35.3-57.2 35.3S70.1 114 70.1 83.5c0-7.3 3.6-14.1 9.8-19.7c10.3-9.4 27.7-4.4 47.4-4.4s37-5.1 47.3 4.3m0 0"/><path fill="#fff" d="M108.3 85.3c0 9.5-5.3 17.1-11.9 17.1c-6.6 0-11.9-7.7-11.9-17.1c0-9.5 5.3-17.1 11.9-17.1c6.6-.1 11.9 7.6 11.9 17.1m0 0"/><path fill="#af5c51" d="M104.5 85.5c0 6.3-3.6 11.4-7.9 11.4c-4.4 0-7.9-5.1-7.9-11.4c0-6.3 3.6-11.4 7.9-11.4c4.3 0 7.9 5.1 7.9 11.4m0 0"/><path fill="#fff" d="M172.2 85.3c0 9.5-5.3 17.1-11.9 17.1c-6.6 0-11.9-7.7-11.9-17.1c0-9.5 5.3-17.1 11.9-17.1c6.5-.1 11.9 7.6 11.9 17.1m0 0"/><path fill="#af5c51" d="M168.3 85.5c0 6.3-3.6 11.4-7.9 11.4c-4.4 0-7.9-5.1-7.9-11.4c0-6.3 3.6-11.4 7.9-11.4c4.4 0 7.9 5.1 7.9 11.4m-37.8 15c0 1.6-1.3 3-3 3c-1.6 0-3-1.3-3-3s1.3-3 3-3c1.6 0 3 1.3 3 3m-9.9 7.5c-.2-.5.1-1 .6-1.2c.5-.2 1 .1 1.2.6c.8 2.2 2.8 3.6 5.1 3.6s4.3-1.5 5.1-3.6c.2-.5.7-.8 1.2-.6c.5.2.8.7.6 1.2c-1 2.9-3.8 4.9-6.9 4.9c-3.1 0-5.9-2-6.9-4.9m0 0"/><path fill="#c4e5d9" d="M54.5 121.6c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2 0 2.1.6 2.1 1.4m5.8 3.2c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2 0 2.1.6 2.1 1.4m3.5 4.2c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2-.1 2.1.6 2.1 1.4m3.2 4.8c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2-.1 2.1.6 2.1 1.4m3.5 4.4c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2 0 2.1.6 2.1 1.4m4.8 3.9c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2-.1 2.1.6 2.1 1.4m6.7 2.5c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2 0 2.1.6 2.1 1.4m6.7 0c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.2 0 2.1.6 2.1 1.4m6.8-1.1c0 .8-.9 1.4-2.1 1.4c-1.1 0-2.1-.6-2.1-1.4c0-.8.9-1.4 2.1-1.4c1.1 0 2.1.6 2.1 1.4m0 0"/></svg>
-                <svg class="mx-5 opacity-75" xmlns="http://www.w3.org/2000/svg" width="3.5em" height="2em" viewBox="0 0 512 168"><path fill="#ff302f" d="m496.052 102.672l14.204 9.469c-4.61 6.79-15.636 18.44-34.699 18.44c-23.672 0-41.301-18.315-41.301-41.614c0-24.793 17.816-41.613 39.308-41.613c21.616 0 32.206 17.193 35.633 26.475l1.869 4.735l-55.692 23.049c4.236 8.348 10.84 12.584 20.183 12.584c9.345 0 15.823-4.61 20.495-11.525M452.384 87.66l37.19-15.45c-2.056-5.17-8.16-8.845-15.45-8.845c-9.281 0-22.176 8.223-21.74 24.295"/><path fill="#20b15a" d="M407.407 4.931h17.94v121.85h-17.94z"/><path fill="#3686f7" d="M379.125 50.593h17.318V124.6c0 30.711-18.128 43.357-39.558 43.357c-20.183 0-32.33-13.58-36.878-24.606l15.885-6.604c2.865 6.79 9.78 14.827 20.993 14.827c13.767 0 22.24-8.535 22.24-24.482v-5.98h-.623c-4.112 4.983-11.961 9.468-21.928 9.468c-20.807 0-39.87-18.128-39.87-41.488c0-23.486 19.063-41.8 39.87-41.8c9.905 0 17.816 4.423 21.928 9.282h.623zm1.245 38.499c0-14.702-9.78-25.417-22.239-25.417c-12.584 0-23.174 10.715-23.174 25.417c0 14.514 10.59 25.042 23.174 25.042c12.46.063 22.24-10.528 22.24-25.042"/><path fill="#ff302f" d="M218.216 88.78c0 23.984-18.688 41.613-41.613 41.613c-22.924 0-41.613-17.691-41.613-41.613c0-24.108 18.689-41.675 41.613-41.675c22.925 0 41.613 17.567 41.613 41.675m-18.19 0c0-14.95-10.84-25.23-23.423-25.23c-12.583 0-23.423 10.28-23.423 25.23c0 14.826 10.84 25.23 23.423 25.23c12.584 0 23.423-10.404 23.423-25.23"/><path fill="#ffba40" d="M309.105 88.967c0 23.984-18.689 41.613-41.613 41.613c-22.925 0-41.613-17.63-41.613-41.613c0-24.108 18.688-41.613 41.613-41.613c22.924 0 41.613 17.443 41.613 41.613m-18.253 0c0-14.95-10.839-25.23-23.423-25.23c-12.583 0-23.423 10.28-23.423 25.23c0 14.826 10.84 25.23 23.423 25.23c12.646 0 23.423-10.466 23.423-25.23"/><path fill="#3686f7" d="M66.59 112.328c-26.102 0-46.534-21.056-46.534-47.158c0-26.101 20.432-47.157 46.534-47.157c14.079 0 24.357 5.544 31.957 12.646l12.522-12.521C100.479 7.984 86.338.258 66.59.258C30.833.259.744 29.414.744 65.17c0 35.758 30.089 64.912 65.846 64.912c19.312 0 33.889-6.354 45.289-18.19c11.711-11.712 15.324-28.158 15.324-41.489c0-4.174-.498-8.472-1.059-11.649H66.59v17.318h42.423c-1.246 10.84-4.672 18.253-9.718 23.298c-6.105 6.168-15.76 12.958-32.705 12.958"/></svg>
-                <svg class="mx-5 opacity-75" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="currentColor" d="m16.624 13.92l2.718 2.716l-7.353 7.353l-7.353-7.352l2.717-2.717l4.636 4.66zm4.637-4.636L24 12l-2.715 2.716L18.568 12zm-9.272 0l2.716 2.692l-2.717 2.717L9.272 12zm-9.273 0L5.41 12l-2.692 2.692L0 12zM11.99.012l7.35 7.328l-2.717 2.715L11.99 5.42l-4.636 4.66l-2.717-2.716z"/></svg>
-            </div>
-        </div>
-            <br>
-            <br>
-            <br>       
-            <br>
-            <br>
-            <br>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 bg-red-600">
-            <div class="max-md:hidden flex w-full my-10 max-w-3xl mx-auto mt-400 scroll-smooth">
-                <h1 class="my-5 text-white text-4xl font-semibold">Popular Services</h1>
-            </div>
-        </div>
-        <div class="flex flex-row content-center items-center justify-center max-md:flex-col bg-red-600">
-            <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
-                <div class=" px-6 py-4 bg-white text-red-600">
-                    <h1 class="font-bold text-4xl mb-1">AI Artist</h1>
-                </div>
-            </div>
-            <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
-                <div class="px-6 py-4 bg-white text-red-600">
-                    <h1 class="font-bold text-4xl mb-1">Logo Design</h1>
-                </div>
-            </div>
-            <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
-                <div class="px-6 py-4 bg-white text-red-600">
-                    <h1 class="font-bold text-4xl mb-1">Word Press</h1>
-                </div>
-            </div>
-            <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
-                <div class="px-6 py-4 bg-white text-red-600">
-                    <h1 class="font-bold text-4xl mb-1">Voice Over</h1>
-                </div>
-            </div>
-            <div class="max-w-sm mx-2 mb-4 rounded overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
-                <div class=" px-6 py-4 bg-white text-red-600">
-                    <h1 class="font-bold text-4xl mb-1">Video Editor</h1>
-                </div>
-            </div>
-        </div>
-
+          </div>
+        
         <div class="flex flex-col items-center p-10 bg-gray-50">
             <h2 class="text-3xl font-semibold text-gray-800 mb-8">Make it all happen with <span class="text-red-600">JobHunt</span></h2>
             
@@ -367,15 +419,15 @@ defineProps({
                 </div>
 
                 <div class="max-md:hidden flex w-full my-10 max-w-3xl mx-auto mt-400">
-                    <p class="flex-end my-10">With over 2000+ job advertisements available, your next career move could be just a click away. Whether you're seeking a new challenge, looking to advance your career, or embarking on a fresh start, our extensive collection of job listings offers a diverse range of opportunities to suit your skills, interests, and ambitions.</p>
+                    <p class="flex-end my-10 font-geistmono">With over 2000+ job advertisements available, your next career move could be just a click away. Whether you're seeking a new challenge, looking to advance your career, or embarking on a fresh start, our extensive collection of job listings offers a diverse range of opportunities to suit your skills, interests, and ambitions.</p>
                 </div>
 
                 <div class="max-md:hidden flex w-full my-10 max-w-3xl mx-auto mt-400">
-                    <p class="flex-start my-10">Over 1000 seasoned professionals spanning the globe unite in expertise to illuminate this topic. From diverse backgrounds and corners of the world, our collective knowledge converges to offer a comprehensive perspective. With a wealth of experience, insights, and cultural nuances, our global network brings unparalleled depth to the table. Together, we navigate the intricacies of this subject, drawing from a mosaic of perspectives to provide holistic understanding and innovative solutions. Our collaboration transcends borders, empowering us to tackle challenges with agility and creativity. As a community of professionals, we stand ready to enrich discourse, drive progress, and shape the future</p>
+                    <p class="flex-start my-10 font-geistmono">Over 1000 seasoned professionals spanning the globe unite in expertise to illuminate this topic. From diverse backgrounds and corners of the world, our collective knowledge converges to offer a comprehensive perspective. With a wealth of experience, insights, and cultural nuances, our global network brings unparalleled depth to the table. Together, we navigate the intricacies of this subject, drawing from a mosaic of perspectives to provide holistic understanding and innovative solutions. Our collaboration transcends borders, empowering us to tackle challenges with agility and creativity. As a community of professionals, we stand ready to enrich discourse, drive progress, and shape the future</p>
                     </div>
 
                     <div className="max-md:hidden flex w-90 max-w-3xl my-10 mx-auto mt-400">
-                        <h1 className="flex-end my-10  text-white bg-red-600 text-7xl font-semibold my-10 rounded py-3 px-3 ">1000+ professionals all around the globe</h1>
+                        <h1 className="flex-end my-10  text-white bg-red-600 text-7xl font-semibold rounded py-3 px-3 ">1000+ professionals all around the globe</h1>
                     </div>
                     
                     <div className="max-md:hidden flex my-10  w-90 max-w-3xl mx-auto mt-400">
@@ -383,7 +435,7 @@ defineProps({
                     </div>
         
                     <div className="max-md:hidden flex my-10 w-90 max-w-3xl mx-auto mt-400">
-                        <p className="flex-end my-10">Join our platform and tap into a vast pool of potential clients, with over 5000 individuals visiting our platform daily. Whether you're a freelancer, entrepreneur, or business owner, our platform offers unparalleled exposure to a diverse audience actively seeking products, services, and partnerships. With such high daily traffic, your business gains visibility and reach, allowing you to showcase your offerings to a wide range of prospective clients. From small-scale projects to large-scale collaborations, our platform facilitates meaningful connections between businesses and clients, driving growth and success.</p>
+                        <p className="flex-end my-10 font-geistmono">Join our platform and tap into a vast pool of potential clients, with over 5000 individuals visiting our platform daily. Whether you're a freelancer, entrepreneur, or business owner, our platform offers unparalleled exposure to a diverse audience actively seeking products, services, and partnerships. With such high daily traffic, your business gains visibility and reach, allowing you to showcase your offerings to a wide range of prospective clients. From small-scale projects to large-scale collaborations, our platform facilitates meaningful connections between businesses and clients, driving growth and success.</p>
                     </div>
 
                 </div>
