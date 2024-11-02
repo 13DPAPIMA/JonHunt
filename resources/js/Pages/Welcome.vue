@@ -190,7 +190,7 @@ defineProps({
             
                 <div class="md:w-1/2 mt-10 md:mt-0 flex justify-center">
                     <div class="relative w-3/4">
-                        <img src="/freelancer_working_form_home.png" alt="Freelancer Image" class="rounded-lg shadow-md">
+                        <img src="/freelancer_working_form_home.png" alt="Freelancer Image" class="">
                         <div class="absolute top-4 right-4 bg-white p-2 rounded-lg shadow text-gray-800 text-sm">
                             <p>Project Status</p>
                             <p class="text-red-600 font-semibold">92% | 4 steps out of 5</p>
