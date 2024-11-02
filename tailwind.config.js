@@ -13,14 +13,11 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['GeistVF', 'GeistMonoVF', ...defaultTheme.fontFamily.sans],
+                geist: ['GeistVF', 'sans-serif'],
+                geistmono: ['GeistMonoVF', 'sans-serif'],
             },
         },
     },
-
-
-
     plugins: [require("daisyui"), ]
-
-
 };
