@@ -16,8 +16,6 @@ const sortedProjects = computed(() => {
     return props.projects.slice().sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 }); 
 
-
-
 const searchQuery = ref('');
 
 const filteredProjects = computed(() => {
@@ -78,15 +76,32 @@ const filteredProjects = computed(() => {
                                 />
                 </div>
                 <ul v-if="filteredProjects.length !== undefined" class="py-12">
-                    <div class="flex flex-wrap ">
-                        <div v-for="project in filteredProjects" :key="project.id" class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-4 mb-8">
-                            <div class="bg-white shadow-lg rounded-lg overflow-hidden ">
-                                <div class="w-full max-w-screen-lg p-10 flex flex-col">
-                                    <Link :href="`/projects/${project.id}`" class="text-xl font-semibold mb-2 hover:underline">{{ project.title }}</Link>
-                                    <p class="text-gray-600">Creator: {{ project.creator }}</p>
-                                    <p class="text-gray-600">Budget: {{ project.budget }}</p>
-                                    <p class="text-gray-600">Completion Date: {{ project.completion_date }}</p>
-                                    <p class="text-gray-600">Niche: {{ project.niche }}</p>
+                    <div class="flex flex-wrap -mx-4">
+                        <div 
+                            v-for="project in filteredProjects" 
+                            :key="project.id" 
+                            class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 px-4 mb-8"
+                        >
+                            <div class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                                <div class="p-8">
+                                    <Link 
+                                        :href="`/projects/${project.id}`" 
+                                        class="text-lg font-semibold text-gray-800 mb-4 hover:underline block truncate"
+                                    >
+                                        {{ project.title }}
+                                    </Link>
+                                    <p class="text-gray-600 text-base mb-2">
+                                        <strong>Creator:</strong> {{ project.creator }}
+                                    </p>
+                                    <p class="text-gray-600 text-base mb-2">
+                                        <strong>Budget:</strong> ${{ project.budget }}
+                                    </p>
+                                    <p class="text-gray-600 text-base mb-2">
+                                        <strong>Completion Date:</strong> {{ project.completion_date }}
+                                    </p>
+                                    <p class="text-gray-600 text-base">
+                                        <strong>Niche:</strong> {{ project.niche }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
