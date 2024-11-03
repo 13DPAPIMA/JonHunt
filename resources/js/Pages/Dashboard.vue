@@ -74,7 +74,7 @@ const filteredProjects = computed(() => {
                                             v-model="searchQuery"
                                             type="text"
                                             placeholder="Filter projects"
-                                            class="flex content-center mt-4 block w-60 p-2 border border-gray-300 rounded-lg"
+                                            class="flex content-center mt-4 w-60 p-2 border border-gray-300 rounded-lg"
                                 />
                 </div>
                 <ul v-if="filteredProjects.length !== undefined" class="py-12">
@@ -96,11 +96,5 @@ const filteredProjects = computed(() => {
             <div v-else class="text-gray-600">Users haven't created any projects yet.</div>
         </div>
     </div>
-    <label className="swap swap-flip text-2xl">
-        <input type="checkbox" />
-        
-        <div className="swap-on">😈</div>
-        <div className="swap-off">😇</div>
-      </label>
     </AuthenticatedLayout>
 </template>

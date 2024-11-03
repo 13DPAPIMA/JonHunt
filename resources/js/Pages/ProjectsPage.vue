@@ -44,15 +44,50 @@
                 </div>
               </div>
   
-              <!-- Если не в режиме редактирования, показать сам отзыв -->
               <div v-else>
                 <p class="text-gray-900">{{ review.ReviewText }}</p>
                 <p class="text-sm text-gray-600">
                   {{ review.user.name }} (Rating: {{ review.Rating }})
+
                   <span v-if="auth.user && review.user.id === auth.user.id">
-                    <button @click="editReview(review)" class="text-blue-600 hover:text-blue-800 ml-2">Edit</button>
-                    <button @click="deleteReview(review)" class="text-red-600 hover:text-red-800 ml-2">Delete</button>
-                  </span>
+                    <div class="dropdown relative inline-block text-left">
+                        <button tabindex="0" role="button" class="flex items-center p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition duration-150 ease-in-out">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                class="h-5 w-5 stroke-current text-gray-600"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                                ></path>
+                            </svg>
+                        </button>
+                        
+                        <ul tabindex="0" class="dropdown-content absolute mt-2 w-40 menu bg-base-100 rounded-md shadow-lg p-1 z-10">
+                            <li>
+                                <button
+                                    @click="editReview(review)"
+                                    class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-blue-600 transition duration-150 ease-in-out text-left"
+                                >
+                                    Edit
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    @click="deleteReview(review)"
+                                    class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-red-600 transition duration-150 ease-in-out text-left"
+                                >
+                                    Delete
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </span>
+                
                 </p>
               </div>
             </li>
@@ -63,7 +98,8 @@
           <form @submit.prevent="submitReview" class="space-y-4">
             <div>
               <label for="rating" class="block text-sm font-medium">Rating</label>
-              <select id="rating" v-model="form.Rating" class="mt-1 block w-full">
+              <select id="rating" v-model="form.Rating" class="select select-bordered mt-1 block w-full">
+                <option disabled selected>Choose rating for this project</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -73,7 +109,7 @@
             </div>
             <div>
               <label for="ReviewText" class="block text-sm font-medium">Review</label>
-              <textarea id="ReviewText" v-model="form.ReviewText" class="mt-1 block w-full"></textarea>
+              <textarea id="ReviewText" v-model="form.ReviewText" class="textarea textarea-bordered mt-1 block w-full"></textarea>
             </div>
             <PrimaryButton type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-md">
               Post a review
