@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Project;
+use App\Models\Avatar;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
@@ -67,7 +68,8 @@ class ProjectsController extends Controller
     
     public function display()
 {
-  $projects = Project::all();
+    $projects = Project::with(['creator.avatar'])->get();
+
 
   return Inertia::render('Dashboard', [
     'projects' => $projects, 

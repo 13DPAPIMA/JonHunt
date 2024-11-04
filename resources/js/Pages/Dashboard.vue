@@ -91,7 +91,7 @@ const filteredProjects = computed(() => {
                                         {{ project.title }}
                                     </Link>
                                     <p class="text-gray-600 text-base mb-2">
-                                        <strong>Creator:</strong> {{ project.creator }}
+                                        <strong>Creator:</strong> {{ project.creator.name}}
                                     </p>
                                     <p class="text-gray-600 text-base mb-2">
                                         <strong>Budget:</strong> ${{ project.budget }}
