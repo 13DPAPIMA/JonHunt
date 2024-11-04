@@ -8,7 +8,7 @@
         <div class="max-w-5xl mx-auto bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 sm:p-8 my-10 selection:bg-red-500 selection:text-white overflow-hidden">
            <div class="flex justify-between items-center">
                <h2 class="text-2xl font-semibold text-gray-900 max-w-full">My Projects</h2>
-               <Link :href="route('/projects/create')" class="btn text-lg text-white bg-red-600 "> + Create new project </Link>
+               <Link :href="route('/projects/create')" class="btn text-ml text-white bg-red-600 "> + Create new project </Link>
             </div>
             
             <div v-if="!projects || projects.length === 0" class="py-12">

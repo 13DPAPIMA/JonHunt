@@ -109,7 +109,7 @@ defineProps({
             
                 <div class="flex items-center justify-center w-1/2">
                     <div class="text-center w-full">
-                        <h1 class="max-md:hidden text-gray-800 text-8xl"><span class="text-red-600 font-bold">JobHunt</span> is ranked №1 Freelance Platform in the Baltic States</h1>
+                        <h1 class="max-md:hidden text-gray-800 text-8xl"><span class="text-red-600 font-bold">JobHunt</span> is ranked №1 Freelance Platform in the <span class="text-geist">Baltic States</span></h1>
                         <div class="flex space-x-10 mt-5 justify-center">
                             <img src="/lv.png" alt="Latvia" class="">
                             <img src="/lt.png" alt="Lithuania" class="">
@@ -134,7 +134,7 @@ defineProps({
             </div>
             
 
-            <div class="flex flex-col md:flex-row items-center p-10 rounded-lg shadow-lg">
+            <div class="flex flex-col md:flex-row items-center p-10 rounded-lg shadow-lg bg-white">
                 <div class="md:w-1/2 space-y-6">
                     <h1 class="text-4xl font-bold font-geist text-gray-900">The ultimate <span class="text-red-600 font-nanum font-bold ">freelance</span> solution for professionals</h1>
                     <p class="text-lg text-gray-700">
@@ -199,7 +199,7 @@ defineProps({
                 </div>
             </div>
 
-            <div class="flex justify-center bg-gray-50 py-12">
+            <div class="flex justify-center dark:bg-gray-900 py-12">
     <div class="max-w-6xl bg-white p-10 rounded-lg shadow-lg">
         <h2 class="text-4xl font-bold text-gray-900 mb-8 text-center">
             Why Choose <span class="text-red-600">JobHunt</span>?
@@ -236,7 +236,7 @@ defineProps({
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-3m4 0h1v4h3m-4-6V8m-6 4h12" />
                 </svg>
                 <div>
-                    <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over <span class="text-green-700 font-bold">Fiverr</span></h3>
+                    <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over <span class="text-green-600 font-bold">Fiverr</span></h3>
                     <ul class="mt-2 text-gray-700 text-lg list-disc ml-6">
                         <li><strong>Focus on Quality Over Quantity:</strong> Unlike Fiverr, JobHunt emphasizes long-term projects and deeper collaborations, allowing freelancers to focus on delivering quality work.</li>
                         <li><strong>Transparent Terms:</strong> JobHunt provides clear terms and pricing without hidden fees, making it easier for freelancers and clients to plan and budget.</li>
@@ -339,7 +339,7 @@ defineProps({
             </div>
           </div>
         
-        <div class="flex flex-col items-center p-10 bg-gray-50">
+        <div class="flex flex-col items-center p-10 bg-gray-100">
             <h2 class="text-3xl font-semibold text-gray-800 mb-8">Make it all happen with <span class="text-red-600">JobHunt</span></h2>
             
             <div class="grid grid-cols-1 md:grid-cols-4 gap-16 w-full max-w-4xl">
