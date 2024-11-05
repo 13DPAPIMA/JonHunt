@@ -90,9 +90,28 @@ const filteredProjects = computed(() => {
                                     >
                                         {{ project.title }}
                                     </Link>
-                                    <p class="text-gray-600 text-base mb-2">
-                                        <strong>Creator:</strong> {{ project.creator.name}}
-                                    </p>
+
+                                    <div class="creator-info flex items-center mt-2">
+                                        <!-- Если у создателя проекта есть аватар, отображаем его -->
+                                        <img 
+                                            v-if="project.creator && project.creator.avatar" 
+                                            :src="project.creator.avatar.photo_url" 
+                                            alt="Avatar" 
+                                            class="w-10 h-10 rounded-full mr-3"
+                                        />
+                                
+                                        <!-- Если аватара нет, отображаем круг с первой буквой имени -->
+                                        <div 
+                                            v-else 
+                                            class="w-10 h-10 rounded-full mr-3 flex items-center justify-center bg-gray-400 text-white font-bold"
+                                        >
+                                            {{ project.creator.name.charAt(0).toUpperCase() }}
+                                        </div>
+                                        
+                                        <!-- Имя создателя проекта -->
+                                        <span class="text-gray-700 font-medium">{{ project.creator.name }}</span>
+                                    </div>
+
                                     <p class="text-gray-600 text-base mb-2">
                                         <strong>Budget:</strong> ${{ project.budget }}
                                     </p>

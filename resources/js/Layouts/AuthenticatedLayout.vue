@@ -69,21 +69,26 @@ const showingNavigationDropdown = ref(false);
                             <div class="ms-3 relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
-
-                                        
                                         <span class="inline-flex rounded-md">
-                                         
-                                            
                                             <button
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mx-1">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                                              </svg>
-                                              
-                                              {{ $page.props.auth.user ? $page.props.auth.user.name : 'Guest' }}
-
+                                                <!-- Проверка на наличие аватара -->
+                                                <span v-if="$page.props.auth.user && $page.props.auth.user.avatar">
+                                                    <img
+                                                        :src="$page.props.auth.user.avatar.photo_url"
+                                                        alt="User Avatar"
+                                                        class="w-6 h-6 rounded-full mr-2"
+                                                    />
+                                                </span>
+                                                <!-- Отображение первой буквы имени, если аватара нет -->
+                                                <span v-else class="w-6 h-6 rounded-full mr-2 flex items-center justify-center bg-gray-400 text-white font-bold">
+                                                    {{ $page.props.auth.user ? $page.props.auth.user.name.charAt(0).toUpperCase() : 'G' }}
+                                                </span>
+                                    
+                                                {{ $page.props.auth.user ? $page.props.auth.user.name : 'Guest' }}
+                                    
                                                 <svg
                                                     class="ms-2 -me-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +101,6 @@ const showingNavigationDropdown = ref(false);
                                                         clip-rule="evenodd"
                                                     />
                                                 </svg>
-                                                
                                             </button>
                                         </span>
                                     </template>
@@ -157,13 +161,34 @@ const showingNavigationDropdown = ref(false);
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
-                        <div class="px-4">
-                            <div class="font-medium text-base text-gray-800">
-                                {{ $page.props.auth.user ? $page.props.auth.user.name : 'Guest' }}
+                        <div class="px-4 flex items-center">
+                            <!-- Если у пользователя есть аватар, отображаем его -->
+                            <img 
+                                v-if="$page.props.auth.user && $page.props.auth.user.avatar" 
+                                :src="$page.props.auth.user.avatar.photo_url" 
+                                alt="User Avatar" 
+                                class="w-10 h-10 rounded-full mr-3"
+                            />
+                    
+                            <!-- Если аватара нет, отображаем круг с инициалом -->
+                            <div 
+                                v-else 
+                                class="w-10 h-10 rounded-full mr-3 flex items-center justify-center bg-gray-400 text-white font-bold"
+                            >
+                                {{ $page.props.auth.user ? $page.props.auth.user.name.charAt(0).toUpperCase() : 'G' }}
                             </div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user ? $page.props.auth.user.email : 'No email' }}</div>
+                            
+                            <!-- Отображаем имя и email пользователя -->
+                            <div>
+                                <div class="font-medium text-base text-gray-800">
+                                    {{ $page.props.auth.user ? $page.props.auth.user.name : 'Guest' }}
+                                </div>
+                                <div class="font-medium text-sm text-gray-500">
+                                    {{ $page.props.auth.user ? $page.props.auth.user.email : 'No email' }}
+                                </div>
+                            </div>
                         </div>
-
+                    
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
@@ -171,6 +196,7 @@ const showingNavigationDropdown = ref(false);
                             </ResponsiveNavLink>
                         </div>
                     </div>
+                    
                 </div>
             </nav>
 

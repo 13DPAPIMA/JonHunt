@@ -60,21 +60,24 @@ class ProjectsController extends Controller
         $project->niche = $validatedData['niche'];
         $project->completion_date = $validatedData['completion_date'];
         $project->budget = $validatedData['budget'];
-        
         $project->creator = Auth::user()->name;
+        
+        $project->creator_id = Auth::id();
+
 
         $project->save();
     }
-    
+
     public function display()
-{
-    $projects = Project::with(['creator.avatar'])->get();
+    {
+        $projects = Project::with(['creator.avatar'])->get();
+    
+        return Inertia::render('Dashboard', [
+            'projects' => $projects, 
+        ]);
+    }
+    
 
-
-  return Inertia::render('Dashboard', [
-    'projects' => $projects, 
-  ]);
-}
 
 public function show(Project $project)
 {

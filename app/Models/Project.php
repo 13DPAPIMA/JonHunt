@@ -26,14 +26,14 @@ use Illuminate\Database\Eloquent\Model;
 
         public function avatar()
         {
-            return $this->hasOne(Avatar::class, 'user_id');
+            return $this->hasOne(Avatar::class, 'id');
         }
 
         public function creator()
         {
-            return $this->belongsTo(User::class, 'id');
+            return $this->belongsTo(User::class, 'creator_id');
         }
-
+        
 
 }
 
