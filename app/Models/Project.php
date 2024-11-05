@@ -24,5 +24,16 @@ use Illuminate\Database\Eloquent\Model;
             return $this->hasMany(Review::class);
         }
 
+        public function avatar()
+        {
+            return $this->hasOne(Avatar::class, 'user_id');
+        }
+
+        public function creator()
+        {
+            return $this->belongsTo(User::class, 'id');
+        }
+
+
 }
 

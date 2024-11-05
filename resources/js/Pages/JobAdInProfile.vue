@@ -7,7 +7,14 @@
         </template>
         <br>
         <div class="max-w-5xl mx-auto bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 sm:p-8">
-            <h2 class="text-2xl font-semibold text-gray-900 max-w-full">My Job Ads</h2>
+            <div class="flex justify-between items-center">
+               <h2 class="text-2xl font-semibold text-gray-900 max-w-full">My Job Advertisments</h2>
+               <Link :href="route('jobAds.create')" class="btn text-ml text-white bg-red-600 "> + Create new Job Advertisement </Link>
+            </div>
+            
+            <div v-if="!jobAds || jobAds.length === 0" class="py-12">
+                <h1>You have no Job Advertisements. Please create one.</h1>
+            </div>
             <ul class="mt-4 space-y-4 max-w-full">
                 <ul v-if="jobAds !== undefined" class="py-12">
                     <li v-for="jobAd in jobAds" :key="jobAd.id" class="border-b border-gray-200 pb-4">
@@ -15,9 +22,9 @@
                         <h3 class="text-lg font-medium text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap">{{ jobAd.Title }}</h3>
                         <p class="text-sm text-gray-600 overflow-hidden text-ellipsis whitespace-nowrap">{{ jobAd.Description }}</p>
                         <p class="overflow-hidden text-ellipsis whitespace-nowrap"><strong>Price:</strong> ${{ jobAd.Price }}</p>
-                        <div class="mt-2">
-                            <Link :href="route('jobAds.edit', { jobAd: jobAd.id })" class="text-blue-600 hover:text-blue-800 mr-4">Edit</Link>
-                            <button @click="deleteJobAd(jobAd.id)" class="text-red-600 hover:text-red-800">Delete</button>
+                         <div class="flex justify-end mt-2">
+                            <Link :href="route('jobAds.edit', { jobAd: jobAd.id })" class="btn bg-white text-blue-600 hover:text-blue-800 mr-4">Edit</Link>
+                            <button @click="deleteJobAd(jobAd.id)" class="btn bg-red-600 rounded-lg text-white hover:bg-red-700 hover:text-white">Delete</button>
                         </div>
                     </li>
                 </ul>
@@ -33,7 +40,7 @@ import { router } from '@inertiajs/vue3';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const { props: pageProps } = usePage();
-const jobAds = ref(pageProps.jobAds);  // Объявления о работе пользователя
+const jobAds = ref(pageProps.jobAds);  
 
 
 const deleteJobAd = (jobAdId) => {
