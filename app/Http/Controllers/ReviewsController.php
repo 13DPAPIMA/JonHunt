@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
+use App\Services\ProfanityFilterService;
 
 class ReviewsController extends Controller
 {
-    public function addReview(Request $request, Project $project)
+    public function addReview(Request $request, Project $project,  ProfanityFilterService $profanityFilter)
 {
     $validated = $request->validate([
         'Rating' => 'required|integer|between:1,5',
@@ -18,7 +19,12 @@ class ReviewsController extends Controller
 
     if (Auth::id() == $project->creator_id) {
         return redirect()->route('projects.show', $project->id)
-            ->with('error', 'You cannot review your own project.');
+            ->withErrors(['error' => 'You cannot review your own project.']);
+    }
+    
+    if ($profanityFilter->containsBadWords($validated['ReviewText'])) {
+        return redirect()->route('projects.show', $project->id)
+            ->withErrors(['error' => 'Your review contains inappropriate language.']);
     }
     
     $reviewedUserId = $project->creator;

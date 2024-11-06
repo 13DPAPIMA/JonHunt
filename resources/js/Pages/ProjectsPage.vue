@@ -35,6 +35,7 @@
                 <div>
                   <label for="editReviewText" class="block text-sm font-medium">Review</label>
                   <textarea id="editReviewText" v-model="editForm.ReviewText" class="mt-1 block w-full"></textarea>
+                  <InputError class="mt-2" :message="form.errors.ReviewText" />
                 </div>
                 <div class="mt-2">
                   <PrimaryButton @click="updateReview" class="bg-blue-600 text-white">
@@ -51,12 +52,12 @@
 
                   <span v-if="auth.user && review.user.id === auth.user.id">
                     <div class="dropdown relative inline-block text-left">
-                        <button tabindex="0" role="button" class="flex items-center p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition duration-150 ease-in-out">
+                        <button tabindex="0" role="button" class="flex items-center p-1 rounded-full hover:bg-gray-200 transition duration-150 ease-in-out">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                class="h-5 w-5 stroke-current text-gray-600"
+                                class="h-3 w-6 stroke-current text-gray-600"
                             >
                                 <path
                                     stroke-linecap="round"
@@ -111,6 +112,13 @@
               <label for="ReviewText" class="block text-sm font-medium">Review</label>
               <textarea id="ReviewText" v-model="form.ReviewText" class="textarea textarea-bordered mt-1 block w-full"></textarea>
             </div>
+
+            <div v-if=" $page.props.errors.error" class="text-red-600 mb-4">
+              {{  $page.props.errors.error }}
+            </div>
+            <div v-if="$page.props.errors.Rating" class="text-red-600 mb-4">
+              {{ $page.props.errors.Rating  }}
+            </div>
             <PrimaryButton type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-md">
               Post a review
             </PrimaryButton>
@@ -129,6 +137,7 @@ import InputError from '@/Components/InputError.vue';
 
 const { props: pageProps } = usePage();
 const { auth } = pageProps;
+const { errors } = pageProps; 
 
 const props = defineProps({
   project: Object,
