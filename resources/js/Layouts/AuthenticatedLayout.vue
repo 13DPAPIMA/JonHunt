@@ -10,6 +10,7 @@ import { Link } from '@inertiajs/vue3';
 const showingNavigationDropdown = ref(false);
 </script>
 
+
 <template>
     <div>
         <div class="min-h-screen bg-gray-100 selection:bg-red-500 selection:text-white overflow-hidden">
@@ -29,7 +30,6 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Projects List
                                 </NavLink>
@@ -77,11 +77,11 @@ const showingNavigationDropdown = ref(false);
                                                 <!-- Проверка на наличие аватара -->
                                                 <span v-if="$page.props.auth.user && $page.props.auth.user.avatar">
                                                     <img
-                                                        :src="$page.props.auth.user.avatar.photo_url"
-                                                        alt="User Avatar"
-                                                        class="w-6 h-6 rounded-full mr-2"
+                                                      :src="$page.props.auth.user.avatar.photo_url"
+                                                      alt="User Avatar"
+                                                      class="w-8 h-8 rounded-full"
                                                     />
-                                                </span>
+                                                  </span>
                                                 <!-- Отображение первой буквы имени, если аватара нет -->
                                                 <span v-else class="w-6 h-6 rounded-full mr-2 flex items-center justify-center bg-gray-400 text-white font-bold">
                                                     {{ $page.props.auth.user ? $page.props.auth.user.name.charAt(0).toUpperCase() : 'G' }}

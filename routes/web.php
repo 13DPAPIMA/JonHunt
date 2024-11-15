@@ -56,12 +56,17 @@ Route::middleware(['auth', 'verified' ])->group(function () {
 Route::get('/guest', [GuestController::class, 'dashboard'])->name('guest.dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'myProfile'])->name('profile.my')->middleware('auth');
+    Route::get('/users/{username}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::post('/avatar/upload', [PhotoController::class, 'uploadPhoto'])->name('avatar.upload');
+Route::delete('/avatar/delete', [PhotoController::class, 'deleteAvatar'])->name('avatar.delete');
+Route::get('/avatar', [PhotoController::class, 'getAvatar'])->name('avatar.get');
+
 Route::get('/profile/avatar', [PhotoController::class, 'getAvatar'])->name('avatar.get');
 
 Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');

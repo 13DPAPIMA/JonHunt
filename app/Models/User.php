@@ -20,10 +20,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
         'role',
     ];
-
+    
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -51,6 +52,11 @@ class User extends Authenticatable
 
     public function avatar()
     {
-        return $this->hasOne(Avatar::class);
+        return $this->hasOne(Avatar::class, 'user_id');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 }

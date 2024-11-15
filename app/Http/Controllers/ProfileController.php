@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use App\Models\Project;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -49,12 +51,41 @@ class ProfileController extends Controller
     }
     
 
-    public function show($userId)
-    {
-        $user = auth()->user();
-        return view('profile.edit', compact('user'));
-    }
+    public function show($username)
+{
+    // Получение данных пользователя
+    $user = User::where('username', $username)->firstOrFail();
 
+    // Получение проектов, в которых пользователь участвует
+    $projects = Project::where('id', $user->id)->get(); // Предполагается, что есть связь между проектами и пользователем
+
+    // Возврат данных во Vue-компонент
+    return Inertia::render('UserProfile', [
+        'user' => [
+            'id' => $user->id,
+            'name' => $user->name,
+            'username' => $user->username,
+            'email' => $user->email,
+            'avatar' => [
+                'photo_url' => $user->avatar,
+            ],
+            'role' => $user->role,
+            'description' => $user->description,
+        ],
+        'projects' => $projects,
+    ]);
+}
+    
+ 
+    public function myProfile()
+    {
+        $user = Auth::user();
+
+        return Inertia::render('UserProfile', [
+            'user' => $user,
+            'currentUserId' => Auth::id(),
+        ]);
+    }
 
     /**
      * Delete the user's account.

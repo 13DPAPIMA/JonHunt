@@ -93,24 +93,40 @@ const filteredProjects = computed(() => {
 
                                     <div class="creator-info flex items-center mt-2">
                                         <!-- Если у создателя проекта есть аватар, отображаем его -->
-                                        <img 
+                                        <a 
                                             v-if="project.creator && project.creator.avatar" 
-                                            :src="project.creator.avatar.photo_url" 
-                                            alt="Avatar" 
-                                            class="w-10 h-10 rounded-full mr-3"
-                                        />
-                                
-                                        <!-- Если аватара нет, отображаем круг с первой буквой имени -->
-                                        <div 
-                                            v-else 
-                                            class="w-10 h-10 rounded-full mr-3 flex items-center justify-center bg-gray-400 text-white font-bold"
+                                            :href="`/users/${project.creator.username}`" 
+                                            class="flex items-center"
                                         >
-                                            {{ project.creator.name.charAt(0).toUpperCase() }}
-                                        </div>
-                                        
+                                            <img 
+                                                :src="project.creator.avatar.photo_url" 
+                                                alt="Avatar" 
+                                                class="w-10 h-10 rounded-full mr-3"
+                                            />
+                                        </a>
+                                    
+                                        <!-- Если аватара нет, отображаем круг с первой буквой имени -->
+                                        <a 
+                                            v-else 
+                                            :href="`/users/${project.creator.username}`" 
+                                            class="flex items-center"
+                                        >
+                                            <div 
+                                                class="w-10 h-10 rounded-full mr-3 flex items-center justify-center bg-gray-400 text-white font-bold"
+                                            >
+                                                {{ project.creator.name.charAt(0).toUpperCase() }}
+                                            </div>
+                                        </a>
+                                    
                                         <!-- Имя создателя проекта -->
-                                        <span class="text-gray-700 font-medium">{{ project.creator.name }}</span>
+                                        <a 
+                                            :href="`/users/${project.creator.username}`" 
+                                            class="text-gray-700 font-medium hover:text-blue-500 transition"
+                                        >
+                                            {{ project.creator.name }}
+                                        </a>
                                     </div>
+                                    
 
                                     <p class="text-gray-600 text-base mb-2">
                                         <strong>Budget:</strong> ${{ project.budget }}

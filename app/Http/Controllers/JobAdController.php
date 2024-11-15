@@ -45,7 +45,7 @@ class JobAdController extends Controller
         $jobAd->description = $request->description;
         $jobAd->price = $request->price;
         $jobAd->examples = $exampleFilePath;
-        $jobAd->creator = Auth::user()->name;  // ID текущего пользователя
+        $jobAd->creator = Auth::user()->name;  
 
         $jobAd->save();
 

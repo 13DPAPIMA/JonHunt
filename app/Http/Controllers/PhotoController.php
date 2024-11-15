@@ -79,4 +79,33 @@ class PhotoController extends Controller
 
         return response()->json(['photo_url' => $avatar->photo_url]); // Возвращаем URL аватара
     }
+
+    public function deleteAvatar()
+{
+    $user = Auth::user();
+
+    if (!$user) {
+        return response()->json(['error' => 'User not found'], 404);
+    }
+
+    // Ищем аватар пользователя
+    $avatar = Avatar::where('user_id', $user->id)->first();
+
+    if (!$avatar) {
+        return response()->json(['message' => 'No avatar to delete'], 404);
+    }
+
+    try {
+        // Удаление из Cloudinary
+        Cloudinary::destroy($avatar->cloudinary_public_id);
+
+        // Удаление записи из базы данных
+        $avatar->delete();
+
+        return response()->json(['message' => 'Avatar deleted successfully']);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Failed to delete avatar', 'error' => $e->getMessage()], 500);
+    }
+}
+
 }

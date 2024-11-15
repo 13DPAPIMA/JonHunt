@@ -103,6 +103,6 @@ class UserController extends Controller
 
     public function profile(User $user)
     {
-    return view('user.profile', compact('user'));
+        return view('user.profile', compact('user'));
     }
 }
