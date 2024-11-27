@@ -104,12 +104,10 @@ defineProps({
             <div class="hidden md:flex w-full h-screen">
 
             <div class="flex flex-col md:flex-row w-full h-screen">
-                <!-- Image Section (Hidden on Small Screens) -->
                 <div class="hidden md:block w-full md:w-1/2 h-1/2 md:h-full overflow-hidden">
                     <img src="/freelancer_photo-removebg.png" alt="Freelancer Image" class="w-full h-full object-cover">
                 </div>
             
-                <!-- Text Section -->
                 <div class="flex items-center justify-center w-full md:w-1/2 p-4 md:p-0">
                     <div class="text-center w-full">
                         <h1 class="text-gray-800 text-4xl md:text-6xl lg:text-8xl">
@@ -240,17 +238,17 @@ defineProps({
             </div>
 
             <div class="flex items-start space-x-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-9 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-3m4 0h1v4h3m-4-6V8m-6 4h12" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
                 <div>
                     <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over <span class="text-green-600 font-bold">Fiverr</span></h3>
                     <ul class="mt-2 text-gray-700 text-lg list-disc ml-6">
-                        <li><strong>Focus on Quality Over Quantity:</strong> Unlike Fiverr, JobHunt emphasizes long-term projects and deeper collaborations, allowing freelancers to focus on delivering quality work.</li>
-                        <li><strong>Transparent Terms:</strong> JobHunt provides clear terms and pricing without hidden fees, making it easier for freelancers and clients to plan and budget.</li>
-                        <li><strong>Lower Fees:</strong> Our platform offers lower fees than Fiverr, enabling freelancers to earn more from each project.</li>
-                        <li><strong>Support for Complex Projects:</strong> JobHunt is ideal for larger and more complex tasks that require deeper collaboration and support.</li>
-                        <li><strong>Commitment to Professionalism:</strong> We aim to attract high-quality professionals and clients who prioritize quality work.</li>
+                        <li><strong>Quality Focus:</strong> JobHunt prioritizes long-term projects and quality over quick gigs.</li>
+                        <li><strong>Transparent Pricing:</strong> No hidden fees, making budgeting simple.</li>
+                        <li><strong>Lower Fees:</strong> Freelancers keep more of their earnings.</li>
+                        <li><strong>For Complex Projects:</strong> Ideal for larger tasks needing collaboration.</li>
+                        <li><strong>Professional Community:</strong> Connecting top-tier professionals and clients.</li>
                     </ul>
                 </div>
             </div>
@@ -263,11 +261,11 @@ defineProps({
                 <div>
                     <h3 class="text-2xl font-semibold text-gray-800">Our Advantage Over <span class="text-blue-500 font-bold">Freelancer</span></h3>
                     <ul class="mt-2 text-gray-700 text-lg list-disc ml-6">
-                        <li><strong>User-Friendly Interface:</strong> Unlike Freelancer, JobHunt offers a simpler, more intuitive interface, making it easy to find and manage projects.</li>
-                        <li><strong>Safe Working Environment:</strong> We value professionalism and trust, providing a secure platform for vetted clients and freelancers.</li>
-                        <li><strong>No Excessive Competitions:</strong> Unlike Freelancer's contest-heavy approach, JobHunt provides a more straightforward matching system where clients find qualified professionals directly.</li>
-                        <li><strong>Focus on Long-Term Relationships:</strong> We encourage long-term collaborations and provide conditions that foster partnerships rather than one-off gigs.</li>
-                        <li><strong>Fair Review System:</strong> Our review system is designed to be fair and objective, protecting the reputation and interests of all professionals.</li>
+                        <li><strong>User-Friendly Interface:</strong> JobHunt offers a simple, intuitive way to manage projects.</li>
+                        <li><strong>Secure Platform:</strong> Built on trust with vetted clients and freelancers.</li>
+                        <li><strong>No Contests:</strong> Direct matching without excessive competitions.</li>
+                        <li><strong>Long-Term Focus:</strong> Encourages lasting collaborations over one-off gigs.</li>
+                        <li><strong>Fair Reviews:</strong> Objective system protecting all professionals.</li>
                     </ul>
                 </div>
             </div>
