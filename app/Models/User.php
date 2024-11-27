@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return 'username';
     }
+
+    public function freelancer()
+    {
+        return $this->hasOne(Freelancer::class);
+    }
 }

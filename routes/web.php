@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\JobAdController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\FreelancerController;
+
 
 
 use Illuminate\Foundation\Application;
@@ -40,6 +42,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/jobAdvertisements/{jobAd}', [JobAdController::class, 'update'])->name('jobAds.update');  // Обновление
     Route::delete('/jobAdvertisements/delete/{jobAd}', [JobAdController::class, 'destroy'])->name('jobAds.delete');
 });
+
+Route::get('/freelancer-registration', function () {
+    return inertia('FreelancerRegistration');
+})->name('freelancer.registration');
+
+Route::post('/api/become-freelancer', [FreelancerController::class, 'store'])->name('freelancer.store');
 
 
 Route::get('/projects/create', function () {
