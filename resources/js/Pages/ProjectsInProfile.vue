@@ -1,5 +1,7 @@
 <template>
     <AuthenticatedLayout>
+        <Head title="My Projects" />
+
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Your projects
@@ -35,7 +37,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { usePage, Link, router } from '@inertiajs/vue3';
+import { usePage, Link, router, Head } from '@inertiajs/vue3';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const { props } = usePage();

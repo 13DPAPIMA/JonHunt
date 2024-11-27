@@ -1,5 +1,8 @@
 <template>
     <AuthenticatedLayout>
+
+        <Head title="My Gigs" />
+
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Your Job Advertisements
@@ -35,7 +38,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { usePage, Link } from '@inertiajs/vue3';
+import { usePage, Link, Head } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3';
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 

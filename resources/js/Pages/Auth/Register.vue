@@ -2,15 +2,7 @@
     <GuestLayout>
         <Head title="Register" />
 
-        <div v-if="!roleSelected">
-            <h2 class="text-center text-2xl font-semibold text-gray-900">Please select your role</h2>
-            <div class="flex justify-center mt-4 space-x-4">
-                <PrimaryButton @click="selectRole('freelancer')" class="ms-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700">Freelancer</PrimaryButton>
-                <PrimaryButton @click="selectRole('employer')" class=" ms-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700">Employer</PrimaryButton>
-            </div>
-        </div>
-
-        <form v-else @submit.prevent="submit">
+        <form @submit.prevent="submit">
             <div>
                 <InputLabel for="name" value="Name" />
 
@@ -87,7 +79,6 @@
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
             </div>
 
-            <input type="hidden" v-model="form.role" />
 
             <div class="flex items-center justify-end mt-4">
                 <Link
@@ -120,15 +111,7 @@ const form = useForm({
     username: '', 
     password: '',
     password_confirmation: '',
-    role: '', 
 });
-
-const roleSelected = ref(false);
-
-const selectRole = (role) => {
-    form.role = role;
-    roleSelected.value = true;
-};
 
 const submit = () => {
     form.post(route('register'), {
