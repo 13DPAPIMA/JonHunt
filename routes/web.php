@@ -49,6 +49,11 @@ Route::get('/freelancer-registration', function () {
 
 Route::post('/api/become-freelancer', [FreelancerController::class, 'store'])->name('freelancer.store');
 
+Route::get('/freelancer/{username}/edit', [FreelancerController::class, 'edit'])->name('freelancers.edit');
+Route::put('/freelancer/{username}/update', [FreelancerController::class, 'update'])->name('freelancers.update');
+Route::get('/freelancer/{username}', [FreelancerController::class, 'show'])->name('freelancers.show');
+
+
 
 Route::get('/projects/create', function () {
     return Inertia::render('CreateProject');

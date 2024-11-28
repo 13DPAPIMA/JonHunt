@@ -22,18 +22,14 @@
 
       <div class="mt-12 px-6 pb-6 text-center">
         <h2 class="mt-4 text-2xl font-semibold text-gray-800">{{ user.name }}</h2>
-        <p class="text-gray-600">{{ user.email }}</p>
-        <p class="mt-2 text-gray-600">
-          <strong>Role:</strong> {{ user.role }}
-        </p>
+
         <p v-if="user.description" class="mt-4 text-gray-500">{{ user.description }}</p>
       </div>
 
       <div class="px-6 py-4">
         <h3 class="text-lg font-medium text-gray-700">User Information</h3>
         <div class="mt-2">
-          <p><strong>Name:</strong> {{ user.name }}</p>
-          <p><strong>Email:</strong> {{ user.email }}</p>
+
         </div>
 
         <div v-if="projects && projects.length > 0" class="px-6 py-4">
@@ -53,11 +49,7 @@
           This user has not participated in any projects yet.
         </div>
       
-        <div class="mt-4">
-          <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-full transition-colors duration-200">
-            Contact User
-          </button>
-        </div>
+
       </div>
     </div>
   </div>

@@ -72,7 +72,7 @@ defineProps({
                 <Link
                 v-if="canRegister"
                 :href="route('/projects/create')"
-                class="mx-5 my-5 inline-flex items-center px-4 py-2 bg-white font-bold border border-transparent rounded-md font-sans text-xs text-red-600 border-red-600 uppercase tracking-widest hover:bg-red-600 hover:text-white focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-200"
+                class="mx-5 my-5 inline-flex items-center px-4 py-2 bg-white font-bold border border-transparent rounded-md font-sans text-xs text-red-600 border-red-600 uppercase tracking-widest hover:border-red-600 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-200"
             >Become a Freelancer</Link>
 
 
