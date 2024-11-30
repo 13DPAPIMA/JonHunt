@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('Title');
             $table->text('Description');
-            $table->string('creator');
+            $table->string('creator')->nullable();
             $table->text('Examples')->nullable();
             $table->decimal('Price', 10, 2);
             $table->timestamps();

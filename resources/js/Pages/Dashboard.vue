@@ -120,7 +120,7 @@ const filteredProjects = computed(() => {
                                     
                                         <!-- Имя создателя проекта -->
                                         <a 
-                                            :href="`/users/${project.creator.username}`" 
+                                            :href="`/user/${project.creator.username}`" 
                                             class="text-gray-700 font-medium hover:text-blue-500 transition"
                                         >
                                             {{ project.creator.name }}

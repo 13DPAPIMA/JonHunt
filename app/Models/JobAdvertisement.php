@@ -15,6 +15,7 @@ class JobAdvertisement extends Model
         'creator', 
         'examples',
         'price',
+        'creator_id',
     ];
 
     // Relationship to the User who created the job ad
