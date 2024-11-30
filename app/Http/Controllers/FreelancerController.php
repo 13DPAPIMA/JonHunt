@@ -111,17 +111,30 @@ public function update(Request $request, $username)
 
 public function show($username)
 {
-    $user = User::where('username', $username)->firstOrFail();
-    
-    if (!$user->freelancer) {
-        abort(404, 'Freelancer profile not found.');
+    $user = User::where('username', $username)->with('freelancerProfile')->firstOrFail();
+
+    $profileData = [
+        'id' => $user->id,
+        'name' => $user->name,
+        'username' => $user->username,
+        'email' => $user->email,
+        'avatar' => $user->avatar,
+        'role' => $user->role,
+        'description' => $user->description,
+    ];
+
+    if ($user->role === 'freelancer' && $user->freelancerProfile) {
+        $profileData['freelancer'] = [
+            'specialization' => $user->freelancerProfile->specialization,
+            'country' => $user->freelancerProfile->country,
+            'hourly_rate' => $user->freelancerProfile->hourly_rate,
+            'bio' => $user->freelancerProfile->bio,
+            'portfolio' => $user->freelancerProfile->portfolio,
+        ];
     }
 
-    $freelancer = $user->freelancer;
-
-    return inertia('FreelancerProfile', [
-        'freelancer' => $freelancer,
-        'user' => $user,
+    return inertia('UserProfile', [
+        'profile' => $profileData,
     ]);
 }
 

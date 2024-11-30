@@ -81,9 +81,17 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        return Inertia::render('UserProfile', [
-            'user' => $user,
-            'currentUserId' => Auth::id(),
+        return inertia('UserProfile', [
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'username' => $user->username,
+                'email' => $user->email,
+                'role' => $user->role,
+                'description' => $user->description,
+                'avatar' => $user->avatar, // Убедись, что аватар доступен
+            ],
+            'freelancerData' => $user->role === 'freelancer' ? $user->freelancerProfile : null,
         ]);
     }
 
