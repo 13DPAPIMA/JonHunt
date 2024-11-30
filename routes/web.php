@@ -48,7 +48,6 @@ Route::get('/freelancer-registration', function () {
 })->name('freelancer.registration');
 
 Route::post('/api/become-freelancer', [FreelancerController::class, 'store'])->name('freelancer.store');
-
 Route::get('/freelancer/{username}/edit', [FreelancerController::class, 'edit'])->name('freelancers.edit');
 Route::put('/freelancer/{username}/update', [FreelancerController::class, 'update'])->name('freelancers.update');
 
@@ -68,7 +67,7 @@ Route::get('/guest', [GuestController::class, 'dashboard'])->name('guest.dashboa
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'myProfile'])->name('profile.my')->middleware('auth');
-    Route::get('/users/{username}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/user/{username}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -98,8 +97,5 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/projects/delete/{project}', [UserController::class, 'delete'])->name('projects.delete');
 });
 
-Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show');
-Route::get('/user/{user}/services', [UserController::class, 'services'])->name('user.services');
-Route::get('/user/{user}', [UserController::class, 'profile'])->name('user.profile');
 
 require __DIR__.'/auth.php';

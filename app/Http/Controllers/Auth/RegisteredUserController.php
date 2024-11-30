@@ -37,7 +37,7 @@ class RegisteredUserController extends Controller
             'username' => [
                 'required',
                 'string',
-                'max:20',
+                'max:16',
                 'min:3',
                 'regex:/^[a-zA-Z0-9._-]+$/',
                 'unique:' . User::class,

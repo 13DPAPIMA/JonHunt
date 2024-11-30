@@ -90,6 +90,7 @@ class ProfileController extends Controller
                 'role' => $user->role,
                 'description' => $user->description,
                 'avatar' => $user->avatar, // Убедись, что аватар доступен
+                'user' => Auth::user(),
             ],
             'freelancerData' => $user->role === 'freelancer' ? $user->freelancerProfile : null,
         ]);

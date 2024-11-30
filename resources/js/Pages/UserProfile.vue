@@ -30,7 +30,6 @@
           <p><strong>Email:</strong> {{ user.email }}</p>
           <p><strong>Role:</strong> {{ user.role }}</p>
 
-          <!-- Дополнительные данные для фрилансеров -->
           <template v-if="user.role === 'freelancer'">
             <h3 class="text-lg font-medium text-gray-700 mt-6">Freelancer Details</h3>
             <p><strong>Specialization:</strong> {{ user.specialization }}</p>
@@ -74,7 +73,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const props = defineProps({
   user: Object,
-  projects: Array, // Предполагаем, что данные о проектах передаются
+  projects: Array,
 });
 </script>
 
