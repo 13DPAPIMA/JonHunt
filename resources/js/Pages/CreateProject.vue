@@ -88,7 +88,7 @@ const niches = ['Technology', 'Health', 'Education', 'Finance', 'Entertainment']
                <br> <InputLabel for="niche" value="Niche" />
                 <select
                   id="niche"
-                  class="mt-1 block w-full focus-red-800"
+                  class=" select select-bordered mt-1 block w-full focus-red-800"
                   v-model="form.niche"
                   required
                   autofocus
