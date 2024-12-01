@@ -178,10 +178,8 @@ import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { countries } from '@/countries.js';
 
-// Текущий шаг формы
 const step = ref(1);
 
-// Форма для регистрации
 const form = useForm({
   name: '',
   bio: '',
@@ -192,19 +190,16 @@ const form = useForm({
   portfolio: null,
 });
 
-// Обработка загрузки файла
 const handleFileUpload = (event) => {
   form.portfolio = event.target.files[0];
 };
 
-// Переход к следующему шагу
 const nextStep = () => {
   if (step.value < 3) {
     step.value++;
   }
 };
 
-// Возврат к предыдущему шагу
 const previousStep = () => {
   if (step.value > 1) {
     step.value--;
@@ -229,14 +224,12 @@ const filteredCountries = computed(() => {
   );
 });
 
-// Выбор страны
 const selectCountry = (country) => {
   form.country = country;
   searchQuery.value = country;
   showDropdown.value = false;
 };
 
-// Закрытие выпадающего списка
 const handleBlur = () => {
   setTimeout(() => {
     showDropdown.value = false;

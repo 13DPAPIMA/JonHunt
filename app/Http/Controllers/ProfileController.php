@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Project;
+use App\Models\JobAdvertisement;
+use App\Models\Freelancer;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -52,50 +54,40 @@ class ProfileController extends Controller
     
 
     public function show($username)
-{
-    // Получение данных пользователя
-    $user = User::where('username', $username)->firstOrFail();
-
-    // Получение проектов, в которых пользователь участвует
-    $projects = Project::where('id', $user->id)->get(); // Предполагается, что есть связь между проектами и пользователем
-
-    // Возврат данных во Vue-компонент
-    return Inertia::render('UserProfile', [
-        'user' => [
-            'id' => $user->id,
-            'name' => $user->name,
-            'username' => $user->username,
-            'email' => $user->email,
-            'avatar' => [
-                'photo_url' => $user->avatar,
-            ],
-            'role' => $user->role,
-            'description' => $user->description,
-        ],
-        'projects' => $projects,
-    ]);
-}
-    
- 
-    public function myProfile()
     {
-        $user = Auth::user();
-
-        return inertia('UserProfile', [
+        // Получаем пользователя по имени
+        $user = User::where('username', $username)->firstOrFail();
+    
+        // Получаем связанные данные
+        $projects = Project::where('creator_id', $user->id)->get();
+        $jobads = JobAdvertisement::where('creator_id', $user->id)->get();
+    
+        // Проверяем, является ли пользователь фрилансером
+        $freelancer = null;
+        if ($user->role === 'freelancer') {
+            $freelancer = Freelancer::where('user_id', $user->id)->first(); // Один фрилансер
+        }
+    
+        // Возвращаем данные во фронтенд
+        return Inertia::render('UserProfile', [
             'user' => [
                 'id' => $user->id,
                 'name' => $user->name,
                 'username' => $user->username,
                 'email' => $user->email,
+                'avatar' => [
+                    'photo_url' => $user->avatar,
+                ],
                 'role' => $user->role,
                 'description' => $user->description,
-                'avatar' => $user->avatar, // Убедись, что аватар доступен
-                'user' => Auth::user(),
             ],
-            'freelancerData' => $user->role === 'freelancer' ? $user->freelancerProfile : null,
+            'freelancer' => $freelancer, // Передаем данные о фрилансере (или null)
+            'projects' => $projects,
+            'jobads' => $jobads,
         ]);
     }
-
+    
+    
     /**
      * Delete the user's account.
      */

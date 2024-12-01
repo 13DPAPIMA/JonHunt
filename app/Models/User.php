@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function projects()
     {
-        return $this->hasMany(Project::class, 'creator');
+        return $this->hasMany(Project::class, 'creator_id');
     }
 
     public function avatar()
@@ -63,5 +63,10 @@ class User extends Authenticatable
     public function freelancer()
     {
         return $this->hasOne(Freelancer::class);
+    }
+
+    public function jobAdvertisements()
+    {
+        return $this->hasMany(JobAdvertisement::class, 'creator_id');
     }
 }

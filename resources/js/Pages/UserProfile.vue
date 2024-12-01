@@ -32,13 +32,13 @@
 
           <template v-if="user.role === 'freelancer'">
             <h3 class="text-lg font-medium text-gray-700 mt-6">Freelancer Details</h3>
-            <p><strong>Specialization:</strong> {{ user.specialization }}</p>
-            <p><strong>Country:</strong> {{ user.country }}</p>
-            <p><strong>Hourly Rate:</strong> ${{ user.hourly_rate }}</p>
-            <p><strong>Bio:</strong> {{ user.bio }}</p>
+            <p><strong>Specialization:</strong> {{ freelancer.specialization }}</p>
+            <p><strong>Country:</strong> {{ freelancer.country }}</p>
+            <p><strong>Hourly Rate:</strong> ${{ freelancer.hourly_rate }}</p>
+            <p><strong>Bio:</strong> {{ freelancer.bio }}</p>
             <a
-              v-if="user.portfolio"
-              :href="'/storage/' + user.portfolio"
+              v-if="freelancer.portfolio"
+              :href="'/storage/' + freelancer.portfolio"
               class="text-blue-500"
               target="_blank"
             >
@@ -72,6 +72,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 
 const props = defineProps({
+  freelancer: Object,
   user: Object,
   projects: Array,
 });

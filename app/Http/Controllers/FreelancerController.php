@@ -69,12 +69,10 @@ class FreelancerController extends Controller
 
 public function update(Request $request, $username)
 {
-    // Лог входящих данных
     \Log::info('Received update request', $request->all());
 
     $freelancer = Auth::user()->freelancer;
 
-    // Валидация данных
     $validatedData = $request->validate([
         'country' => 'required|string|max:255',
         'bio' => 'nullable|string|max:1000',
@@ -104,38 +102,6 @@ public function update(Request $request, $username)
         \Log::error('Failed to update freelancer profile', ['error' => $e->getMessage()]);
         return back()->withErrors(['general' => 'An error occurred while updating the profile. Please try again later.']);
     }
-}
-
-
-
-
-public function show($username)
-{
-    $user = User::where('username', $username)->with('freelancerProfile')->firstOrFail();
-
-    $profileData = [
-        'id' => $user->id,
-        'name' => $user->name,
-        'username' => $user->username,
-        'email' => $user->email,
-        'avatar' => $user->avatar,
-        'role' => $user->role,
-        'description' => $user->description,
-    ];
-
-    if ($user->role === 'freelancer' && $user->freelancerProfile) {
-        $profileData['freelancer'] = [
-            'specialization' => $user->freelancerProfile->specialization,
-            'country' => $user->freelancerProfile->country,
-            'hourly_rate' => $user->freelancerProfile->hourly_rate,
-            'bio' => $user->freelancerProfile->bio,
-            'portfolio' => $user->freelancerProfile->portfolio,
-        ];
-    }
-
-    return inertia('UserProfile', [
-        'profile' => $profileData,
-    ]);
 }
 
 
