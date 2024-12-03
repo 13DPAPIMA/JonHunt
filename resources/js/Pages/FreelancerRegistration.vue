@@ -15,7 +15,6 @@
       <div v-if="step === 1">
         <h3 class="text-xl font-semibold text-gray-700 mb-4">Step 1: Personal Information</h3>
         <form @submit.prevent="nextStep" class="space-y-6">
-          <!-- Поле для имени -->
           <div>
             <InputLabel for="name" value="Name" />
             <p class="mt-2 text-sm text-gray-600">Write your display name</p>
@@ -31,7 +30,6 @@
             <InputError class="mt-2" :message="form.errors.name" />
           </div>
 
-          <!-- Поле для Bio -->
           <div>
             <InputLabel for="bio" value="Bio" />
             <p class="mt-2 text-sm text-gray-600">Write bio about yourself to let people know about you</p>
@@ -46,7 +44,6 @@
             <InputError class="mt-2" :message="form.errors.bio" />
           </div>
 
-          <!-- Поле для поиска и выбора страны -->
           <div>
             <InputLabel for="country" value="Country" />
             <p class="mt-2 text-sm text-gray-600">Choose country where you live</p>
@@ -89,14 +86,21 @@
         <form @submit.prevent="nextStep" class="space-y-6">
           <div>
             <InputLabel for="specialization" value="Specialization" />
-            <TextInput
-              id="specialization"
-              type="text"
-              class="mt-1 block w-full"
-              v-model="form.specialization"
-              required
-              autocomplete="specialization"
-            />
+            <select
+            id="specialization"
+            v-model="form.specialization"
+            class="form-select mt-1 block w-full"
+          >
+            <option disabled value="">Select a specialization</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Graphic Design">Graphic Design</option>
+            <option value="Content Writing">Content Writing</option>
+            <option value="Digital Marketing">Digital Marketing</option>
+            <option value="SEO">SEO</option>
+            <option value="Mobile App Development">Mobile App Development</option>
+            <option value="UI/UX Design">UI/UX Design</option>
+            <!-- Добавьте другие специализации -->
+          </select>
             <InputError class="mt-2" :message="form.errors.specialization" />
           </div>
 
@@ -111,6 +115,19 @@
             <InputError class="mt-2" :message="form.errors.experience" />
           </div>
 
+          <div>
+            <label for="skills" class="block text-sm font-medium text-gray-700">Skills</label>
+            <multiselect
+              v-model="form.skills"
+              :options="availableSkills"
+              :multiple="true"
+              :close-on-select="false"
+              placeholder="Select up to 5 skills"
+              :limit="5"
+            ></multiselect>
+            <InputError class="mt-2" :message="form.errors.skills" />
+          </div>
+          
           <div>
             <InputLabel for="hourly_rate" value="Hourly Rate ($)" />
             <TextInput
@@ -177,8 +194,11 @@ import TextInput from '@/Components/TextInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { countries } from '@/countries.js';
+import Multiselect from "vue-multiselect";
+import "vue-multiselect/dist/vue-multiselect.min.css";
 
 const step = ref(1);
+
 
 const form = useForm({
   name: '',
@@ -188,6 +208,7 @@ const form = useForm({
   experience: '',
   hourly_rate: '',
   portfolio: null,
+  skills: [],
 });
 
 const handleFileUpload = (event) => {
@@ -235,6 +256,20 @@ const handleBlur = () => {
     showDropdown.value = false;
   }, 100);
 };
+
+
+
+const availableSkills = [
+  "Web Development",
+  "Graphic Design",
+  "Content Writing",
+  "Digital Marketing",
+  "SEO",
+  "Mobile App Development",
+  "UI/UX Design",
+];
+
+
 </script>
 
 <style scoped>

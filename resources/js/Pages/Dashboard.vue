@@ -92,7 +92,6 @@ const filteredProjects = computed(() => {
                                     </Link>
 
                                     <div class="creator-info flex items-center mt-2">
-                                        <!-- Если у создателя проекта есть аватар, отображаем его -->
                                         <a 
                                             v-if="project.creator && project.creator.avatar" 
                                             :href="`/users/${project.creator.username}`" 
@@ -105,7 +104,6 @@ const filteredProjects = computed(() => {
                                             />
                                         </a>
                                     
-                                        <!-- Если аватара нет, отображаем круг с первой буквой имени -->
                                         <a 
                                             v-else 
                                             :href="`/users/${project.creator.username}`" 
@@ -118,7 +116,6 @@ const filteredProjects = computed(() => {
                                             </div>
                                         </a>
                                     
-                                        <!-- Имя создателя проекта -->
                                         <a 
                                             :href="`/user/${project.creator.username}`" 
                                             class="text-gray-700 font-medium hover:text-blue-500 transition"

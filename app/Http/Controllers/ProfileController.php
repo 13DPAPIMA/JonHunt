@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
+use App\Models\Skill;
 use App\Models\Project;
 use App\Models\JobAdvertisement;
 use App\Models\Freelancer;
@@ -61,11 +62,15 @@ class ProfileController extends Controller
         // Получаем связанные данные
         $projects = Project::where('creator_id', $user->id)->get();
         $jobads = JobAdvertisement::where('creator_id', $user->id)->get();
-    
+        
         // Проверяем, является ли пользователь фрилансером
+        $skills = [];
         $freelancer = null;
         if ($user->role === 'freelancer') {
-            $freelancer = Freelancer::where('user_id', $user->id)->first(); // Один фрилансер
+            $freelancer = Freelancer::with('skills')->where('user_id', $user->id)->first(); // Фрилансер с скиллами
+            if ($freelancer) {
+                $skills = $freelancer->skills->pluck('name'); // Получаем имена навыков
+            }
         }
     
         // Возвращаем данные во фронтенд

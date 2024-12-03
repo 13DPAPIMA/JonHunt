@@ -10,7 +10,7 @@ class FreelancerSeeder extends Seeder
 {
     public function run()
     {
-        $users = User::inRandomOrder()->take(5)->get(); // Берём 5 случайных пользователей
+        $users = User::inRandomOrder()->take(5)->get(); 
 
         foreach ($users as $user) {
             Freelancer::create([

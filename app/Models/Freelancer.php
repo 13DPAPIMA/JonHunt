@@ -24,4 +24,11 @@ class Freelancer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'freelancer_skill', 'freelancer_id', 'skill_id')
+            ->select('skills.id', 'skills.name');
+    }
+
 }

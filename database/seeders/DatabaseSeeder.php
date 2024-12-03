@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             FreelancerSeeder::class,
             ProjectSeeder::class,
             JobAdvertisementSeeder::class,
+            SkillSeeder::class,
         ]);
     }
 }

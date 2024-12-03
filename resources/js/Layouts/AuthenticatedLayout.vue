@@ -217,7 +217,7 @@ const showingNavigationDropdown = ref(false);
     </div>
 
     <hr>
-    <footer class="footer bg-base-200 p-10 flex flex-col md:flex-row md:justify-around">
+    <footer class="footer bg-base-200 p-10 flex flex-col md:flex-row md:justify-around selection:bg-red-500 selection:text-white">
         <nav class="mb-6 md:mb-0">
           <h6 class="footer-title font-bold">Services</h6>
           <a class="link link-hover">Branding</a>
@@ -241,7 +241,7 @@ const showingNavigationDropdown = ref(false);
       </footer>
       
       
-      <footer class="footer bg-base-200 text-base-content border-base-300 px-10 py-4">
+      <footer class="footer bg-base-200 text-base-content border-base-300 px-10 py-4 selection:bg-red-500 selection:text-white">
         <aside class="grid-flow-col items-center">
             <ApplicationLogo
             class="block h-9 w-auto fill-current text-gray-800"

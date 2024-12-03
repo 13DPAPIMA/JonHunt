@@ -36,6 +36,13 @@
             <p><strong>Country:</strong> {{ freelancer.country }}</p>
             <p><strong>Hourly Rate:</strong> ${{ freelancer.hourly_rate }}</p>
             <p><strong>Bio:</strong> {{ freelancer.bio }}</p>
+            <p><strong>Skills:</strong></p>
+            <ul v-if="freelancer.skills && freelancer.skills.length">
+              <li v-for="skill in freelancer.skills" :key="skill.id || skill">
+                {{ skill.name || skill }}
+              </li>
+            </ul>
+            <p v-else>No skills available</p>
             <a
               v-if="freelancer.portfolio"
               :href="'/storage/' + freelancer.portfolio"
@@ -75,6 +82,7 @@ const props = defineProps({
   freelancer: Object,
   user: Object,
   projects: Array,
+  skills: Object,
 });
 </script>
 
