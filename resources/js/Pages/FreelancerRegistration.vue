@@ -156,14 +156,16 @@
         <h3 class="text-xl font-semibold text-gray-700 mb-4">Step 3: Upload Portfolio</h3>
         <form @submit.prevent="submit" class="space-y-6">
           <div>
-            <InputLabel for="portfolio" value="Portfolio (optional)" />
+            <InputLabel for="portfolio_photos" value="Portfolio (optional)" />
             <input
               type="file"
-              id="portfolio"
+              id="portfolio_photos"
+              name="portfolio_photos"
               @change="handleFileUpload"
+              multiple
               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
-            <InputError class="mt-2" :message="form.errors.portfolio" />
+            <InputError class="mt-2" :message="form.errors.portfolio_photos" />
           </div>
 
           <div class="flex justify-between">
@@ -207,12 +209,13 @@ const form = useForm({
   specialization: '',
   experience: '',
   hourly_rate: '',
-  portfolio: null,
+  portfolio_photos: null,
   skills: [],
 });
 
 const handleFileUpload = (event) => {
-  form.portfolio = event.target.files[0];
+  form.portfolio_photos = event.target.files;
+  console.log('Selected files:', form.portfolio_photos);
 };
 
 const nextStep = () => {
@@ -229,6 +232,7 @@ const previousStep = () => {
 
 const submit = () => {
   form.post('/api/become-freelancer', {
+    forceFormData: true,
     onSuccess: () => {
       step.value = 4;
     },

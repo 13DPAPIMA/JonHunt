@@ -31,4 +31,9 @@ class Freelancer extends Model
             ->select('skills.id', 'skills.name');
     }
 
+    public function portfolioPhotos()
+    {
+        return $this->hasMany(PortfolioPhoto::class);
+    }
+
 }
