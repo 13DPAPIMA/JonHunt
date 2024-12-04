@@ -160,11 +160,19 @@
             <input
               type="file"
               id="portfolio_photos"
-              name="portfolio_photos"
+              name="portfolio_photos[]"
               @change="handleFileUpload"
               multiple
               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
+            <div v-if="form.portfolio_photos && form.portfolio_photos.length">
+              <h4 class="mt-4">Selected Files:</h4>
+              <ul>
+                <li v-for="(file, index) in form.portfolio_photos" :key="index">
+                  {{ file.name }}
+                </li>
+              </ul>
+              </div>
             <InputError class="mt-2" :message="form.errors.portfolio_photos" />
           </div>
 
@@ -209,13 +217,13 @@ const form = useForm({
   specialization: '',
   experience: '',
   hourly_rate: '',
-  portfolio_photos: null,
+  portfolio_photos: [],
   skills: [],
 });
 
 const handleFileUpload = (event) => {
-  form.portfolio_photos = event.target.files;
-  console.log('Selected files:', form.portfolio_photos);
+  form.portfolio_photos = [...event.target.files];
+  console.log(event.target.files);
 };
 
 const nextStep = () => {
