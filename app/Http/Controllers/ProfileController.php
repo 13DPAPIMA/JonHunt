@@ -67,7 +67,7 @@ class ProfileController extends Controller
         $skills = [];
         $freelancer = null;
         if ($user->role === 'freelancer') {
-            $freelancer = Freelancer::with('skills')->where('user_id', $user->id)->first(); // Фрилансер с скиллами
+            $freelancer = Freelancer::with('skills')->where('user_id', $user->id)->first();
             if ($freelancer) {
                 $skills = $freelancer->skills->pluck('name'); // Получаем имена навыков
             }
@@ -86,7 +86,8 @@ class ProfileController extends Controller
                 'role' => $user->role,
                 'description' => $user->description,
             ],
-            'freelancer' => $freelancer, // Передаем данные о фрилансере (или null)
+            'freelancer' => $freelancer,
+            'skills' => $skills, 
             'projects' => $projects,
             'jobads' => $jobads,
         ]);

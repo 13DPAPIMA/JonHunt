@@ -34,6 +34,7 @@ class FreelancerController extends Controller
                     'UI/UX Design',
                 ]),
             ],
+            'experience' => 'nullable|string|max:1000',
             'hourly_rate' => 'required|numeric|min:1',
             'portfolio' => 'nullable|file|mimes:jpg,png,pdf|max:2048',
             'skills' => 'array|max:5', 
@@ -47,6 +48,7 @@ class FreelancerController extends Controller
             'user_id' => $user->id,
             'country' => $validatedData['country'],
             'bio' => $validatedData['bio'],
+            'experience' => $validatedData['experience'],
             'specialization' => $validatedData['specialization'],
             'hourly_rate' => $validatedData['hourly_rate'],
             'portfolio' => $request->file('portfolio') ? $request->file('portfolio')->store('portfolios', 'public') : null,
@@ -60,7 +62,6 @@ class FreelancerController extends Controller
             \Log::info('Attached skills:', $freelancer->skills()->pluck('id')->toArray());
         }
     
-        // Обновляем роль пользователя
         $user->update(['role' => 'freelancer']);
     
         return response()->json(['message' => 'You are now a freelancer!']);
@@ -68,71 +69,72 @@ class FreelancerController extends Controller
 
 
     public function edit($username)
-{
-    $user = Auth::user();
-    
-    if ($user->username !== $username) {
-        abort(403, 'You are not authorized to edit this profile.');
-    }
-
-    $freelancer = $user->freelancer;
-
-    return inertia('EditFreelanceProfile', [
-        'freelancer' => $freelancer,
-        'user' => $user->only(['id', 'username', 'name', 'email']),
-    ]);
-
-}
-
-public function update(Request $request, $username)
-{
-    \Log::info('Received update request', $request->all());
-
-    $freelancer = Auth::user()->freelancer;
-
-    $validatedData = $request->validate([
-        'country' => 'required|string|max:255',
-        'bio' => 'nullable|string|max:1000',
-        'specialization' => 'required|string|max:255',
-        Rule::in([
-            'Web Development',
-            'Graphic Design',
-            'Content Writing',
-            'Digital Marketing',
-            'SEO',
-            'Mobile App Development',
-            'UI/UX Design',
-        ]),
-        'hourly_rate' => 'required|numeric|min:1',
-        'portfolio' => 'nullable|file|mimes:jpg,png,pdf|max:2048',
-    ]);
-
-    try {
-        $freelancer->update([
-            'country' => $validatedData['country'],
-            'bio' => $validatedData['bio'],
-            'specialization' => $validatedData['specialization'],
-            'experience' => $validatedData['experience'],
-            'hourly_rate' => $validatedData['hourly_rate'],
-            'portfolio' => $request->file('portfolio')
-                ? $request->file('portfolio')->store('portfolios', 'public')
-                : $freelancer->portfolio,
-        ]);
-
-        if (isset($validatedData['skills'])) {
-            $skillIds = Skill::whereIn('name', $validatedData['skills'])->pluck('id');
-            $freelancer->skills()->sync($skillIds);
+    {
+        $user = Auth::user();
+        
+        if ($user->username !== $username) {
+            abort(403, 'You are not authorized to edit this profile.');
         }
 
-        \Log::info('Updated freelancer', $freelancer->toArray());
+        $freelancer = $user->freelancer;
 
-        return redirect()->route('freelancers.show', $username)->with('success', 'Profile updated successfully.');
+        return inertia('EditFreelanceProfile', [
+            'freelancer' => $freelancer,
+            'user' => $user->only(['id', 'username', 'name', 'email']),
+        ]);
 
-    } catch (\Exception $e) {
-        \Log::error('Failed to update freelancer profile', ['error' => $e->getMessage()]);
-        return back()->withErrors(['general' => 'An error occurred while updating the profile. Please try again later.']);
     }
-}
+
+    public function update(Request $request, $username)
+    {
+        \Log::info('Received update request', $request->all());
+
+        $freelancer = Auth::user()->freelancer;
+
+        $validatedData = $request->validate([
+            'country' => 'required|string|max:255',
+            'bio' => 'nullable|string|max:1000',
+            'specialization' => 'required|string|max:255',
+            Rule::in([
+                'Web Development',
+                'Graphic Design',
+                'Content Writing',
+                'Digital Marketing',
+                'SEO',
+                'Mobile App Development',
+                'UI/UX Design',
+            ]),
+            'experience' => 'nullable|string|max:1000',
+            'hourly_rate' => 'required|numeric|min:1',
+            'portfolio' => 'nullable|file|mimes:jpg,png,pdf|max:2048',
+        ]);
+
+        try {
+            $freelancer->update([
+                'country' => $validatedData['country'],
+                'bio' => $validatedData['bio'],
+                'specialization' => $validatedData['specialization'],
+                'experience' => $validatedData['experience'],
+                'hourly_rate' => $validatedData['hourly_rate'],
+                'portfolio' => $request->file('portfolio')
+                    ? $request->file('portfolio')->store('portfolios', 'public')
+                    : $freelancer->portfolio,
+            ]);
+
+            if (isset($validatedData['skills'])) {
+                $skillIds = Skill::whereIn('name', $validatedData['skills'])->pluck('id');
+                $freelancer->skills()->sync($skillIds);
+            }
+
+            \Log::info('Updated freelancer', $freelancer->toArray());
+
+            return redirect()->route('freelancers.show', $username)->with('success', 'Profile updated successfully.');
+
+        } catch (\Exception $e) {
+            \Log::error('Failed to update freelancer profile', ['error' => $e->getMessage()]);
+            return back()->withErrors(['general' => 'An error occurred while updating the profile. Please try again later.']);
+        }
+    }
 
 
     public function getFreelancerProfile($id)
