@@ -43,9 +43,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/jobAdvertisements/delete/{jobAd}', [JobAdController::class, 'destroy'])->name('jobAds.delete');
 });
 
-Route::get('/freelancer-registration', function () {
-    return inertia('FreelancerRegistration');
-})->name('freelancer.registration');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/freelancer-registration', function () {
+        return inertia('FreelancerRegistration');
+    })->name('freelancer.registration');
+});
 
 Route::post('/api/become-freelancer', [FreelancerController::class, 'store'])->name('freelancer.store');
 Route::get('/freelancer/{username}/edit', [FreelancerController::class, 'edit'])->name('freelancers.edit');
