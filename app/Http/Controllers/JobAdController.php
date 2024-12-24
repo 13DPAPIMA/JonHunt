@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\JobAdvertisement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Avatar;
+use App\Models\User;
+use Inertia\Inertia;
+use Inertia\Response;
 use Illuminate\Support\Facades\Validator;
 
 class JobAdController extends Controller
@@ -62,7 +66,6 @@ class JobAdController extends Controller
 
     public function update(Request $request, JobAdvertisement $jobAd)
     {
-        $user = Auth::user();
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255|min:60',
@@ -80,8 +83,8 @@ class JobAdController extends Controller
         $jobAd->title = $validatedData['title'];
         $jobAd->description = $validatedData['description'];
         $jobAd->price = $validatedData['price'];
-        $jobAd->creator = $user->name;
-        $jobAd->creator_id = $user->id;
+        $jobAd->creator = Auth::user()->name;
+        $jobAd->creator_id = Auth::id();
 
         if ($request->hasFile('examples')) {
             $jobAd->examples = $request->file('examples')->store('examples', 'public');
@@ -106,4 +109,5 @@ class JobAdController extends Controller
         $jobAds = JobAdvertisement::where('creator_id', $user->id)->get(); // Фильтрация по ID создателя
         return inertia('JobAdInProfile', ['jobAds' => $jobAds]);
     }
+
 }

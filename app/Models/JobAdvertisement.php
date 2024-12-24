@@ -19,13 +19,19 @@ class JobAdvertisement extends Model
     ];
 
     // Relationship to the User who created the job ad
-    public function creator()
-    {
-        return $this->belongsTo(User::class, 'creator'); // 'creator' field references the user_id
-    }
 
     public function reviews()
     {
         return $this->hasMany(Review::class);
+    }
+
+    public function avatar()
+    {
+        return $this->hasOne(Avatar::class, 'id');
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'creator_id');
     }
 }

@@ -68,17 +68,6 @@ class ProjectsController extends Controller
         $project->save();
     }
 
-    public function display()
-    {
-        $projects = Project::with(['creator.avatar'])->get();
-    
-        return Inertia::render('Dashboard', [
-            'projects' => $projects, 
-        ]);
-    }
-    
-
-
 public function show(Project $project)
 {
     $project->load('reviews.user');

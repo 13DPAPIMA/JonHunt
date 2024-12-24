@@ -7,7 +7,7 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\JobAdController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\FreelancerController;
-
+use App\Http\Controllers\DashboardController;
 
 
 use Illuminate\Foundation\Application;
@@ -60,9 +60,7 @@ Route::get('/projects/create', function () {
 
 
 
-Route::middleware(['auth', 'verified' ])->group(function () {
-    Route::get('/dashboard', [ProjectsController::class, 'display'])->name('dashboard');
-});
+Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');
 
 
 Route::get('/guest', [GuestController::class, 'dashboard'])->name('guest.dashboard');

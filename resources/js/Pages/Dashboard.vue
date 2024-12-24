@@ -8,9 +8,11 @@ const props = defineProps({
     user: Object,
     avatar: String,
     projects: Array,
+    jobAds: Array,
 });
 
 console.log(props.projects);
+console.log(props.jobAds);
 
 const sortedProjects = computed(() => {
     return props.projects.slice().sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
