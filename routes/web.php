@@ -59,11 +59,9 @@ Route::get('/projects/create', function () {
 })->middleware(['auth', 'verified'])->name('/projects/create');
 
 
-
-Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');
-
-
-Route::get('/guest', [GuestController::class, 'dashboard'])->name('guest.dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'myProfile'])->name('profile.my')->middleware('auth');
@@ -76,9 +74,7 @@ Route::middleware('auth')->group(function () {
 Route::post('/avatar/upload', [PhotoController::class, 'uploadPhoto'])->name('avatar.upload');
 Route::delete('/avatar/delete', [PhotoController::class, 'deleteAvatar'])->name('avatar.delete');
 Route::get('/avatar', [PhotoController::class, 'getAvatar'])->name('avatar.get');
-
 Route::get('/profile/avatar', [PhotoController::class, 'getAvatar'])->name('avatar.get');
-
 Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
 
 
