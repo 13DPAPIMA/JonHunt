@@ -204,7 +204,7 @@ const setTab = (tab) => {
                                         </Link>
 
                                         <p class="text-gray-600 text-base">
-                                            <strong>Description:</strong> {{ ad.Description }}
+                                            {{ ad.Description }}
                                         </p>
                 
                                         <div class="creator-info flex items-center mt-2">
