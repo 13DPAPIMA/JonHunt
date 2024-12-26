@@ -80,11 +80,16 @@ Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.s
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
-    Route::get('/projects/{project}', [ProjectsController::class, 'show'])->name('projects.show');
     Route::post('/projects/{project}/addReview', [App\Http\Controllers\ReviewsController::class, 'addReview'])->name('reviews.addReview');
     Route::post('/reviews/{review}/edit', [App\Http\Controllers\ReviewsController::class, 'editReview'])->name('reviews.edit');
     Route::delete('/reviews/{review}', [App\Http\Controllers\ReviewsController::class, 'deleteReview'])->name('reviews.delete');
 });
+
+Route::get('/projects/{project}', [ProjectsController::class, 'show'])->name('projects.show');
+
+Route::get('/gigs/{jobAds}', [JobAdController::class, 'display'])->name('jobAds.display');
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/projects-in-profile', [UserController::class, 'projectsInProfile'])->name('projects.inProfile');

@@ -110,4 +110,13 @@ class JobAdController extends Controller
         return inertia('JobAdInProfile', ['jobAds' => $jobAds]);
     }
 
+    public function display(JobAdvertisement $jobAds) 
+    {
+
+        return Inertia::render('JobAdsPage', [
+            'jobAds' => $jobAds,
+        ]);
+
+    }
+
 }

@@ -197,11 +197,15 @@ const setTab = (tab) => {
                                 <div class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                                     <div class="p-8">
                                         <Link 
-                                            :href="`/ads/${ad.id}`" 
+                                            :href="`/gigs/${ad.id}`" 
                                             class="text-lg font-semibold text-gray-800 mb-4 hover:underline block truncate"
                                         >
                                             {{ ad.Title || 'No title provided' }}
                                         </Link>
+
+                                        <p class="text-gray-600 text-base">
+                                            <strong>Description:</strong> {{ ad.Description }}
+                                        </p>
                 
                                         <div class="creator-info flex items-center mt-2">
                                             <a 
@@ -239,9 +243,6 @@ const setTab = (tab) => {
                                         <p class="text-gray-600 text-base mb-2">
                                             <strong>Price:</strong> ${{ ad.Price }}
                                         </p>
-                                        <p class="text-gray-600 text-base">
-                                            <strong>Description:</strong> {{ ad.Description }}
-                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -250,9 +251,6 @@ const setTab = (tab) => {
                 
                     <div v-else class="text-gray-600">No freelancer ads available.</div>
                 </div>
-                
-                
-                
             </div>
         </div>
     </AuthenticatedLayout>
