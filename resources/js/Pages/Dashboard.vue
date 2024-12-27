@@ -202,10 +202,6 @@ const setTab = (tab) => {
                                         >
                                             {{ ad.Title || 'No title provided' }}
                                         </Link>
-
-                                        <p class="text-gray-600 text-base">
-                                            {{ ad.Description }}
-                                        </p>
                 
                                         <div class="creator-info flex items-center mt-2">
                                             <a 
@@ -239,9 +235,9 @@ const setTab = (tab) => {
                                                 {{ ad.creator.name }}
                                             </a>
                                         </div>
-                
+                <br>   
                                         <p class="text-gray-600 text-base mb-2">
-                                            <strong>Price:</strong> ${{ ad.Price }}
+                                            <strong>Starts from:</strong> ${{ ad.Price }}
                                         </p>
                                     </div>
                                 </div>

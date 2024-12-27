@@ -24,7 +24,7 @@
                                 autofocus
                                 autocomplete="title"
                             />
-                            <span class="label-text-alt">At least 60 characters</span>
+                            <span class="label-text-alt">Must have 35 characters</span>
                             <InputError class="mt-2" :message="form.errors.title" />
                         </div>
                         

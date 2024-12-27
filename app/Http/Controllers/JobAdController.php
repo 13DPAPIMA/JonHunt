@@ -27,7 +27,7 @@ class JobAdController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255|min:60',
+            'title' => 'required|string|max:35|min:35',
             'description' => 'required|string|max:1500|min:100',
             'price' => 'required|numeric|min:0',
             'examples' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048', // Вложение (пример работы)
@@ -68,7 +68,7 @@ class JobAdController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255|min:60',
+            'title' => 'required|string|max:35|min:35',
             'description' => 'required|string|max:1500|min:100',
             'price' => 'required|numeric|min:0',
             'examples' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
@@ -112,7 +112,8 @@ class JobAdController extends Controller
 
     public function display(JobAdvertisement $jobAds) 
     {
-
+        $jobAds->load('creator.avatar');
+        
         return Inertia::render('JobAdsPage', [
             'jobAds' => $jobAds,
         ]);

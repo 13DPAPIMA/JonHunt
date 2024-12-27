@@ -20,4 +20,9 @@ class Avatar extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getPhotoUrlAttribute($value)
+    {
+        return asset('storage/' . $value); // Указывает полный путь к файлу
+    }
 }

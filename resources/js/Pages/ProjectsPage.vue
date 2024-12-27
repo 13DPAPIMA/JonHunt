@@ -3,17 +3,50 @@
     <AuthenticatedLayout>
       <div class="my-10 max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 sm:p-8 ">
         <h2 class="text-2xl font-semibold text-gray-900 overflow-hidden text-ellipsis">{{ project.title }}</h2>
+        <div class="creator-info flex items-center mt-2">
+        <a 
+        v-if="project.creator && project.creator.avatar" 
+        :href="`/user/${project.creator.username}`" 
+        class="flex items-center"
+    >
+        <img 
+            :src="project.creator.avatar.photo_url" 
+            alt="Avatar" 
+            class="w-10 h-10 rounded-full mr-3"
+        />
+    </a>
+
+    <a 
+        v-else 
+        :href="`/user/${project.creator.username}`" 
+        class="flex items-center"
+    >
+        <div 
+            class="w-10 h-10 rounded-full mr-3 flex items-center justify-center bg-gray-400 text-white font-bold"
+        >
+            {{ project.creator.name.charAt(0).toUpperCase() }}
+        </div>
+    </a>
+
+    <a 
+        :href="`/user/${project.creator.username}`" 
+        class="text-gray-700 font-medium hover:text-blue-500 transition"
+    >
+        {{ project.creator.name }}
+    </a>
+    </div>
         <br>
-        <p class="mt-2 text-lg text-gray-800 font-medium overflow-hidden text-ellipsis">{{ project.description }}</p>
-        <div class="mt-6">
+        <div class="mt-2">
           <h3 class="text-xl font-semibold text-gray-900 overflow-hidden text-ellipsis whitespace-nowrap ">Details</h3>
           <p><strong>Niche:</strong> {{ project.niche }}</p>
           <p><strong>Completion Date:</strong> {{ project.completion_date }}</p>
           <p><strong>Budget:</strong> ${{ project.budget }}</p>
+          <p><strong>Posted:</strong> {{ timeSincePosted }}</p>
         </div>
         <br>
-        <h3 class="text-xl font-semibold text-gray-900">Average Rating</h3>
+        <h3 class="text-xl font-semibold text-gray-900 my-2.5">Average Rating</h3>
         <p v-if="reviews.length > 0" class="text-lg text-gray-800 font-medium">{{ averageRating }}</p>
+        <p class="mt-2 text-lg text-gray-800 font-medium overflow-hidden text-ellipsis">{{ project.description }}</p>
         <div class="mt-6">
           <h3 class="text-xl font-semibold text-gray-900">Reviews</h3>
           <div v-if="reviews.length === 0" class="mt-2 text-sm text-gray-600">
@@ -130,6 +163,7 @@
   </template>
   
   <script setup>
+import { computed } from 'vue';
 import AuthenticatedLayout from './../Layouts/AuthenticatedLayout.vue';
 import { useForm, Head, usePage } from '@inertiajs/vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -144,6 +178,25 @@ const props = defineProps({
   reviews: Array,
   averageRating: String,
 });
+
+console.log(props.project);
+
+const timeSincePosted = computed(() => {
+  const postedDate = new Date(props.project.created_at);
+  const currentDate = new Date();
+
+  const diffTime = Math.abs(currentDate - postedDate);
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) {
+      return "Today";
+  } else if (diffDays === 1) {
+      return "1 day ago";
+  } else {
+      return `${diffDays} days ago`;
+  }
+});
+
 
 const form = useForm({
   Rating: '',

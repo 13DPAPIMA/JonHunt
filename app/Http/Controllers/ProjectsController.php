@@ -71,6 +71,7 @@ class ProjectsController extends Controller
 public function show(Project $project)
 {
     $project->load('reviews.user');
+    $project->load('creator.avatar');
 
     return Inertia::render('ProjectsPage', [
         'project' => $project,

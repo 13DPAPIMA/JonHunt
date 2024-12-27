@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Skill;
 use App\Models\Project;
+use App\Models\Avatar;
 use App\Models\JobAdvertisement;
 use App\Models\Freelancer;
 use Illuminate\Support\Facades\DB;
@@ -56,13 +57,16 @@ class ProfileController extends Controller
 
     public function show($username)
     {
-        // Получаем пользователя по имени
+        // Получаем пользователя
         $user = User::where('username', $username)->firstOrFail();
+    
+        // Получаем аватар пользователя напрямую
+        $avatar = Avatar::where('user_id', $user->id)->first();
     
         // Получаем связанные данные
         $projects = Project::where('creator_id', $user->id)->get();
         $jobads = JobAdvertisement::where('creator_id', $user->id)->get();
-        
+    
         // Проверяем, является ли пользователь фрилансером
         $skills = [];
         $freelancer = null;
@@ -80,20 +84,19 @@ class ProfileController extends Controller
                 'name' => $user->name,
                 'username' => $user->username,
                 'email' => $user->email,
-                'avatar' => [
-                    'photo_url' => $user->avatar,
-                ],
+                'avatar' => $avatar,
                 'role' => $user->role,
                 'description' => $user->description,
             ],
             'freelancer' => $freelancer,
-            'skills' => $skills, 
+            'skills' => $skills,
             'projects' => $projects,
             'jobads' => $jobads,
         ]);
     }
     
     
+
     /**
      * Delete the user's account.
      */

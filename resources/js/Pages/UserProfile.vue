@@ -45,7 +45,7 @@
             <p v-else>No skills available</p>
             <a
               v-if="freelancer.portfolio"
-              :href="'/storage/' + freelancer.portfolio"
+              :href="freelancer.portfolio"
               class="text-blue-500"
               target="_blank"
             >
@@ -83,7 +83,15 @@ const props = defineProps({
   user: Object,
   projects: Array,
   skills: Object,
+  avatar: Object,
 });
+
+console.log(props.skills);
+console.log(props.projects);
+console.log(props.freelancer);
+console.log(props.user);
+console.log(props.avatar);
+
 </script>
 
 <style scoped>
