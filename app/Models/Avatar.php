@@ -18,7 +18,7 @@ class Avatar extends Model
     // Определяем отношение между аватаром и пользователем
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
         public function getPhotoUrlAttribute($value)
