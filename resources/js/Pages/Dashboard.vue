@@ -131,117 +131,133 @@ const setTab = (tab) => {
         </div>
 
 
-        <!-- Conditional Rendering based on activeTab -->
-        <div v-if="activeTab === 'projects'">
-            <ul v-if="filteredProjects.length !== undefined" class="py-12">
-                <div class="flex flex-wrap -mx-4">
+<!-- Контейнер, создающий отступы от стен и ограничение по ширине -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <div v-if="activeTab === 'projects'">
+      <ul v-if="filteredProjects.length !== undefined">
+        <!-- Сетка карточек -->
+        <div class="flex flex-wrap -mx-2 sm:-mx-3">
+          <div
+            v-for="project in filteredProjects"
+            :key="project.id"
+            class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 px-2 sm:px-3 mb-6 sm:mb-8"
+          >
+            <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div class="p-4 sm:p-6">
+                <a
+                  :href="`/projects/${project.id}`"
+                  class="text-base sm:text-lg font-semibold text-gray-800 mb-3 hover:underline block truncate"
+                >
+                  {{ project.title }}
+                </a>
+                <div class="creator-info flex items-center mt-2">
+                  <a
+                    v-if="project.creator && project.creator.avatar"
+                    :href="`/user/${project.creator.username}`"
+                    class="flex items-center"
+                  >
+                    <img
+                      :src="project.creator.avatar.photo_url"
+                      alt="Avatar"
+                      class="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-3"
+                    />
+                  </a>
+                  <a
+                    v-else
+                    :href="`/user/${project.creator.username}`"
+                    class="flex items-center"
+                  >
                     <div
-                        v-for="project in filteredProjects"
-                        :key="project.id"
-                        class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 px-4 mb-8">
-                        <div class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                            <div class="p-8">
-                                <a
-                                    :href="`/projects/${project.id}`"
-                                    class="text-lg font-semibold text-gray-800 mb-4 hover:underline block truncate">
-                                    {{ project.title }}
-                            </a>
-
-                                <div class="creator-info flex items-center mt-2">
-                                    <a
-                                        v-if="project.creator && project.creator.avatar"
-                                        :href="`/user/${project.creator.username}`"
-                                        class="flex items-center">
-                                        <img
-                                            :src="project.creator.avatar.photo_url"
-                                            alt="Avatar"
-                                            class="w-10 h-10 rounded-full mr-3"
-                                        />
-                                    </a>
-                                    <a
-                                        v-else
-                                        :href="`/user/${project.creator.username}`"
-                                        class="flex items-center">
-                                        <div
-                                            class="w-10 h-10 rounded-full mr-3 flex items-center justify-center bg-gray-400 text-white font-bold">
-                                            {{ project.creator.name.charAt(0).toUpperCase() }}
-                                        </div>
-                                    </a>
-                                    <a
-                                        :href="`/user/${project.creator.username}`"
-                                        class="text-gray-700 font-medium hover:text-blue-500 transition">
-                                        {{ project.creator.name }}
-                                    </a>
-                                </div>
-
-                                <p class="text-gray-600 text-base mb-2">
-                                    <strong>Budget:</strong> ${{ project.budget }}
-                                </p>
-                                <p class="text-gray-600 text-base mb-2">
-                                    <strong>Completion Date:</strong> {{ project.completion_date }}
-                                </p>
-                                <p class="text-gray-600 text-base">
-                                    <strong>Niche:</strong> {{ project.niche }}
-                                </p>
-                            </div>
-                        </div>
+                      class="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-3 flex items-center justify-center bg-gray-400 text-white font-bold"
+                    >
+                      {{ project.creator.name.charAt(0).toUpperCase() }}
                     </div>
+                  </a>
+                  <a
+                    :href="`/user/${project.creator.username}`"
+                    class="text-gray-700 font-medium hover:text-blue-500 transition"
+                  >
+                    {{ project.creator.name }}
+                  </a>
                 </div>
-            </ul>
-            <div v-else class="text-gray-600">Users haven't created any projects yet.</div>
+                <p class="text-gray-600 text-sm sm:text-base mb-1 sm:mb-2 mt-2">
+                  <strong>Budget:</strong> ${{ project.budget }}
+                </p>
+                <p class="text-gray-600 text-sm sm:text-base mb-1 sm:mb-2">
+                  <strong>Completion Date:</strong> {{ project.completion_date }}
+                </p>
+                <p class="text-gray-600 text-sm sm:text-base">
+                  <strong>Niche:</strong> {{ project.niche }}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div v-if="activeTab === 'jobAds'">
-            <ul v-if="filteredJobAds.length !== undefined" class="py-12">
-                <div class="flex flex-wrap -mx-4">
+      </ul>
+      <div v-else class="text-gray-600">Users haven't created any projects yet.</div>
+    </div>
+  
+    <div v-if="activeTab === 'jobAds'">
+      <ul v-if="filteredJobAds.length !== undefined">
+        <div class="flex flex-wrap -mx-2 sm:-mx-3">
+          <div
+            v-for="ad in filteredJobAds"
+            :key="ad.id"
+            class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 px-2 sm:px-3 mb-6 sm:mb-8"
+          >
+            <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <div class="p-4 sm:p-6">
+                <a
+                  :href="`/gigs/${ad.id}`"
+                  class="text-base sm:text-lg font-semibold text-gray-800 mb-3 hover:underline block truncate"
+                >
+                  {{ ad.Title || 'No title provided' }}
+                </a>
+                <div class="creator-info flex items-center mt-2">
+                  <a
+                    v-if="ad.creator && ad.creator.avatar"
+                    :href="`/users/${ad.creator.username}`"
+                    class="flex items-center"
+                  >
+                    <img
+                      :src="ad.creator.avatar.photo_url"
+                      alt="Avatar"
+                      class="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-3"
+                    />
+                  </a>
+                  <a
+                    v-else
+                    :href="`/users/${ad.creator.username}`"
+                    class="flex items-center"
+                  >
                     <div
-                        v-for="ad in filteredJobAds"
-                        :key="ad.id"
-                        class="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 px-4 mb-8">
-                        <div class="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                            <div class="p-8">
-                                <a
-                                    :href="`/gigs/${ad.id}`"
-                                    class="text-lg font-semibold text-gray-800 mb-4 hover:underline block truncate">
-                                    {{ ad.Title || 'No title provided' }}
-                            </a>
-
-                                <div class="creator-info flex items-center mt-2">
-                                    <a
-                                        v-if="ad.creator && ad.creator.avatar"
-                                        :href="`/users/${ad.creator.username}`"
-                                        class="flex items-center">
-                                        <img
-                                            :src="ad.creator.avatar.photo_url"
-                                            alt="Avatar"
-                                            class="w-10 h-10 rounded-full mr-3"
-                                        />
-                                    </a>
-                                    <a
-                                        v-else
-                                        :href="`/users/${ad.creator.username}`"
-                                        class="flex items-center">
-                                        <div
-                                            class="w-10 h-10 rounded-full mr-3 flex items-center justify-center bg-gray-400 text-white font-bold">
-                                            {{ ad.creator.name.charAt(0).toUpperCase() }}
-                                        </div>
-                                    </a>
-                                    <a
-                                        :href="`/user/${ad.creator.username}`"
-                                        class="text-gray-700 font-medium hover:text-blue-500 transition">
-                                        {{ ad.creator.name }}
-                                    </a>
-                                </div>
-                                <br />
-                                <p class="text-gray-600 text-base mb-2">
-                                    <strong>Starts from:</strong> ${{ ad.Price }}
-                                </p>
-                            </div>
-                        </div>
+                      class="w-8 h-8 sm:w-10 sm:h-10 rounded-full mr-3 flex items-center justify-center bg-gray-400 text-white font-bold"
+                    >
+                      {{ ad.creator.name.charAt(0).toUpperCase() }}
                     </div>
+                  </a>
+                  <a
+                    :href="`/user/${ad.creator.username}`"
+                    class="text-gray-700 font-medium hover:text-blue-500 transition"
+                  >
+                    {{ ad.creator.name }}
+                  </a>
                 </div>
-            </ul>
-            <div v-else class="text-gray-600">No freelancer ads available.</div>
+                <br />
+                <p class="text-gray-600 text-sm sm:text-base mb-1 sm:mb-2">
+                  <strong>Starts from:</strong> ${{ ad.Price }}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </ul>
+      <div v-else class="text-gray-600">No freelancer ads available.</div>
+    </div>
+  </div>
+  
+  
+        
     </component>
 </template>
