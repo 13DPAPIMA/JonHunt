@@ -70,8 +70,10 @@ class ProjectsController extends Controller
 
 public function show(Project $project)
 {
-    $project->load('reviews.user');
-    $projects = Project::with(['creator.avatar'])->get();
+    $project->load([
+        'creator.avatar',
+        'reviews.user'
+    ]);
 
     return Inertia::render('ProjectsPage', [
         'project' => $project,
