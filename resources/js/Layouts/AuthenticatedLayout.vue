@@ -75,8 +75,9 @@ const showingNavigationDropdown = ref(false);
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 <!-- Проверка на наличие аватара -->
-                                                <span v-if="$page.props.auth.user && $page.props.auth.user.avatar">
+                                                <span v-if="$page.props.auth && $page.props.auth.user">
                                                     <img
+                                                        v-if="$page.props.auth.user.avatar"
                                                       :src="$page.props.auth.user.avatar.photo_url"
                                                       alt="User Avatar"
                                                       class="w-8 h-8 rounded-full"

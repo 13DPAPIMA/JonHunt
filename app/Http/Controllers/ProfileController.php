@@ -76,7 +76,7 @@ class ProfileController extends Controller
                 $skills = $freelancer->skills->pluck('name'); // Получаем имена навыков
             }
         }
-    
+
         // Возвращаем данные во фронтенд
         return Inertia::render('UserProfile', [
             'user' => [

@@ -59,9 +59,7 @@ Route::get('/projects/create', function () {
 })->middleware(['auth', 'verified'])->name('/projects/create');
 
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');
-});
+Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'myProfile'])->name('profile.my')->middleware('auth');
