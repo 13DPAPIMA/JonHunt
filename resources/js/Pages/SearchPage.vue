@@ -74,7 +74,7 @@ console.log(page.props);
                   {{ project.creator?.name.charAt(0).toUpperCase() }}
                 </span>
                 <a
-                  :href="`/user/${project.creator?.id}`"
+                  :href="`/user/${project.creator?.username}`"
                   class="text-gray-700 font-medium hover:text-blue-500"
                 >
                   {{ project.creator?.name || 'Unknown' }}
@@ -93,7 +93,7 @@ console.log(page.props);
     </div>
     <p v-else class="text-gray-500">No projects found.</p>
 
-    <!-- Объявления -->
+
     <div v-if="jobAds.length" class="mb-10">
       <h2 class="text-xl font-semibold mb-4">Job Ads</h2>
       <div class="flex flex-wrap -mx-2 sm:-mx-3">
@@ -108,19 +108,39 @@ console.log(page.props);
                 :href="`/jobAds/${job.id}`"
                 class="text-lg font-semibold text-gray-800 hover:underline block truncate"
               >
-                {{ job.title }}
+                {{ job.Title }}
               </a>
+              <div class="creator-info flex items-center mt-2">
+                <!-- Проверка на наличие creator -->
+                <img
+                  v-if="job.creator && job.creator.avatar"
+                  :src="job.creator.avatar.photo_url"
+                  alt="Avatar"
+                  class="w-8 h-8 rounded-full mr-2"
+                />
+                <span v-else class="w-8 h-8 bg-gray-400 text-white rounded-full flex items-center justify-center text-sm font-bold mr-2">
+                  {{ job.creator?.name?.charAt(0).toUpperCase() || '?' }}
+                </span>
+                <a
+                  :href="job.creator ? `/user/${job.creator.username}` : '#'"
+                  class="text-gray-700 font-medium hover:text-blue-500"
+                >
+                  {{ job.creator?.name || 'Unknown' }}
+                </a>
+              </div>
               <p class="text-gray-600 text-sm mt-2">
-                <strong>Description:</strong> {{ job.description }}
+                <strong>Description:</strong> {{ job.Description }}
               </p>
               <p class="text-gray-600 text-sm">
-                <strong>Salary:</strong> ${{ job.salary }}
+                <strong>Salary:</strong> ${{ job.Price }}
               </p>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
+      
     <p v-else class="text-gray-500">No job ads found.</p>
   </div>
 </AuthenticatedLayout>

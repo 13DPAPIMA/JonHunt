@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\JobAdvertisement;
 use App\Models\User;
+use App\Models\Freelancer;
 use Inertia\Inertia;
 
 class SearchController extends Controller
@@ -20,6 +21,7 @@ class SearchController extends Controller
                 'users' => [],
                 'projects' => [],
                 'jobAds' => [],
+                'freelancers' => [],
             ]);
         }
 
@@ -30,27 +32,52 @@ class SearchController extends Controller
             ->take(5)
             ->get();
 
-        // Поиск по проектам
+        // Поиск по фрилансерам (по навыкам, имени, username или специализации)
+        $freelancers = Freelancer::whereHas('user', function ($userQuery) use ($query) {
+                $userQuery->where('name', 'like', "%$query%")
+                    ->orWhere('username', 'like', "%$query%");
+            })
+            ->orWhere('specialization', 'like', "%$query%")
+            ->orWhereHas('skills', function ($skillQuery) use ($query) {
+                $skillQuery->where('name', 'like', "%$query%");
+            })
+            ->with(['user.avatar', 'skills']) // Предзагрузка пользователя, аватара и навыков
+            ->take(5)
+            ->get();
+
+        // Поиск по проектам (по названию, нише, имени создателя или username создателя)
         $projects = Project::where('title', 'like', "%$query%")
-            ->with(['creator' => function ($query) {
-                $query->select('id', 'name', 'username', 'avatar'); // Загружаем создателя проекта с его аватаром
-            }])
+            ->orWhere('niche', 'like', "%$query%")
+            ->orWhereHas('creator', function ($creatorQuery) use ($query) {
+                $creatorQuery->where('name', 'like', "%$query%")
+                    ->orWhere('username', 'like', "%$query%");
+            })
+            ->with(['creator.avatar']) // Загружаем создателя проекта с его аватаром
             ->take(5)
             ->get();
 
-        // Поиск по объявлениям
+        // Поиск по объявлениям (по названию, имени создателя или username создателя)
         $jobAds = JobAdvertisement::where('title', 'like', "%$query%")
-            ->with(['creator' => function ($query) {
-                $query->select('id', 'name', 'username', 'avatar'); // Загружаем создателя объявления с его аватаром
-            }])
+            ->orWhereHas('creator', function ($creatorQuery) use ($query) {
+                $creatorQuery->where('name', 'like', "%$query%")
+                    ->orWhere('username', 'like', "%$query%");
+            })
+            ->with(['creator.avatar']) // Загружаем создателя объявления с его аватаром
             ->take(5)
             ->get();
 
+        // Формирование ответа для фронтенда
         return Inertia::render('SearchPage', [
             'query' => $query,
             'users' => $users,
+            'freelancers' => $freelancers,
             'projects' => $projects,
             'jobAds' => $jobAds,
+        ])->with('debug', [
+            'jobAdsCount' => $jobAds->count(),
+            'projectsCount' => $projects->count(),
+            'freelancersCount' => $freelancers->count(),
+            'usersCount' => $users->count(),
         ]);
     }
 }

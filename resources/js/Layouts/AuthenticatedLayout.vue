@@ -100,7 +100,7 @@ function search() {
                             
                               
                             <!-- Settings Dropdown -->
-                            <div class="ms-3 relative">
+                            <div class="ms-3 relative" v-if="$page.props.auth && $page.props.auth.user">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
@@ -124,6 +124,7 @@ function search() {
                                     
                                                 {{ $page.props.auth.user ? $page.props.auth.user.name : 'Guest' }}
                                     
+                                                <template v-if="$page.props.auth.user">
                                                 <svg
                                                     class="ms-2 -me-0.5 h-4 w-4"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -136,18 +137,27 @@ function search() {
                                                         clip-rule="evenodd"
                                                     />
                                                 </svg>
+                                            </template>
                                             </button>
                                         </span>
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
-                                        <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
-                                        </DropdownLink>
-                                    </template>
+                                            <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
+                                            <DropdownLink :href="route('logout')" method="post" as="button">
+                                                Log Out
+                                            </DropdownLink>
+                                        </template>
                                 </Dropdown>
                             </div>
+                            <div v-else>
+        <Link
+            :href="route('login')"
+            class="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+        >
+            Sign In
+        </Link>
+    </div>
                         </div>
 
                         <!-- Hamburger -->
