@@ -86,7 +86,7 @@ const setTab = (tab) => {
                 <!-- Гость -->
                 <div v-else class="text-2xl sm:text-3xl font-bold">
                     Welcome, Guest! Please 
-                    <a href="/login" class="text-blue-500 hover:underline">login</a>
+                    <a href="/login" class="text-white-500 hover:underline">login</a>
                     to access more features.
                 </div>
         
@@ -106,13 +106,13 @@ const setTab = (tab) => {
         <!-- Tabs for switching between Projects and Freelancer Ads -->
         <div class="tabs flex justify-center gap-4 mt-6">
             <button
-                :class="{'border-b-4 border-blue-500 font-bold': activeTab === 'projects'}"
+                :class="{'border-b-4 border-red-500 font-bold': activeTab === 'projects'}"
                 @click="setTab('projects')"
                 class="py-2 px-4">
                 Projects
             </button>
             <button
-                :class="{'border-b-4 border-blue-500 font-bold': activeTab === 'jobAds'}"
+                :class="{'border-b-4 border-red-500 font-bold': activeTab === 'jobAds'}"
                 @click="setTab('jobAds')"
                 class="py-2 px-4">
                 Freelancer Ads

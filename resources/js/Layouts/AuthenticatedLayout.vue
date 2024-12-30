@@ -6,8 +6,25 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
+
 
 const showingNavigationDropdown = ref(false);
+const searchQuery = ref('');
+
+
+function search() {
+    router.visit(route('search.index'), {
+        method: 'get',
+        data: {
+            query: searchQuery.value
+        },
+        preserveState: true,
+        preserveScroll: true,
+    });
+}
+
+
 </script>
 
 
@@ -34,6 +51,7 @@ const showingNavigationDropdown = ref(false);
                                     Projects List
                                 </NavLink>
 
+                                <template v-if="$page.props.auth.user">
                                 <NavLink :href="route('projects.inProfile')" :active="route().current('projects.inProfile')">
                                     My Projects
                                 </NavLink>
@@ -49,9 +67,25 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('jobAds.index')">
                                      My Job Advertisements
                                 </NavLink>
+                            </template>
 
                             </div>
                         </div>
+
+                        <form @submit.prevent="search" class="hidden sm:flex items-center">
+                            <input
+                                v-model="searchQuery"
+                                type="search"
+                                placeholder="Search projects & ads..."
+                                class="border border-gray-300 rounded-l px-3 py-2 focus:outline-none"
+                            />
+                            <button
+                                type="submit"
+                                class="bg-red-600 text-white px-3 py-2 rounded-r hover:bg-gray-500"
+                            >
+                                Search
+                            </button>
+                        </form>
 
                         <div class="hidden sm:flex sm:items-center sm:ms-6">
 
