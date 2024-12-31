@@ -52,22 +52,16 @@ function search() {
                                 </NavLink>
 
                                 <template v-if="$page.props.auth.user">
-                                <NavLink :href="route('projects.inProfile')" :active="route().current('projects.inProfile')">
-                                    My Projects
-                                </NavLink>
+                                    <NavLink :href="route('projects.inProfile')" :active="route().current('projects.inProfile')">
+                                        My Projects
+                                    </NavLink>
                                 
-                                <NavLink  :href="route('/projects/create')" :active="route().current('/projects/create')">
-                                    Create Project
-                                </NavLink>
-
-                                <NavLink :href="route('jobAds.create')">
-                                    Create Job Advertisement
-                                </NavLink>
-
-                                <NavLink :href="route('jobAds.index')">
-                                     My Job Advertisements
-                                </NavLink>
-                            </template>
+                                    <template v-if="$page.props.auth.user.role.includes('freelancer')">
+                                        <NavLink :href="route('jobAds.index')">
+                                            My Job Advertisements
+                                        </NavLink>
+                                    </template>
+                                </template>
 
                             </div>
                         </div>
@@ -114,7 +108,7 @@ function search() {
                                                         v-if="$page.props.auth.user.avatar"
                                                       :src="$page.props.auth.user.avatar.photo_url"
                                                       alt="User Avatar"
-                                                      class="w-8 h-8 rounded-full"
+                                                      class="w-8 h-8 rounded-full mx-2"
                                                     />
                                                   </span>
                                                 <!-- Отображение первой буквы имени, если аватара нет -->

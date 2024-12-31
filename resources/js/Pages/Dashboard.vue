@@ -68,7 +68,7 @@ const setTab = (tab) => {
 
 <template>
     <Head title="Dashboard" />
-
+  
     <component :is="Layout">
         <template #header v-if="user">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
