@@ -16,51 +16,65 @@ const Layout = computed(() => {
 // Пользовательские данные
 const user = computed(() => pageProps.auth || null);
 
-console.log('Page props:', pageProps);
-console.log('User:', pageProps.auth);
-console.log('User:', user.value);
-
-
-// Фильтрация и сортировка
-const searchQuery = ref('');
 const activeTab = ref('projects');
 
+// Критерии фильтрации
+const selectedNiche = ref('');
+const selectedBudgetRange = ref('');
+const selectedCompletionDate = ref('');
+
+// Определяем диапазоны бюджета
+const budgetRanges = [
+    { label: 'Any', value: '' },
+    { label: 'Up to $500', value: '0-500' },
+    { label: '$500 - $1000', value: '500-1000' },
+    { label: 'Over $1000', value: '1000+' },
+];
+
+// Сортировка проектов
 const sortedProjects = computed(() => {
     return pageProps.projects.slice().sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 });
 
+// Фильтрация проектов
 const filteredProjects = computed(() => {
-    if (!searchQuery.value) {
-        return sortedProjects.value;
-    }
     return sortedProjects.value.filter(project => {
-        if (!project) return false;
-        return (
-            project.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-            project.creator.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-            project.niche.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-            (project.budget && project.budget.toString().includes(searchQuery.value.toLowerCase())) ||
-            (project.completion_date && project.completion_date.includes(searchQuery.value))
-        );
+        if (selectedNiche.value && project.niche !== selectedNiche.value) {
+            return false;
+        }
+
+        if (selectedBudgetRange.value) {
+            const [min, max] = selectedBudgetRange.value.split('-').map(Number);
+            const budget = project.budget || 0;
+            if ((min && budget < min) || (max && budget > max)) {
+                return false;
+            }
+        }
+
+        if (selectedCompletionDate.value && project.completion_date !== selectedCompletionDate.value) {
+            return false;
+        }
+
+        return true;
     });
 });
 
+// Фильтрация объявлений
 const filteredJobAds = computed(() => {
-    if (!searchQuery.value) {
-        return pageProps.jobAds;
-    }
     return pageProps.jobAds.filter(ad => {
-        if (!ad) return false;
-        return (
-            ad.Title?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-            ad.Description?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-            ad.Price?.toString().includes(searchQuery.value) ||
-            ad.creator?.name?.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-            ad.creator?.username?.toLowerCase().includes(searchQuery.value.toLowerCase())
-        );
+        if (selectedBudgetRange.value) {
+            const [min, max] = selectedBudgetRange.value.split('-').map(Number);
+            const price = ad.Price || 0;
+            if ((min && price < min) || (max && price > max)) {
+                return false;
+            }
+        }
+
+        return true;
     });
 });
 
+// Переключение вкладок
 const setTab = (tab) => {
     activeTab.value = tab;
 };
@@ -103,6 +117,29 @@ const setTab = (tab) => {
             </div>
         </div>
 
+
+        <div class="filters mt-6">
+          <div class="flex flex-wrap gap-4 justify-center">
+              <!-- Фильтр по нише -->
+              <select v-model="selectedNiche" class="p-2 border border-gray-300 rounded-lg">
+                  <option value="">All Niches</option>
+                  <option v-for="niche in [...new Set(pageProps.projects.map(p => p.niche))]" :key="niche" :value="niche">
+                      {{ niche }}
+                  </option>
+              </select>
+
+              <!-- Фильтр по бюджету -->
+              <select v-model="selectedBudgetRange" class="p-2 border border-gray-300 rounded-lg">
+                  <option v-for="range in budgetRanges" :key="range.value" :value="range.value">
+                      {{ range.label }}
+                  </option>
+              </select>
+
+              <!-- Фильтр по дате завершения -->
+              <input type="date" v-model="selectedCompletionDate" class="p-2 border border-gray-300 rounded-lg" />
+          </div>
+      </div>
+
         <!-- Tabs for switching between Projects and Freelancer Ads -->
         <div class="tabs flex justify-center gap-4 mt-6">
             <button
@@ -118,18 +155,6 @@ const setTab = (tab) => {
                 Freelancer Ads
             </button>
         </div>
-
-
-        <!-- Search bar -->
-        <div class="flex justify-center mt-4">
-            <TextInput
-                v-model="searchQuery"
-                type="text"
-                placeholder="Filter by keyword"
-                class="flex content-center mt-4 w-60 p-2 border border-gray-300 rounded-lg"
-            />
-        </div>
-
 
 <!-- Контейнер, создающий отступы от стен и ограничение по ширине -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
