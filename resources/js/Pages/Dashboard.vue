@@ -5,25 +5,20 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import TextInput from '@/Components/TextInput.vue';
 
-// Получаем данные страницы через usePage
 const { props: pageProps } = usePage();
 
-// Определяем макет
 const Layout = computed(() => {
     return pageProps.auth ? AuthenticatedLayout : GuestLayout;
 });
 
-// Пользовательские данные
 const user = computed(() => pageProps.auth || null);
 
 const activeTab = ref('projects');
 
-// Критерии фильтрации
 const selectedNiche = ref('');
 const selectedBudgetRange = ref('');
 const selectedCompletionDate = ref('');
 
-// Определяем диапазоны бюджета
 const budgetRanges = [
     { label: 'Any', value: '' },
     { label: 'Up to $500', value: '0-500' },
@@ -31,12 +26,10 @@ const budgetRanges = [
     { label: 'Over $1000', value: '1000+' },
 ];
 
-// Сортировка проектов
 const sortedProjects = computed(() => {
     return pageProps.projects.slice().sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 });
 
-// Фильтрация проектов
 const filteredProjects = computed(() => {
     return sortedProjects.value.filter(project => {
         if (selectedNiche.value && project.niche !== selectedNiche.value) {
@@ -59,7 +52,6 @@ const filteredProjects = computed(() => {
     });
 });
 
-// Фильтрация объявлений
 const filteredJobAds = computed(() => {
     return pageProps.jobAds.filter(ad => {
         if (selectedBudgetRange.value) {
@@ -74,7 +66,6 @@ const filteredJobAds = computed(() => {
     });
 });
 
-// Переключение вкладок
 const setTab = (tab) => {
     activeTab.value = tab;
 };
@@ -120,7 +111,6 @@ const setTab = (tab) => {
 
         <div class="filters mt-6">
           <div class="flex flex-wrap gap-4 justify-center">
-              <!-- Фильтр по нише -->
               <select v-model="selectedNiche" class="p-2 border border-gray-300 rounded-lg">
                   <option value="">All Niches</option>
                   <option v-for="niche in [...new Set(pageProps.projects.map(p => p.niche))]" :key="niche" :value="niche">
@@ -128,14 +118,11 @@ const setTab = (tab) => {
                   </option>
               </select>
 
-              <!-- Фильтр по бюджету -->
               <select v-model="selectedBudgetRange" class="p-2 border border-gray-300 rounded-lg">
                   <option v-for="range in budgetRanges" :key="range.value" :value="range.value">
                       {{ range.label }}
                   </option>
               </select>
-
-              <!-- Фильтр по дате завершения -->
           </div>
       </div>
 
