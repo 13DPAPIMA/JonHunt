@@ -34,4 +34,10 @@ class JobAdvertisement extends Model
     {
         return $this->belongsTo(User::class, 'creator_id');
     }
+
+    public function creatorUser()
+    {
+        return $this->belongsTo(User::class, 'creator_id'); // creator_id связывает объявление с пользователем
+    }
+
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\JobApplicationController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/avatar/upload', [PhotoController::class, 'uploadPhoto'])->name('avatar.upload');
     Route::delete('/avatar/delete', [PhotoController::class, 'deleteAvatar'])->name('avatar.delete');
+
+    Route::get('/jobs/{jobAd}/apply', [JobApplicationController::class, 'create'])->name('jobApplications.create');
+    Route::post('/jobs/{jobAd}/apply', [JobApplicationController::class, 'store'])->name('jobApplications.store');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -70,6 +74,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/freelancer/{username}/edit', [FreelancerController::class, 'edit'])->name('freelancers.edit');
     Route::put('/freelancer/{username}/update', [FreelancerController::class, 'update'])->name('freelancers.update');
 });
+
+Route::post('/notifications/mark-all-as-read', function () {
+    Auth::user()->unreadNotifications->markAsRead();
+    return response()->json(['success' => true]);
+})->middleware('auth');
+
+Route::middleware(['share.notifications'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');
+});
+
+
 
 Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');
 

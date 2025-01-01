@@ -45,7 +45,7 @@
         <div class="mt-6 flex justify-between items-center">
 
           <button 
-          @click="applyForJob" 
+          @click="navigateToApplicationForm" 
           class="btn bg-blue-600 text-white hover:bg-blue-700">
                   Apply for Job
               </button>
@@ -56,7 +56,7 @@
 
 <script setup>
 import { computed } from 'vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
@@ -81,7 +81,7 @@ const timeSincePosted = computed(() => {
   }
 });
 
-const applyForJob = () => {
-  alert("Application sent!"); // Позже можно заменить на реальный функционал
+const navigateToApplicationForm = () => {
+  router.visit(`/jobs/${props.jobAds.id}/apply`);
 };
 </script>
