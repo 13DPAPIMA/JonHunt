@@ -136,7 +136,6 @@ const setTab = (tab) => {
               </select>
 
               <!-- Фильтр по дате завершения -->
-              <input type="date" v-model="selectedCompletionDate" class="p-2 border border-gray-300 rounded-lg" />
           </div>
       </div>
 
