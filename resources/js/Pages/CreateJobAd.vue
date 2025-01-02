@@ -63,17 +63,16 @@
                         </div>
 
                         <div>
-                            <h2 class="text-2xl font-semibold text-gray-900">Upload Examples</h2>
-                            <p class="mt-2 text-sm text-gray-600">Upload examples of your work (optional)</p>
-                            <br />
-                            <InputLabel for="examples" value="Examples of Work" />
+                            <InputLabel for="examples" value="Portfolio Files" />
                             <input
                                 type="file"
                                 id="examples"
+                                name="examples[]"
+                                multiple
                                 @change="handleFileUpload"
                                 class="mt-1 block w-full"
                             />
-                            <InputError class="mt-2" :message="form.errors.examples" />
+                            <InputError class="mt-2" :message="form.errors['examples.*']" />
                         </div>
 
                         <div class="flex justify-end">
@@ -107,11 +106,12 @@ const form = useForm({
     title: '',
     description: '',
     price: '',
-    examples: null,
+    examples: [], 
 });
 
 const handleFileUpload = (event) => {
-    form.examples = event.target.files[0];
+    const files = Array.from(event.target.files);
+    form.examples = files; // Важно: multiple => массив
 };
 
 const submitForm = () => {

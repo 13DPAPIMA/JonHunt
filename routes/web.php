@@ -10,6 +10,7 @@ use App\Http\Controllers\FreelancerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\JobApplicationController;
+use App\Http\Controllers\JobAdvertisementPortfolioController;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -84,6 +85,18 @@ Route::middleware(['share.notifications'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');
 });
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/portfolio', [JobAdvertisementPortfolioController::class, 'index'])->name('portfolio.index');
+
+    Route::post('/portfolio', [JobAdvertisementPortfolioController::class, 'store'])->name('portfolio.store');
+
+    Route::get('/portfolio/{portfolio}', [JobAdvertisementPortfolioController::class, 'show'])->name('portfolio.show');
+
+    Route::delete('/portfolio/{portfolio}', [JobAdvertisementPortfolioController::class, 'destroy'])->name('portfolio.destroy');
+
+    Route::put('/portfolio/{portfolio}', [JobAdvertisementPortfolioController::class, 'update'])->name('portfolio.update');
+});
 
 
 Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');

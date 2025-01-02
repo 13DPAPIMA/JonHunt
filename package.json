@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "@inertiajs/inertia": "^0.11.0",
+        "@tailwindcss/aspect-ratio": "^0.4.2",
         "git": "^0.1.5",
         "grep": "^0.1.0",
         "laravel-echo": "^1.17.1",

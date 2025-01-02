@@ -69,4 +69,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(JobAdvertisement::class, 'creator_id');
     }
+
+        public function portfolios()
+    {
+        return $this->hasMany(JobAdvertisementPortfolio::class);
+    }
+
 }

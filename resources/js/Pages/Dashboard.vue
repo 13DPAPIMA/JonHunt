@@ -255,7 +255,22 @@ const setTab = (tab) => {
                     {{ ad.creator.name }}
                   </a>
                 </div>
-                <br />
+                <div v-if="ad.portfolios && ad.portfolios.length > 0" class="mt-4">
+                  <h3 class="text-sm font-semibold text-gray-700 mb-2">Portfolio Examples</h3>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 ">
+                    <div
+                      v-for="portfolio in ad.portfolios"
+                      :key="portfolio.id"
+                      class="aspect-ratio rounded-lg overflow-hidden"
+                    >
+                      <img
+                        :src="portfolio.example_url"
+                        alt="Portfolio example"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <br>
                 <p class="text-gray-600 text-sm sm:text-base mb-1 sm:mb-2">
                   <strong>Starts from:</strong> ${{ ad.Price }}
                 </p>
