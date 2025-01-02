@@ -32,7 +32,7 @@ class ReviewsController extends Controller
     $review = new Review();
     $review->project_id = $project->id;
     $review->UserID = Auth::id();
-    $review->ReviewedUserID = $reviewedUserId; 
+    $review->ReviewedUserID = $reviewedUserId;  
     $review->Rating = $validated['Rating'];
     $review->ReviewText = $validated['ReviewText'];
     $review->save();

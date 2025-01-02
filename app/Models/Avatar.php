@@ -23,6 +23,6 @@ class Avatar extends Model
 
         public function getPhotoUrlAttribute($value)
     {
-        return asset($value); // Указывает полный путь к файлу
+        return asset($value); 
     }
 }

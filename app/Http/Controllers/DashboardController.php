@@ -26,7 +26,6 @@ class DashboardController extends Controller
             'projects' => $projects,
             'jobAds' => $jobAds,
             'notifications' => $notifications,
-
         ]);
     }
 
