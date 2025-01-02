@@ -35,10 +35,11 @@ class JobApplicationController extends Controller
             'requirements' => $request->requirements,
         ]);
     
+        $jobApplication->load('jobAd');
+
         if ($jobAd->creatorUser) {
             $jobAd->creatorUser->notify(new JobApplicationNotification($jobApplication, auth()->user()));
-        }
-        
+        }        
             
         return redirect()->route('jobAds.display', $jobAdId)->with('success', 'Application submitted successfully.');
     }

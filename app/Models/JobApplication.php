@@ -17,7 +17,7 @@ class JobApplication extends Model
 
     public function jobAd()
     {
-        return $this->belongsTo(JobAdvertisement::class);
+        return $this->belongsTo(JobAdvertisement::class, 'job_ad_id');
     }
 
     public function user()
