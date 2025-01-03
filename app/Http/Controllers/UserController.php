@@ -28,7 +28,7 @@ class UserController extends Controller
     public function projectsInProfile(): Response
     {
         $user = Auth::user();
-        $projects = Project::where('creator', $user->name)->get(); 
+        $projects = Project::where('creator_id', $user->id)->get(); 
     
         return Inertia::render('ProjectsInProfile', [
             'projects' => $projects,
