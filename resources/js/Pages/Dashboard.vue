@@ -81,32 +81,43 @@ const setTab = (tab) => {
             </h2>
         </template>
 
-        <div class="bg-red-600 overflow-hidden shadow-sm sm:rounded-lg w-2/3 mx-auto my-10">
-            <div class="text-center p-6 text-white">
-                <!-- Авторизованный пользователь -->
-                <div v-if="$page.props.auth && $page.props.auth.user" class="text-2xl sm:text-3xl font-bold">
-                    Welcome, {{ $page.props.auth.user.name }}!
-                </div>
-        
-                <!-- Гость -->
-                <div v-else class="text-2xl sm:text-3xl font-bold">
-                    Welcome, Guest! Please 
-                    <a href="/login" class="text-white-500 hover:underline">login</a>
-                    to access more features.
-                </div>
-        
-                <div class="flex flex-col sm:flex-row mt-4">
-                    <div class="bg-white m-2 p-4 text-black w-full sm:w-1/2 h-auto sm:h-32 overflow-hidden shadow-sm sm:rounded-lg">
-                        <p class="text-left font-bold text-sm sm:text-base">RECOMMENDED FOR YOU</p>
-                        <p class="my-3 sm:my-7 text-sm sm:text-base">Cooperate with other freelancers!</p>
-                    </div>
-                    <div class="bg-white m-2 p-4 text-black w-full sm:w-1/2 h-auto sm:h-32 overflow-hidden shadow-sm sm:rounded-lg">
-                        <p class="text-left font-bold text-sm sm:text-base">BUSINESS RECOMMENDATIONS</p>
-                        <p class="my-3 sm:my-7 text-sm sm:text-base">Write more about yourself in your profile!</p>
-                    </div>
-                </div>
+        <div class="bg-gradient-to-r from-red-500 via-red-600 to-red-700 overflow-hidden shadow-lg sm:rounded-xl w-2/3 mx-auto my-10">
+          <div class="text-center p-8 text-white">
+              <!-- Авторизованный пользователь -->
+              <div v-if="$page.props.auth && $page.props.auth.user" class="text-3xl font-bold mb-6">
+                  👋 Welcome back, <span class="">{{ $page.props.auth.user.name }}</span>!
+              </div>
+      
+              <!-- Гость -->
+              <div v-else class="text-3xl font-bold mb-6">
+                  👋 Welcome, Guest! 
+                  <a href="/login" class="underline hover:text-gray-200 transition">Login</a> to access more features.
+              </div>
+      
+              <!-- Рекомендации -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+                <div class="bg-white p-6 text-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                  <h3 class="text-lg font-semibold text-left mb-4">
+                      🔔 Notifications
+                  </h3>
+                  <p class="text-base">You have 2 unread messages from clients.</p>
+                  <div class="mt-4 text-right">
+                    with love from JobHunt team
+                  </div>
+              </div>
+                <div class="bg-white p-6 text-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                  <h3 class="text-lg font-semibold text-left mb-4">
+                      🕒 Next Deadline
+                  </h3>
+                  <p class="text-base">Project: <strong>Website Redesign</strong></p>
+                  <p class="text-base">Due: <strong>3 days remaining</strong></p>
+                  <div class="mt-4 text-right">
+                  </div>
+              </div>
             </div>
-        </div>
+          </div>
+      </div>
+      
 
 
         <div class="filters mt-6">
