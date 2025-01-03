@@ -21,7 +21,13 @@
         </div>
 
         <div class="mt-12 px-6 pb-6 text-center">
-          <h2 class="mt-4 text-2xl font-semibold text-gray-800">{{ user.name }}</h2>
+          <h2 class="mt-4 text-2xl font-semibold text-gray-800 flex items-center justify-center">
+            {{ user.name }}
+            <span v-if="user.role === 'freelancer'" class="badge badge-accent ml-2">
+              Freelancer
+            </span>
+          </h2>
+          
           <p v-if="user.description" class="mt-4 text-gray-500">{{ user.description }}</p>
         </div>
 

@@ -4,37 +4,42 @@
       <div class="my-10 max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6 sm:p-8">
           <h2 class="text-2xl font-semibold text-gray-900">{{ jobAds.Title }}</h2>
           <div class="creator-info flex items-center mt-2">
-            <a 
-                v-if="jobAds.creator && jobAds.creator.avatar" 
-                :href="`/user/${jobAds.creator.username}`" 
-                class="flex items-center"
+            <a
+              v-if="jobAds.creator && jobAds.creator.avatar"
+              :href="`/user/${jobAds.creator.username}`"
+              class="flex items-center"
             >
-                <img 
-                    :src="jobAds.creator.avatar.photo_url" 
-                    alt="Avatar" 
-                    class="w-10 h-10 rounded-full mr-3"
-                />
+              <img
+                :src="jobAds.creator.avatar.photo_url"
+                alt="Avatar"
+                class="w-10 h-10 rounded-full mr-3"
+              />
             </a>
-
-            <a 
-                v-else 
-                :href="`/user/${jobAds.creator.username}`" 
-                class="flex items-center"
+            <a
+              v-else
+              :href="`/user/${jobAds.creator.username}`"
+              class="flex items-center"
             >
-                <div 
-                    class="w-10 h-10 rounded-full mr-3 flex items-center justify-center bg-gray-400 text-white font-bold"
-                >
-                    {{ jobAds.creator.name.charAt(0).toUpperCase() }}
-                </div>
+              <div
+                class="w-10 h-10 rounded-full bg-gray-400 text-white font-bold flex items-center justify-center mr-3"
+              >
+                {{ jobAds.creator.name.charAt(0).toUpperCase() }}
+              </div>
             </a>
-
-            <a 
-                :href="`/user/${jobAds.creator.username}`" 
-                class="text-gray-700 font-medium hover:text-blue-500 transition"
+            <a
+              :href="`/user/${jobAds.creator.username}`"
+              class="text-gray-700 font-medium hover:text-blue-500 transition flex items-center"
             >
-                {{ jobAds.creator.name }}
+              {{ jobAds.creator.name }}
+              <span
+                v-if="jobAds.creator.role === 'freelancer'"
+                class="badge badge-accent ml-2"
+              >
+                Freelancer
+              </span>
             </a>
-        </div>
+          </div>
+          
         <div class="mt-6">
           <h3 class="text-xl font-semibold text-gray-900">Details</h3>
           <p><strong>Price:</strong> ${{ jobAds.Price }}</p>
