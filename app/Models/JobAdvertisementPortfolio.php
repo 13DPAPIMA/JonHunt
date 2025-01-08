@@ -17,7 +17,6 @@ class JobAdvertisementPortfolio extends Model
         'example_public_id',
     ];
 
-    // Связь: каждая запись портфолио относится к одному объявлению
     public function jobAd()
     {
         return $this->belongsTo(JobAdvertisement::class, 'job_ad_id');

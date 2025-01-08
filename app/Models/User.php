@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\UserBalance;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -62,7 +63,7 @@ class User extends Authenticatable
 
     public function freelancer()
     {
-        return $this->hasOne(Freelancer::class);
+        return $this->belongsTo(Freelancer::class);
     }
 
     public function jobAdvertisements()
@@ -70,9 +71,25 @@ class User extends Authenticatable
         return $this->hasMany(JobAdvertisement::class, 'creator_id');
     }
 
-        public function portfolios()
+    public function portfolios()
     {
         return $this->hasMany(JobAdvertisementPortfolio::class);
     }
+
+    public function balance()
+    {
+        return $this->hasOne(UserBalance::class);
+    }
+
+    protected static function booted()
+{
+    static::created(function ($user) {
+        UserBalance::create([
+            'user_id' => $user->id,
+            'amount' => 0, // Начальный баланс = 0
+        ]);
+    });
+}
+
 
 }

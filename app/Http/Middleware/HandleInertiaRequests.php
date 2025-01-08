@@ -54,7 +54,7 @@ class HandleInertiaRequests extends Middleware
                     'name'  => $user->name,
                     'email' => $user->email,
                     'role'  => $user->role,
-                    // Передаём $avatar
+                    'balance' => $request->user()->balance->amount ?? 0, 
                     'avatar' => $avatar ? [
                         'photo_url'             => $avatar->photo_url,
                         'cloudinary_public_id'  => $avatar->cloudinary_public_id,

@@ -88,17 +88,27 @@ Route::middleware(['share.notifications'])->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/portfolio', [JobAdvertisementPortfolioController::class, 'index'])->name('portfolio.index');
-
     Route::post('/portfolio', [JobAdvertisementPortfolioController::class, 'store'])->name('portfolio.store');
-
     Route::get('/portfolio/{portfolio}', [JobAdvertisementPortfolioController::class, 'show'])->name('portfolio.show');
-
     Route::delete('/portfolio/{portfolio}', [JobAdvertisementPortfolioController::class, 'destroy'])->name('portfolio.destroy');
-
     Route::put('/portfolio/{portfolio}', [JobAdvertisementPortfolioController::class, 'update'])->name('portfolio.update');
 });
 
 
 Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');
+
+use App\Http\Controllers\BalanceController;
+use App\Http\Controllers\JobController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/balance', [BalanceController::class, 'index'])->name('balance.index');
+    Route::post('/balance', [BalanceController::class, 'store'])->name('balance.store');
+
+    Route::post('/jobs/{jobAd}/pay', [JobController::class, 'pay'])->name('jobs.pay');
+    Route::get('/jobs/{jobAd}', [JobController::class, 'show'])->name('jobs.show');
+
+});
+
+
 
 require __DIR__.'/auth.php';

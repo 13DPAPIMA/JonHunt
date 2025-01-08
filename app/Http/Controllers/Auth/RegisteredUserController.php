@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
+use App\Models\UserBalance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,6 +51,11 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'username' => $request->username,
             'password' => Hash::make($request->password),
+        ]);
+
+        UserBalance::create([
+            'user_id' => $user->id,
+            'amount' => 0,
         ]);
 
         event(new Registered($user));

@@ -6,54 +6,63 @@ use App\Models\JobAdvertisement;
 use App\Models\JobApplication;
 use Illuminate\Http\Request;
 use App\Notifications\JobApplicationNotification;
-use Illuminate\Support\Facades\Auth;
-
-
-
 
 class JobApplicationController extends Controller
 {
     public function create($jobAdId)
     {
         $jobAd = JobAdvertisement::findOrFail($jobAdId);
+
         return inertia('JobApplication', [
             'jobAd' => $jobAd,
         ]);
     }
 
+    /**
+     * Сохранение заявки + оплата (без quantity)
+     */
     public function store(Request $request, $jobAdId)
     {
         $request->validate([
+            // requirements — единственное обязательное поле для заявки
             'requirements' => 'required|string|min:10',
         ]);
-    
-        $jobAd = JobAdvertisement::findOrFail($jobAdId);
-    
-        $jobApplication = JobApplication::create([
-            'job_ad_id' => $jobAd->id,
-            'user_id' => auth()->id(),
-            'requirements' => $request->requirements,
-        ]);
-    
-        $jobApplication->load('jobAd');
 
+        // Находим объявление
+        $jobAd = JobAdvertisement::findOrFail($jobAdId);
+
+        // Стоимость — просто Price из объявления
+        $total = $jobAd->Price;
+
+        // Проверяем баланс
+        $userBalance = auth()->user()->balance;
+        if (!$userBalance) {
+            return back()->withErrors(['message' => 'Баланс пользователя не найден.']);
+        }
+
+        if ($userBalance->amount < $total) {
+            return back()->withErrors(['message' => 'Недостаточно средств на балансе.']);
+        }
+
+        // Списываем деньги
+        $userBalance->amount -= $total;
+        $userBalance->save();
+
+        // Создаём заявку
+        $jobApplication = JobApplication::create([
+            'job_ad_id'    => $jobAd->id,
+            'user_id'      => auth()->id(),
+            'requirements' => $request->input('requirements'),
+        ]);
+
+        // Если хотите уведомить автора объявления
         if ($jobAd->creatorUser) {
             $jobAd->creatorUser->notify(new JobApplicationNotification($jobApplication, auth()->user()));
-        }        
-            
-        return redirect()->route('jobAds.display', $jobAdId)->with('success', 'Application submitted successfully.');
+        }
+
+        // Редирект после успешного создания
+        return redirect()
+            ->route('jobAds.display', $jobAd->id)
+            ->with('success', 'Application submitted and payment processed successfully.');
     }
-    
-
-    public function display()
-    {
-        $notifications = auth()->user()->notifications()->latest()->get();
-        \Log::info(auth()->user()->notifications()->latest()->get());
-
-        return Inertia::render('AuthenticatedLayout', [
-            'notifications' => $notifications,
-        ]);
-    }
-    
-
 }
