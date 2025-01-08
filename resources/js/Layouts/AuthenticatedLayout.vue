@@ -1,13 +1,11 @@
 <script setup>
-import { ref, computed } from 'vue';
-import { usePage } from '@inertiajs/vue3';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { usePage, Link, router } from '@inertiajs/vue3';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import { Link } from '@inertiajs/vue3';
-import { router } from '@inertiajs/vue3';
 import axios from 'axios';
 
 const { props } = usePage();
@@ -15,7 +13,6 @@ console.log(props);
 console.log('Notifications:', props.notifications);
 
 const notifications = props.notifications || [];
-
 const unreadNotifications = computed(() =>
   notifications.filter((notification) => notification.read_at === null)
 );
@@ -23,143 +20,182 @@ const unreadNotifications = computed(() =>
 const showingNavigationDropdown = ref(false);
 const searchQuery = ref('');
 
-const markAllAsRead = async () => {
-    try {
-        if (unreadNotifications.value.length > 0) {
-            unreadNotifications.value.forEach(notification => {
-                notification.read_at = new Date().toISOString();
-            });
+/**
+ * Состояние "открыт ли" дропдаун уведомлений
+ */
+const isNotificationOpen = ref(false);
 
-            await axios.post('/notifications/mark-all-as-read');
-        }
-    } catch (error) {
-        console.error('Ошибка при обновлении уведомлений:', error);
+/**
+ * Переключаем меню уведомлений по клику
+ */
+function toggleNotifications() {
+  isNotificationOpen.value = !isNotificationOpen.value;
+}
+
+/**
+ * Закрываем меню, если клик "снаружи" (не на иконке/меню)
+ */
+function handleClickOutside(event) {
+  // Если клик не внутри .notification-menu, закрываем
+  if (!event.target.closest('.notification-menu')) {
+    isNotificationOpen.value = false;
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
+
+/**
+ * Отмечаем все уведомления как прочитанные
+ */
+const markAllAsRead = async () => {
+  try {
+    if (unreadNotifications.value.length > 0) {
+      // Локально отмечаем как прочитанные
+      unreadNotifications.value.forEach(notification => {
+        notification.read_at = new Date().toISOString();
+      });
+      // Запрос на сервер
+      await axios.post('/notifications/mark-all-as-read');
     }
+  } catch (error) {
+    console.error('Ошибка при обновлении уведомлений:', error);
+  }
 };
 
+/**
+ * Поиск
+ */
 function search() {
-    router.visit(route('search.index'), {
-        method: 'get',
-        data: {
-            query: searchQuery.value,
-        },
-        preserveState: true,
-        preserveScroll: true,
-    });
+  router.visit(route('search.index'), {
+    method: 'get',
+    data: {
+      query: searchQuery.value,
+    },
+    preserveState: true,
+    preserveScroll: true,
+  });
 }
 </script>
 
-
 <template>
-    <div>
-        <div class="min-h-screen bg-gray-100 selection:bg-red-500 selection:text-white overflow-hidden">
-            <nav class="bg-white border-b border-gray-100">
-                <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
-                        <div class="flex">
-                            <!-- Logo -->
-                            <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
-                                    <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-gray-800"
-                                    />
-                                </Link>
-                            </div>
+  <div>
+    <div class="min-h-screen bg-gray-100 selection:bg-red-500 selection:text-white overflow-hidden">
+      <nav class="bg-white border-b border-gray-100">
+        <!-- Primary Navigation Menu -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between h-16">
+            <div class="flex">
+              <!-- Logo -->
+              <div class="shrink-0 flex items-center">
+                <Link :href="route('dashboard')">
+                  <ApplicationLogo
+                    class="block h-9 w-auto fill-current text-gray-800"
+                  />
+                </Link>
+              </div>
 
-                            <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Projects List
-                                </NavLink>
+              <!-- Navigation Links -->
+              <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                  Projects List
+                </NavLink>
 
-                                <template v-if="$page.props.auth.user">
-                                    <NavLink :href="route('projects.inProfile')" :active="route().current('projects.inProfile')">
-                                        My Projects
-                                    </NavLink>
-                                
-                                    <template v-if="$page.props.auth.user.role.includes('freelancer')">
-                                        <NavLink :href="route('jobAds.index')" :active="route().current('jobAds.index')">
-                                            My Job Advertisements
-                                        </NavLink>
-                                    </template>
-                                </template>
+                <template v-if="$page.props.auth.user">
+                  <NavLink :href="route('projects.inProfile')" :active="route().current('projects.inProfile')">
+                    My Projects
+                  </NavLink>
 
-                            </div>
-                        </div>
+                  <template v-if="$page.props.auth.user.role.includes('freelancer')">
+                    <NavLink :href="route('jobAds.index')" :active="route().current('jobAds.index')">
+                      My Job Advertisements
+                    </NavLink>
+                  </template>
+                </template>
 
-                        <form @submit.prevent="search" class="hidden sm:flex items-center">
-                            <input
-                                v-model="searchQuery"
-                                type="search"
-                                placeholder="Search projects & ads..."
-                                class="border border-gray-300 rounded-l px-3 py-2 focus:outline-none"
-                            />
-                            <button
-                                type="submit"
-                                class="bg-red-600 text-white px-3 py-2 rounded-r hover:bg-gray-500"
-                            >
-                                Search
-                            </button>
-                        </form>
+              </div>
+            </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <!-- Поиск -->
+            <form @submit.prevent="search" class="hidden sm:flex items-center">
+              <input
+                v-model="searchQuery"
+                type="search"
+                placeholder="Search projects & ads..."
+                class="border border-gray-300 rounded-l px-3 py-2 focus:outline-none"
+              />
+              <button
+                type="submit"
+                class="bg-red-600 text-white px-3 py-2 rounded-r hover:bg-gray-500"
+              >
+                Search
+              </button>
+            </form>
 
-                            <div class="relative">
-                                <!-- Контейнер-«группа», только вокруг иконки -->
-                                <div class="inline-flex items-center group">
-                                    <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="size-11 inline-flex items-center py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white focus:outline-none transition ease-in-out duration-150"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
-                                    />
-                                </svg>
-                            
-                                    <!-- Красная точка -->
-                                    <span
-                                        v-if="unreadNotifications.length > 0"
-                                        class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"
-                                    ></span>
-                            
-                                    <!-- Выпадающий список -->
-                                    <div
-                                    class="absolute right-6 mt-96 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50
-                                    opacity-0 pointer-events-none transform scale-95
-                                    group-hover:opacity-100 group-hover:scale-100 group-hover:pointer-events-auto
-                                    transition-all duration-200 ease-in-out"
-                                    >
-                                        <div v-if="notifications.length === 0" class="p-4 text-gray-500 text-sm">
-                                            No new notifications
-                                        </div>
-                                        <ul v-else>
-                                            <li
-                                                v-for="notification in notifications.slice(0, 3)"
-                                                :key="notification.id"
-                                                class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm"
-                                            >
-                                                <strong>Message:</strong> {{ notification.data.message }} <br/>
-                                                <strong>Sender:</strong> {{ notification.data.sender_name }} <br/>
-                                                <strong>Job Title:</strong> {{ notification.data.job_title || 'N/A' }}
-                                            </li>
-                                        </ul>
-                                        <button
-                                            @click="markAllAsRead"
-                                            class="w-full text-center bg-red-500 text-white py-2 hover:bg-red-700"
-                                        >
-                                            Mark all as read
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
+            <!-- Права часть меню -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
+              
+              <!-- Иконка уведомлений -->
+              <div class="relative notification-menu inline-flex items-center me-4">
+                <!-- Кнопка-иконка -->
+                <svg
+                  @click="toggleNotifications"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="cursor-pointer size-11 inline-flex items-center py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white focus:outline-none transition ease-in-out duration-150"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
+                  />
+                </svg>
+                <!-- Красная точка (счётчик непрочитанных) -->
+                <span
+                  v-if="unreadNotifications.length > 0"
+                  class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full"
+                ></span>
+                
+                <!-- Выпадающее меню уведомлений -->
+                <div
+                  v-show="isNotificationOpen"
+                  class="absolute right-6 mt-96 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50
+                         transition-all duration-200 ease-in-out cursor-pointer"
+                  :class="{
+                    'opacity-100 pointer-events-auto scale-100': isNotificationOpen,
+                    'opacity-0 pointer-events-none scale-95': !isNotificationOpen
+                  }"
+                >
+                  <div v-if="notifications.length === 0" class="p-4 text-gray-500 text-sm">
+                    No new notifications
+                  </div>
+                  <ul v-else>
+                    <li
+                      v-for="notification in notifications.slice(0, 3)"
+                      :key="notification.id"
+                      class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm"
+                    >
+                      <strong>Message:</strong> {{ notification.data.message }} <br/>
+                      <strong>Sender:</strong> {{ notification.data.sender_name }} <br/>
+                      <strong>Job Title:</strong> {{ notification.data.job_title || 'N/A' }}
+                    </li>
+                  </ul>
+                  <button
+                    @click="markAllAsRead"
+                    class="w-full text-center bg-red-500 text-white py-2 hover:bg-red-700"
+                  >
+                    Mark all as read
+                  </button>
+                </div>
+              </div>
                             
 
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-11 inline-flex items-center py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white  focus:outline-none transition ease-in-out duration-150 " >
