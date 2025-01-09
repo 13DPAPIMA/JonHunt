@@ -110,5 +110,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+use App\Http\Controllers\OrderController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+    Route::post('/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+});
 
 require __DIR__.'/auth.php';

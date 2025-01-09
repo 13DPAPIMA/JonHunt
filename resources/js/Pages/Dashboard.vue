@@ -81,7 +81,7 @@ const setTab = (tab) => {
             </h2>
         </template>
 
-        <div class="bg-gradient-to-r from-red-500 via-red-600 to-red-700 overflow-hidden shadow-lg sm:rounded-xl w-2/3 mx-auto my-10">
+        <div class="bg-gradient-to-r from-red-500 via-red-700 to-red-900 overflow-hidden shadow-lg sm:rounded-xl w-2/3 mx-auto my-10">
           <div class="text-center p-8 text-white">
               <!-- Авторизованный пользователь -->
               <div v-if="$page.props.auth && $page.props.auth.user" class="text-3xl font-bold mb-6">
@@ -273,7 +273,7 @@ const setTab = (tab) => {
                   </a>
                   <a
                     v-else
-                    :href="`/users/${ad.creator.username}`"
+                    :href="`/user/${ad.creator.username}`"
                     class="flex items-center"
                   >
                     <div
