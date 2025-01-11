@@ -27,6 +27,10 @@ Route::get('/', function () {
 
 Route::get('/user/{username}', [ProfileController::class, 'show'])->name('profile.show');
 
+Route::get('/projects/create', function () {
+    return Inertia::render('CreateProject');
+})->name('projects.create');
+
 Route::get('/projects/{project}', [ProjectsController::class, 'show'])->name('projects.show');
 
 Route::get('/gigs/{jobAds}', [JobAdController::class, 'display'])->name('jobAds.display');
@@ -41,9 +45,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/jobAdvertisements/{jobAd}', [JobAdController::class, 'update'])->name('jobAds.update');
     Route::delete('/jobAdvertisements/delete/{jobAd}', [JobAdController::class, 'destroy'])->name('jobAds.delete');
     
-    Route::get('/projects/create', function () {
-        return Inertia::render('CreateProject');
-    })->name('/projects/create');
 
     Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
     Route::post('/projects/{project}/addReview', [App\Http\Controllers\ReviewsController::class, 'addReview'])->name('reviews.addReview');
@@ -98,15 +99,10 @@ Route::middleware('auth')->group(function () {
 Route::get('/dashboard', [DashboardController::class, 'display'])->name('dashboard');
 
 use App\Http\Controllers\BalanceController;
-use App\Http\Controllers\JobController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/balance', [BalanceController::class, 'index'])->name('balance.index');
     Route::post('/balance', [BalanceController::class, 'store'])->name('balance.store');
-
-    Route::post('/jobs/{jobAd}/pay', [JobController::class, 'pay'])->name('jobs.pay');
-    Route::get('/jobs/{jobAd}', [JobController::class, 'show'])->name('jobs.show');
-
 });
 
 
