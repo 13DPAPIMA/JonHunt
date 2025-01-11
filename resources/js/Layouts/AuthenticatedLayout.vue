@@ -20,23 +20,16 @@ const unreadNotifications = computed(() =>
 const showingNavigationDropdown = ref(false);
 const searchQuery = ref('');
 
-/**
- * Состояние "открыт ли" дропдаун уведомлений
- */
+
 const isNotificationOpen = ref(false);
 
-/**
- * Переключаем меню уведомлений по клику
- */
+
 function toggleNotifications() {
   isNotificationOpen.value = !isNotificationOpen.value;
 }
 
-/**
- * Закрываем меню, если клик "снаружи" (не на иконке/меню)
- */
+
 function handleClickOutside(event) {
-  // Если клик не внутри .notification-menu, закрываем
   if (!event.target.closest('.notification-menu')) {
     isNotificationOpen.value = false;
   }
@@ -50,17 +43,13 @@ onBeforeUnmount(() => {
   document.removeEventListener('click', handleClickOutside);
 });
 
-/**
- * Отмечаем все уведомления как прочитанные
- */
+
 const markAllAsRead = async () => {
   try {
     if (unreadNotifications.value.length > 0) {
-      // Локально отмечаем как прочитанные
       unreadNotifications.value.forEach(notification => {
         notification.read_at = new Date().toISOString();
       });
-      // Запрос на сервер
       await axios.post('/notifications/mark-all-as-read');
     }
   } catch (error) {
@@ -111,6 +100,10 @@ function search() {
                     My Projects
                   </NavLink>
 
+                  <NavLink :href="route('orders.index')" :active="route().current('orders.index')">
+                    My Orders
+                  </NavLink>
+                  
                   <template v-if="$page.props.auth.user.role.includes('freelancer')">
                     <NavLink :href="route('jobAds.index')" :active="route().current('jobAds.index')">
                       My Job Advertisements

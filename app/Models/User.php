@@ -81,15 +81,25 @@ class User extends Authenticatable
         return $this->hasOne(UserBalance::class);
     }
 
+    public function ordersAsClient()
+    {
+        return $this->hasMany(Order::class, 'client_id');
+    }
+    
+    public function ordersAsFreelancer()
+    {
+        return $this->hasMany(Order::class, 'freelancer_id');
+    }
+
     protected static function booted()
-{
-    static::created(function ($user) {
-        UserBalance::create([
-            'user_id' => $user->id,
-            'amount' => 0, // Начальный баланс = 0
-        ]);
-    });
-}
+    {
+        static::created(function ($user) {
+            UserBalance::create([
+                'user_id' => $user->id,
+                'amount' => 0,
+            ]);
+        });
+    }
 
 
 }

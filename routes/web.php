@@ -29,7 +29,7 @@ Route::get('/user/{username}', [ProfileController::class, 'show'])->name('profil
 
 Route::get('/projects/create', function () {
     return Inertia::render('CreateProject');
-})->name('projects.create');
+})->name('/projects/create');
 
 Route::get('/projects/{project}', [ProjectsController::class, 'show'])->name('projects.show');
 
@@ -109,6 +109,7 @@ Route::middleware(['auth'])->group(function () {
 use App\Http\Controllers\OrderController;
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });

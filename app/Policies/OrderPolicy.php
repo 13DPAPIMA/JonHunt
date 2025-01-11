@@ -9,12 +9,16 @@ class OrderPolicy
 {
     public function view(User $user, Order $order)
     {
-        // Допустим, клиент и фрилансер
         return $user->id === $order->client_id
             || $user->id === $order->freelancer_id;
     }
 
-    // Остальные методы...
+    public function update(User $user, Order $order)
+    {
+        return $user->id === $order->client_id
+            || $user->id === $order->freelancer_id;
+    }
+
 }
 
 
