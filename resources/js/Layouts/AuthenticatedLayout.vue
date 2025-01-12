@@ -92,7 +92,7 @@ function search() {
               <!-- Navigation Links -->
               <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                  Projects List
+                  JobHunt
                 </NavLink>
 
                 <template v-if="$page.props.auth.user">
@@ -106,7 +106,7 @@ function search() {
                   
                   <template v-if="$page.props.auth.user.role.includes('freelancer')">
                     <NavLink :href="route('jobAds.index')" :active="route().current('jobAds.index')">
-                      My Job Advertisements
+                      My Gigs
                     </NavLink>
                   </template>
                 </template>

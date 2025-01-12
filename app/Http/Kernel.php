@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         'share.notifications' => \App\Http\Middleware\ShareNotifications::class,
+        'admin' => \App\Http\Middleware\IsAdmin::class,
     ];
 }

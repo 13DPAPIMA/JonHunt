@@ -114,4 +114,27 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });
 
+
+use App\Http\Controllers\AdminController;
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+        // Users
+        Route::get('/users', [AdminController::class, 'usersIndex'])->name('users.index');
+        Route::delete('/delete/user/{user}', [AdminController::class, 'usersDestroy'])->name('users.destroy');
+
+        // Projects
+        Route::get('/projects', [AdminController::class, 'projectsIndex'])->name('projects.index');
+        Route::delete('/delete/projects/{project}', [AdminController::class, 'projectsDestroy'])->name('projects.destroy');
+
+        // Job Ads
+        Route::get('/job-ads', [AdminController::class, 'jobAdsIndex'])->name('jobAds.index');
+        Route::delete('/delete/job-ads/{jobAd}', [AdminController::class, 'jobAdsDestroy'])->name('jobAds.destroy');
+
+    });
+
 require __DIR__.'/auth.php';
