@@ -51,14 +51,11 @@ class JobAdController extends Controller
         $jobAd->creator_id  = Auth::id();
         $jobAd->save(); 
     
-        // 2. Проверяем, есть ли файлы
+        
         if ($request->hasFile('examples')) {
-            // $request->file('examples') вернёт массив UploadedFile
             $files = $request->file('examples');
     
-            // 3. Пробегаемся по каждому загруженному файлу
             foreach ($files as $file) {
-                // Загружаем файл в Cloudinary
                 $result = Cloudinary::uploadFile($file->getRealPath(), [
                     'folder' => 'job-portfolio/' . Auth::id(),
                 ]);

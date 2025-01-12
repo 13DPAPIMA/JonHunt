@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class OrderController extends Controller
 {
@@ -66,7 +67,53 @@ public function updateStatus(Request $request, Order $order)
     return back()->with('success', 'Order status updated!');
 }
 
+public function completeOrder(Request $request, Order $order)
+{
+    $this->authorize('update', $order);
 
+    if ($order->status !== 'submitted') {
+        return back()->withErrors(['message' => 'Order cannot be completed in its current status.']);
+    }
+
+    $order->update([
+        'status' => 'completed',
+    ]);
+
+    return back()->with('success', 'Order has been completed successfully.');
+}
+
+
+public function submitWork(Request $request, Order $order)
+{
+    $this->authorize('update', $order);
+
+    if ($order->status !== 'in_progress') {
+        return back()->withErrors(['message' => 'Order cannot be completed in its current status.']);
+    }
+
+    $validated = $request->validate([
+        'result_text' => 'required|string',
+        'result_file' => 'nullable|file|max:10240', // Ограничение на размер файла 10 MB
+    ]);
+
+    $filePath = null;
+    if ($request->hasFile('result_file')) {
+        $uploadedFile = $request->file('result_file');
+        $cloudinaryResult = Cloudinary::uploadFile($uploadedFile->getRealPath(), [
+            'folder' => 'order-results/' . $order->id, // Папка на Cloudinary
+        ]);
+
+        $filePath = $cloudinaryResult->getSecurePath(); // Получение публичной ссылки на файл
+    }
+
+    $order->update([
+        'result_text' => $validated['result_text'],
+        'result_file' => $filePath, // Ссылка на файл из Cloudinary
+        'status' => 'submitted', // Новый статус заказа
+    ]);
+
+    return back()->with('success', 'Work submitted successfully. The client will review it.');
+}
 
     public function index(Request $request)
     {

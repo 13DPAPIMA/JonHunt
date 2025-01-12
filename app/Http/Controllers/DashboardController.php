@@ -20,13 +20,10 @@ class DashboardController extends Controller
     {
         $projects = Project::with('creator.avatar')->get();
         $jobAds = JobAdvertisement::with(['creator.avatar', 'portfolios'])->get();
-        $notifications = auth()->user()->notifications()->latest()->get();
-        \Log::info(auth()->user()->notifications()->latest()->get());
 
         return Inertia::render('Dashboard', [
             'projects' => $projects,
             'jobAds' => $jobAds,
-            'notifications' => $notifications,
         ]);
     }
 

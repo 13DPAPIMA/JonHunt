@@ -11,6 +11,8 @@ class Order extends Model
         'client_id',
         'freelancer_id',
         'status',
+        'result_text',
+        'result_file',
     ];
 
     public function jobApplication()
