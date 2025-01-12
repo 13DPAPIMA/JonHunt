@@ -1,12 +1,12 @@
 <template>
     <div class="max-w-4xl mx-auto bg-white dark:bg-gray-800 shadow sm:rounded-lg p-6">
       <h2 class="text-2xl font-semibold text-gray-900 mb-6">
-        Ваш текущий баланс: ${{ balance }}
+        Your current balance: ${{ balance }}
       </h2>
   
       <form @submit.prevent="submitForm">
         <div class="mb-4">
-          <label for="amount" class="block text-sm font-medium text-gray-700">Сумма пополнения</label>
+          <label for="amount" class="block text-sm font-medium text-gray-700">Deposit amount</label>
           <input
             v-model="form.amount"
             type="number"
@@ -19,7 +19,7 @@
           </div>
         </div>
         <button type="submit" class="btn bg-blue-600 text-white hover:bg-blue-700">
-          Пополнить
+          Deposit
         </button>
       </form>
     </div>
