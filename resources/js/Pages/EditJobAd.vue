@@ -8,22 +8,23 @@
         <Head title="Edit Job Advertisement" />
 
         <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-6">
+            <!-- Основные данные -->
             <h2 class="text-2xl font-semibold text-gray-800 mb-6">Edit Job Advertisement</h2>
 
-            <form @submit.prevent="submit" class="space-y-6">
+            <form @submit.prevent="submitMainForm" class="space-y-6">
                 <div>
                     <InputLabel for="title" value="Title" />
                     <TextInput
                         id="title"
                         type="text"
                         class="mt-1 block w-full"
-                        v-model="form.title"
+                        v-model="mainForm.title"
                         required
                         autofocus
                         autocomplete="title"
                     />
                     <span class="text-sm text-gray-500">At least 60 symbols</span>
-                    <InputError class="mt-2" :message="form.errors.title" />
+                    <InputError class="mt-2" :message="mainForm.errors.title" />
                 </div>
 
                 <div>
@@ -31,11 +32,11 @@
                     <textarea
                         id="description"
                         class="mt-1 block w-full h-32 focus-red-700 border"
-                        v-model="form.description"
+                        v-model="mainForm.description"
                         required
                         autocomplete="description"
                     ></textarea>
-                    <InputError class="mt-2" :message="form.errors.description" />
+                    <InputError class="mt-2" :message="mainForm.errors.description" />
                 </div>
 
                 <div>
@@ -43,36 +44,43 @@
                     <input
                         type="number"
                         id="price"
-                        v-model="form.price"
+                        v-model="mainForm.price"
                         required
                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
-                    <InputError class="mt-2" :message="form.errors.price" />
-                </div>
-
-                <div>
-                    <InputLabel for="examples" value="Example of Work (optional)" />
-                    <input
-                        type="file"
-                        id="examples"
-                        @change="handleFileUpload"
-                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    />
-                    <InputError class="mt-2" :message="form.errors.examples" />
+                    <InputError class="mt-2" :message="mainForm.errors.price" />
                 </div>
 
                 <div class="flex justify-end">
-                    <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <PrimaryButton :class="{ 'opacity-25': mainForm.processing }" :disabled="mainForm.processing">
                         Update Advertisement
                     </PrimaryButton>
-                    <Transition
-                        enter-active-class="transition ease-in-out"
-                        enter-from-class="opacity-0"
-                        leave-active-class="transition ease-in-out"
-                        leave-to-class="opacity-0"
-                    >
-                        <p v-if="form.recentlySuccessful" class="ml-4 text-sm text-gray-600">Job Ad edited</p>
-                    </Transition>
+                </div>
+            </form>
+
+            <!-- Управление изображениями -->
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 mt-10">Manage Examples</h2>
+
+            <div class="mb-6">
+                <img v-if="currentImage" :src="currentImage" alt="Example" class="rounded-lg shadow-md w-full max-w-xs" />
+            </div>
+
+            <form @submit.prevent="submitImageForm" class="space-y-6">
+                <div>
+                    <InputLabel for="examples" value="Example of Work" />
+                    <input
+                        type="file"
+                        id="examples"
+                        @change="handleImageUpload"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    />
+                    <InputError class="mt-2" :message="imageForm.errors.examples" />
+                </div>
+
+                <div class="flex justify-end">
+                    <PrimaryButton :class="{ 'opacity-25': imageForm.processing }" :disabled="imageForm.processing">
+                        Update Image
+                    </PrimaryButton>
                 </div>
             </form>
         </div>
@@ -89,27 +97,49 @@ import TextInput from '@/Components/TextInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const { props: pageProps } = usePage();
-const form = useForm({
+const mainForm = useForm({
     title: '',
     description: '',
     price: '',
+});
+
+const imageForm = useForm({
     examples: null,
 });
 
-// Заполнение формы текущими данными объявления о работе
+const currentImage = ref(null);
+
 onMounted(() => {
-    form.title = pageProps.jobAd.Title;
-    form.description = pageProps.jobAd.Description;
-    form.price = pageProps.jobAd.Price;
+    mainForm.title = pageProps.jobAd.Title;
+    mainForm.description = pageProps.jobAd.Description;
+    mainForm.price = pageProps.jobAd.Price;
+    currentImage.value = pageProps.jobAd.ExampleUrl || null;
 });
 
-// Обработка загрузки файла примера работы
-const handleFileUpload = (event) => {
-    form.examples = event.target.files[0];
+const handleImageUpload = (event) => {
+    imageForm.examples = event.target.files[0];
 };
 
-// Отправка формы для обновления объявления о работе
-const submit = () => {
-    form.put(route('jobAds.update', { jobAd: pageProps.jobAd.id }));
+const submitMainForm = () => {
+    mainForm.put(route('jobAds.update', { jobAd: pageProps.jobAd.id }));
+};
+
+const submitImageForm = () => {
+    const formData = new FormData();
+    if (imageForm.examples) {
+        formData.append('examples', imageForm.examples);
+    }
+
+    axios.post(route('jobAds.updateImage', { jobAd: pageProps.jobAd.id }), formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
+    .then((response) => {
+        currentImage.value = response.data.example_url;
+    })
+    .catch((error) => {
+        console.error(error.response.data);
+    });
 };
 </script>

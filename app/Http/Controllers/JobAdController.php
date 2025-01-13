@@ -79,19 +79,58 @@ class JobAdController extends Controller
         return redirect()->route('jobAds.index')->with('success', 'Job Ad deleted successfully.');
     }
 
+    public function updateImage(Request $request, JobAdvertisement $jobAd)
+    {
+        $validator = Validator::make($request->all(), [
+            'examples' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
+        // Удаление старого примера
+        $oldExample = JobAdvertisementPortfolio::where('job_ad_id', $jobAd->id)->first();
+    
+        if ($oldExample) {
+            try {
+                Cloudinary::destroy($oldExample->example_public_id);
+                $oldExample->delete();
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Failed to delete old example', 'error' => $e->getMessage()], 500);
+            }
+        }
+    
+        // Загрузка нового примера
+        $file = $request->file('examples');
+        $result = Cloudinary::uploadFile($file->getRealPath(), [
+            'folder' => 'job-portfolio/' . Auth::id(),
+        ]);
+    
+        $newExample = JobAdvertisementPortfolio::create([
+            'job_ad_id' => $jobAd->id,
+            'example_url' => $result->getSecurePath(),
+            'example_public_id' => $result->getPublicId(),
+        ]);
+    
+        return response()->json(['example_url' => $newExample->example_url]);
+    }
+    
+
+
     public function update(Request $request, JobAdvertisement $jobAd)
     {
-
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:35|min:10',
             'description' => 'required|string|max:1500|min:100',
             'price' => 'required|numeric|min:0',
             'examples' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
-
+        
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
+        
 
         $validatedData = $validator->validated();
 
@@ -102,13 +141,41 @@ class JobAdController extends Controller
         $jobAd->creator_id = Auth::id();
 
         if ($request->hasFile('examples')) {
-            $jobAd->examples = $request->file('examples')->store('examples', 'public');
+            $oldExamples = JobAdvertisementPortfolio::where('job_ad_id', $jobAd->id)->get();
+
+            foreach ($oldExamples as $example) {
+                try {
+                    Cloudinary::destroy($example->example_public_id);
+                    $example->delete();
+                } catch (\Exception $e) {
+                    return back()->with('error', 'Failed to delete old example files: ' . $e->getMessage());
+                }
+            }
+
+            $files = $request->file('examples');
+
+            foreach ($files as $file) {
+                try {
+                    $result = Cloudinary::uploadFile($file->getRealPath(), [
+                        'folder' => 'job-portfolio/' . Auth::id(),
+                    ]);
+
+                    JobAdvertisementPortfolio::create([
+                        'job_ad_id'         => $jobAd->id,
+                        'example_url'       => $result->getSecurePath(),
+                        'example_public_id' => $result->getPublicId(),
+                    ]);
+                } catch (\Exception $e) {
+                    return back()->with('error', 'Failed to upload new example files: ' . $e->getMessage());
+                }
+            }
         }
 
         $jobAd->save();
 
         return redirect()->route('jobAds.index')->with('success', 'Job Ad updated successfully.');
     }
+
 
     public function edit(JobAdvertisement $jobAd)
     {

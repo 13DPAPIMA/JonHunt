@@ -44,6 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/jobAdvertisements/{jobAd}/edit', [JobAdController::class, 'edit'])->name('jobAds.edit');
     Route::put('/jobAdvertisements/{jobAd}', [JobAdController::class, 'update'])->name('jobAds.update');
     Route::delete('/jobAdvertisements/delete/{jobAd}', [JobAdController::class, 'destroy'])->name('jobAds.delete');
+    Route::post('/jobAdvertisements/{jobAd}/updateImage', [JobAdController::class, 'updateImage'])->name('jobAds.updateImage');
     
 
     Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
