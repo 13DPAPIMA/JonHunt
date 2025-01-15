@@ -14,9 +14,8 @@ class Freelancer extends Model
         'country',
         'bio',
         'specialization',
-        'experience',
-        'hourly_rate',
-        'portfolio',
+        'experience_from',
+        'experience_to',
     ];
 
 

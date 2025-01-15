@@ -1,52 +1,40 @@
 <template>
-  <Head title="Freelancer Registration" />
   <AuthenticatedLayout>
-    <div class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-6">
-      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Freelancer Registration</h2>
+    <!-- Если пользователь - фрилансер, показываем сообщение и выходим -->
+    <div v-if="isFreelancer" class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-6 text-center">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+        You are already a freelancer!
+      </h2>
+      <p class="text-gray-600">
+        You cannot register again.
+      </p>
+    </div>
+
+    <!-- Если пользователь НЕ фрилансер, показываем форму -->
+    <div v-else class="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+        Freelancer Registration
+      </h2>
 
       <ul class="steps mb-6">
+        <!-- Допустим, теперь у нас всего 2 шага -->
         <li class="step" :class="{ 'step-accent': step >= 1 }">Personal Info</li>
         <li class="step" :class="{ 'step-accent': step >= 2 }">Professional Info</li>
-        <li class="step" :class="{ 'step-accent': step >= 3 }">Portfolio</li>
-        <li class="step" :class="{ 'step-accent': step === 4 }">Complete</li>
+        <li class="step" :class="{ 'step-accent': step === 3 }">Complete</li>
       </ul>
 
       <!-- Step 1 -->
       <div v-if="step === 1">
-        <h3 class="text-xl font-semibold text-gray-700 mb-4">Step 1: Personal Information</h3>
+        <h3 class="text-xl font-semibold text-gray-700 mb-4">
+          Step 1: Personal Information
+        </h3>
         <form @submit.prevent="nextStep" class="space-y-6">
+          <!-- Country -->
           <div>
-            <InputLabel for="name" value="Name" />
-            <p class="mt-2 text-sm text-gray-600">Write your display name</p>
-            <TextInput
-              id="name"
-              type="text"
-              class="mt-1 block w-full"
-              v-model="form.name"
-              required
-              autofocus
-              autocomplete="name"
-            />
-            <InputError class="mt-2" :message="form.errors.name" />
-          </div>
-
-          <div>
-            <InputLabel for="bio" value="Bio" />
-            <p class="mt-2 text-sm text-gray-600">Write bio about yourself to let people know about you</p>
-            <textarea
-              id="bio"
-              type="bio"
-              class="textarea textarea-bordered h-24 mt-1 block w-full resize-none"
-              v-model="form.bio"
-              required
-              autocomplete="bio"
-            />
-            <InputError class="mt-2" :message="form.errors.bio" />
-          </div>
-
-          <div>
-            <InputLabel for="country" value="Country" />
-            <p class="mt-2 text-sm text-gray-600">Choose country where you live</p>
+            <InputLabel for="country-search" value="Country" />
+            <p class="mt-2 text-sm text-gray-600">
+              Choose country where you live
+            </p>
             <div class="relative">
               <TextInput
                 type="text"
@@ -56,6 +44,7 @@
                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 @focus="showDropdown = true"
                 @blur="handleBlur"
+                required
               />
               <ul
                 v-if="showDropdown && filteredCountries.length"
@@ -74,6 +63,21 @@
             <InputError class="mt-2" :message="form.errors.country" />
           </div>
 
+          <!-- Bio -->
+          <div>
+            <InputLabel for="bio" value="Bio" />
+            <p class="mt-2 text-sm text-gray-600">
+              Write a short bio about yourself
+            </p>
+            <textarea
+              id="bio"
+              class="textarea textarea-bordered h-24 mt-1 block w-full resize-none"
+              v-model="form.bio"
+              required
+            />
+            <InputError class="mt-2" :message="form.errors.bio" />
+          </div>
+
           <PrimaryButton class="mt-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
             Next Step
           </PrimaryButton>
@@ -82,99 +86,74 @@
 
       <!-- Step 2 -->
       <div v-else-if="step === 2">
-        <h3 class="text-xl font-semibold text-gray-700 mb-4">Step 2: Professional Information</h3>
-        <form @submit.prevent="nextStep" class="space-y-6">
+        <h3 class="text-xl font-semibold text-gray-700 mb-4">
+          Step 2: Professional Information
+        </h3>
+        <form @submit.prevent="submit" class="space-y-6">
+          <!-- Specialization -->
           <div>
             <InputLabel for="specialization" value="Specialization" />
             <select
-            id="specialization"
-            v-model="form.specialization"
-            class="form-select mt-1 block w-full"
-          >
-            <option disabled value="">Select a specialization</option>
-            <option value="Web Development">Web Development</option>
-            <option value="Graphic Design">Graphic Design</option>
-            <option value="Content Writing">Content Writing</option>
-            <option value="Digital Marketing">Digital Marketing</option>
-            <option value="SEO">SEO</option>
-            <option value="Mobile App Development">Mobile App Development</option>
-            <option value="UI/UX Design">UI/UX Design</option>
-            <!-- Добавьте другие специализации -->
-          </select>
+              id="specialization"
+              v-model="form.specialization"
+              class="form-select mt-1 block w-full"
+            >
+              <option disabled value="">Select a specialization</option>
+              <option value="Web Development">Web Development</option>
+              <option value="Graphic Design">Graphic Design</option>
+              <option value="Content Writing">Content Writing</option>
+              <option value="Digital Marketing">Digital Marketing</option>
+              <option value="SEO">SEO</option>
+              <option value="Mobile App Development">Mobile App Development</option>
+              <option value="UI/UX Design">UI/UX Design</option>
+            </select>
             <InputError class="mt-2" :message="form.errors.specialization" />
           </div>
 
-          <div>
-            <InputLabel for="experience" value="Experience" />
-            <textarea
-              id="experience"
-              class=" textarea  resize-none mt-1 block w-full h-32 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              v-model="form.experience"
-              required
-            ></textarea>
-            <InputError class="mt-2" :message="form.errors.experience" />
+          <!-- Experience From/To (вместо experience textarea) -->
+          <div class="flex space-x-4">
+            <div>
+              <InputLabel for="experience_from" value="Experience From (year)" />
+              <TextInput
+                id="experience_from"
+                type="number"
+                v-model="form.experience_from"
+                class="mt-1 block w-full"
+                placeholder="2024"
+                required
+              />
+              <InputError class="mt-2" :message="form.errors.experience_from" />
+            </div>
+
+            <div>
+              <InputLabel for="experience_to" value="Experience To (year)" />
+              <TextInput
+                id="experience_to"
+                type="number"
+                v-model="form.experience_to"
+                class="mt-1 block w-full"
+                placeholder="2025 (or empty if current)"
+              />
+              <InputError class="mt-2" :message="form.errors.experience_to" />
+            </div>
           </div>
 
+          <!-- Skills -->
           <div>
-            <label for="skills" class="block text-sm font-medium text-gray-700">Skills</label>
+            <InputLabel for="skills" value="Skills" />
             <multiselect
               v-model="form.skills"
               :options="availableSkills"
               :multiple="true"
               :close-on-select="false"
-              placeholder="Select up to 5 skills"
               :limit="5"
+              placeholder="Select up to 5 skills"
             ></multiselect>
             <InputError class="mt-2" :message="form.errors.skills" />
           </div>
-          
-          <div>
-            <InputLabel for="hourly_rate" value="Hourly Rate ($)" />
-            <TextInput
-              type="number"
-              id="hourly_rate"
-              v-model="form.hourly_rate"
-              required
-              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            />
-            <InputError class="mt-2" :message="form.errors.hourly_rate" />
-          </div>
 
-          <div class="flex justify-between">
-            <PrimaryButton class="mt-4" :class="{ 'opacity-25': form.processing }" @click.prevent="previousStep">
-              Previous Step
-            </PrimaryButton>
-            <PrimaryButton class="mt-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-              Next Step
-            </PrimaryButton>
-          </div>
-        </form>
-      </div>
-
-      <!-- Step 3 -->
-      <div v-else-if="step === 3">
-        <h3 class="text-xl font-semibold text-gray-700 mb-4">Step 3: Upload Portfolio</h3>
-        <form @submit.prevent="submit" class="space-y-6">
-          <div>
-            <InputLabel for="portfolio_photos" value="Portfolio (optional)" />
-            <input
-              type="file"
-              id="portfolio_photos"
-              name="portfolio_photos[]"
-              @change="handleFileUpload"
-              multiple
-              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            />
-            <div v-if="form.portfolio_photos && form.portfolio_photos.length">
-              <h4 class="mt-4">Selected Files:</h4>
-              <ul>
-                <li v-for="(file, index) in form.portfolio_photos" :key="index">
-                  {{ file.name }}
-                </li>
-              </ul>
-              </div>
-            <InputError class="mt-2" :message="form.errors.portfolio_photos" />
-          </div>
+          <!-- Убрали Hourly Rate -->
+          <!-- Убрали Portfolio Upload -->
 
           <div class="flex justify-between">
             <PrimaryButton class="mt-4" :class="{ 'opacity-25': form.processing }" @click.prevent="previousStep">
@@ -187,9 +166,14 @@
         </form>
       </div>
 
-      <div v-if="step === 4" class="text-center">
-        <h3 class="text-xl font-semibold text-green-600">Registration Successful!</h3>
-        <p class="mt-4 text-gray-600">Thank you for registering as a freelancer. You can now start using the platform.</p>
+      <!-- Step 3 -->
+      <div v-else-if="step === 3" class="text-center">
+        <h3 class="text-xl font-semibold text-green-600">
+          Registration Successful!
+        </h3>
+        <p class="mt-4 text-gray-600">
+          Thank you for registering as a freelancer. You can now start using the platform.
+        </p>
       </div>
     </div>
   </AuthenticatedLayout>
@@ -197,56 +181,34 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { useForm, Head } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { countries } from '@/countries.js';
 import Multiselect from "vue-multiselect";
 import "vue-multiselect/dist/vue-multiselect.min.css";
 
-const step = ref(1);
+import { countries } from '@/countries.js';
 
+const step = ref(1);
+const page = usePage();     
+
+const user = page.props.auth.user; 
+
+const isFreelancer = computed(() => user && user.role === 'freelancer');
 
 const form = useForm({
-  name: '',
-  bio: '',
   country: '',
+  bio: '',
   specialization: '',
-  experience: '',
-  hourly_rate: '',
-  portfolio_photos: [],
+  experience_from: '',
+  experience_to: '',
   skills: [],
 });
 
-const handleFileUpload = (event) => {
-  form.portfolio_photos = [...event.target.files];
-  console.log(event.target.files);
-};
-
-const nextStep = () => {
-  if (step.value < 3) {
-    step.value++;
-  }
-};
-
-const previousStep = () => {
-  if (step.value > 1) {
-    step.value--;
-  }
-};
-
-const submit = () => {
-  form.post('/api/become-freelancer', {
-    forceFormData: true,
-    onSuccess: () => {
-      step.value = 4;
-    },
-  });
-};
-
+// Логика поиска страны
 const searchQuery = ref('');
 const showDropdown = ref(false);
 
@@ -257,20 +219,19 @@ const filteredCountries = computed(() => {
   );
 });
 
-const selectCountry = (country) => {
+function selectCountry(country) {
   form.country = country;
   searchQuery.value = country;
   showDropdown.value = false;
-};
+}
 
-const handleBlur = () => {
+function handleBlur() {
   setTimeout(() => {
     showDropdown.value = false;
   }, 100);
-};
+}
 
-
-
+// Для выбора навыков
 const availableSkills = [
   "Web Development",
   "Graphic Design",
@@ -281,17 +242,42 @@ const availableSkills = [
   "UI/UX Design",
 ];
 
+// Переход на следующий шаг
+function nextStep() {
+  // Сохраняем страну
+  form.country = searchQuery.value;
+  if (step.value < 2) {
+    step.value++;
+  }
+}
 
+function previousStep() {
+  if (step.value > 1) {
+    step.value--;
+  }
+}
+
+function submit() {
+  // Перед отправкой убедимся, что тоже берём country из searchQuery
+  form.country = searchQuery.value;
+
+  // Отправляем форму
+  form.post('/api/become-freelancer', {
+    onSuccess: () => {
+      step.value = 3; // Переходим на "Complete"
+    },
+    onError: () => {
+      // Обработка ошибок
+    },
+  });
+}
 </script>
 
 <style scoped>
-form div {
-  margin-bottom: 1rem;
-}
 ul {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 li {
   padding: 0.5rem;

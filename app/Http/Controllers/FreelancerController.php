@@ -15,81 +15,59 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class FreelancerController extends Controller
 {
     public function store(Request $request)
-{
-    if ($request->user()->freelancer) {
-        return response()->json(['message' => 'You are already registered as a freelancer.'], 422);
-    }
-
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'country' => 'required|string|max:255',
-        'bio' => 'nullable|string|max:1000',
-        'specialization' => [
-            'required', 'string', 'max:255',
-            Rule::in([
-                'Web Development',
-                'Graphic Design',
-                'Content Writing',
-                'Digital Marketing',
-                'SEO',
-                'Mobile App Development',
-                'UI/UX Design',
-            ]),
-        ],
-        'experience' => 'nullable|string|max:1000',
-        'hourly_rate' => 'required|numeric|min:1',
-        'portfolio_photos' => 'nullable|array',
-        'portfolio_photos.*' => 'file|mimes:jpg,png,pdf|max:2048',
-        'skills' => 'array|max:5', 
-        'skills.*' => 'string|exists:skills,name', 
-    ]);
-
-    $user = Auth::user();
-
-    // Создаём запись о фрилансере без поля 'portfolio'
-    $freelancer = Freelancer::create([
-        'user_id' => $user->id,
-        'country' => $validatedData['country'],
-        'bio' => $validatedData['bio'],
-        'experience' => $validatedData['experience'],
-        'specialization' => $validatedData['specialization'],
-        'hourly_rate' => $validatedData['hourly_rate'],
-    ]);
-
-    // Проверяем, получены ли файлы
-    if ($request->hasFile('portfolio_photos')) {
-        \Log::info('Received portfolio_photos:', [$request->file('portfolio_photos')]);
-        foreach ($request->file('portfolio_photos') as $photo) {
-            try {
-                $result = Cloudinary::upload($photo->getRealPath(), [
-                    'folder' => 'freelancers/portfolios',
-                ]);
-
-                PortfolioPhoto::create([
-                    'freelancer_id' => $freelancer->id,
-                    'photo_url' => $result->getSecurePath(),
-                    'cloudinary_public_id' => $result->getPublicId(),
-                ]);
-                \Log::info('Uploaded photo:', [$result->getSecurePath()]);
-            } catch (\Exception $e) {
-                \Log::error('Failed to upload photo to Cloudinary', ['error' => $e->getMessage()]);
-            }
+    {
+        $user = Auth::user();
+    
+        // Сразу проверяем: если уже фрилансер, выбрасываем ошибку
+        if ($user->role === 'freelancer' || $user->freelancer) {
+            return response()->json([
+                'message' => 'You are already registered as a freelancer.'
+            ], 422);
         }
-    } else {
-        \Log::info('No portfolio_photos received.');
+    
+        // Если мы дошли сюда — пользователь ещё не фрилансер.
+        // Дальше идёт валидация и создание записи
+        $validatedData = $request->validate([
+            'country' => 'required|string|max:255',
+            'bio' => 'nullable|string|max:1000',
+            'specialization' => [
+                'required', 'string', 'max:255',
+                Rule::in([
+                    'Web Development',
+                    'Graphic Design',
+                    'Content Writing',
+                    'Digital Marketing',
+                    'SEO',
+                    'Mobile App Development',
+                    'UI/UX Design',
+                ]),
+            ],
+            'experience_from' => 'required|integer|min:1900|max:2100',
+            'experience_to' => 'nullable|integer|min:1900|max:2100',
+            'skills' => 'array|max:5',
+            'skills.*' => 'string|exists:skills,name',
+        ]);
+    
+        $freelancer = Freelancer::create([
+            'user_id'         => $user->id,
+            'country'         => $validatedData['country'],
+            'bio'             => $validatedData['bio'],
+            'specialization'  => $validatedData['specialization'],
+            'experience_from' => $validatedData['experience_from'],
+            'experience_to'   => $validatedData['experience_to'] ?? null,
+        ]);
+    
+        if (!empty($validatedData['skills'])) {
+            $skillIds = Skill::whereIn('name', $validatedData['skills'])->pluck('id');
+            $freelancer->skills()->sync($skillIds);
+        }
+    
+        // Обновляем роль
+        $user->update(['role' => 'freelancer']);
+    
+        return response()->json(['message' => 'You are now a freelancer!']);
     }
-
-    if (isset($validatedData['skills'])) {
-        $skillIds = Skill::whereIn('name', $validatedData['skills'])->pluck('id');
-        $freelancer->skills()->sync($skillIds);
-    }
-
-    $user->update(['role' => 'freelancer']);
-
-    return response()->json(['message' => 'You are now a freelancer!']);
-}
-
-
+    
 
     public function edit($username)
     {
