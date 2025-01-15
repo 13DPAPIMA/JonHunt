@@ -27,7 +27,7 @@ class BalanceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:1',
+            'amount' => 'required|numeric|min:1|max:999',
         ]);
 
         $userBalance = auth()->user()->balance;
